@@ -1,9 +1,10 @@
 " this function is called when a new cpp file is created in nvim inside ~/ACM directory
 function AcmCppOnNewFile() abort
     " copy everything from template.cpp file
-    % !cat ~/ACM/template.cpp 
+    % !cat ~/ACM/template.cpp
     " move cursor to a good starting position
-    norm 101$zz
+    ?__solution
+    normal j$
 endfunction
 
 function AcmCppOnRead() abort
@@ -17,12 +18,15 @@ augroup AcmCpp
 
     " actually define acm_cpp filetype
     autocmd BufNewFile,BufRead ~/ACM/*.cpp set filetype=acm_cpp
-    autocmd filetype acm_cpp set autowrite
+
     autocmd BufNewFile * if &ft ==# 'acm_cpp'| call AcmCppOnNewFile()|endif
     autocmd BufNewFile,BufRead * if &ft ==# 'acm_cpp'| call AcmCppOnRead()|endif
 
+    autocmd filetype acm_cpp set autowriteall
+
+    " maps
     " compile and run
-    autocmd filetype acm_cpp nnoremap <F10> :w <bar> !acm % -o %:r && ./%:r <CR>
+    autocmd filetype acm_cpp nnoremap <F10> :first<CR>:w <bar> term acm % -o %:r && ./%:r<CR>
     " only run
-    autocmd filetype acm_cpp nnoremap <F9> :!./%:r <CR>
+    autocmd filetype acm_cpp nnoremap <F9> :first<CR>:term ./%:r<CR>
 augroup END
