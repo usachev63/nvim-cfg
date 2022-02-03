@@ -13,6 +13,7 @@ set number                     " line numbers
 set nohlsearch                 " don't highlight search
 set listchars=tab:..,trail:-,nbsp:+
 set list
+set splitright                 " vsplit splits the window to the right
 
 " Indentation
 set tabstop=8
@@ -31,3 +32,7 @@ set wildmode=full
 " Search options
 set ignorecase
 set smartcase                  " discards ignore case if the search pattern contains upper case characters
+
+" :grep uses ack
+set grepprg=ack\ --nogroup\ --column\ $*
+set grepformat=%f:%l:%c:%m
