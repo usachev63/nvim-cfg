@@ -1,9 +1,4 @@
 " Custom acm_cpp filetype, which copes cpp filetype + adds additional custom stuff
+" The definition of acm_cpp filetype.
 
-" Only do this when not done yet for this buffer
-if exists("b:did_ftplugin")
-  finish
-endif
-
-" import all settings from cpp filetype
-runtime! ftplugin/cpp.vim
+autocmd BufNewFile,BufRead ~/ACM/*.cpp set filetype=acm_cpp

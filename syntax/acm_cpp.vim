@@ -1,4 +1,5 @@
 " Custom acm_cpp filetype, which copes cpp filetype + adds additional custom stuff
+" Syntax highlighting
 
 " Only do this when not done yet for this buffer
 if exists("b:current_syntax")
@@ -11,5 +12,3 @@ runtime! syntax/cpp.vim
 highlight link cParenError NONE
 highlight link cErrInParen NONE
 highlight link cErrinBracket NONE
-
-set filetype=acm_cpp
