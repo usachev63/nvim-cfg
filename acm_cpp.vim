@@ -22,11 +22,11 @@ augroup AcmCpp
     autocmd BufNewFile * if &ft ==# 'acm_cpp'| call AcmCppOnNewFile()|endif
     autocmd BufNewFile,BufRead * if &ft ==# 'acm_cpp'| call AcmCppOnRead()|endif
 
-    autocmd filetype acm_cpp set autowriteall
+    autocmd filetype acm_cpp set autowriteall     " autowrite always
 
     " maps
     " compile and run
-    autocmd filetype acm_cpp nnoremap <F10> :first<CR>:w <bar> term acm % -o %:r && ./%:r<CR>
+    autocmd filetype acm_cpp nnoremap <F10> :first<CR>:w <bar> terminal acm % -o %:r && ./%:r<CR>
     " only run
-    autocmd filetype acm_cpp nnoremap <F9> :first<CR>:term ./%:r<CR>
+    autocmd filetype acm_cpp nnoremap <F9> :first<CR>:terminal ./%:r<CR>
 augroup END
