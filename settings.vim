@@ -1,6 +1,5 @@
 " General
 set hidden                     " buffers are not required to be written during buffer switch
-set clipboard=unnamedplus      " using system clipboard (registers "" and "+ are the same)
 set mouse=a                    " enable mouse support
 set shell=/usr/bin/zsh\ -li    " default shell
 
@@ -22,16 +21,17 @@ set shiftwidth=4
 set expandtab
 
 " File type
-filetype plugin indent on      " autoidenting depending on file type
+filetype plugin indent on      " auto-indenting depending on file type
 filetype plugin on
 
-" zsh-like autocompletion in ex-mode
+" zsh-like auto-completion in ex-mode
 set wildmenu
 set wildmode=full
 
 " Search options
 set ignorecase
 set smartcase                  " discards ignore case if the search pattern contains upper case characters
+setglobal infercase            " convenient case in insert mode completion
 
 " :grep uses ack
 set grepprg=ack\ --nogroup\ --column\ $*
