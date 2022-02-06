@@ -15,5 +15,8 @@ function AcmCppOnRead() abort
     prev
 endfunction
 
-autocmd BufNewFile * if &ft ==# 'acm_cpp'| call AcmCppOnNewFile()|endif
-autocmd BufNewFile,BufRead * if &ft ==# 'acm_cpp'| call AcmCppOnRead()|endif
+augroup AcmCppBufTriggers
+    autocmd!
+    autocmd BufNewFile * if &ft ==# 'acm_cpp'| call AcmCppOnNewFile()|endif
+    autocmd BufNewFile,BufRead,BufEnter * if &ft ==# 'acm_cpp'| call AcmCppOnRead()|endif
+augroup END
