@@ -15,8 +15,13 @@ function AcmCppOnRead() abort
     prev
 endfunction
 
+function AcmCppOnEnter() abort
+    args % in
+endfunction
+
 augroup AcmCppBufTriggers
     autocmd!
     autocmd BufNewFile * if &ft ==# 'acm_cpp'| call AcmCppOnNewFile()|endif
-    autocmd BufNewFile,BufRead,BufEnter * if &ft ==# 'acm_cpp'| call AcmCppOnRead()|endif
+    autocmd BufNewFile,BufRead * if &ft ==# 'acm_cpp'| call AcmCppOnRead()|endif
+    autocmd BufEnter * if &ft ==# 'acm_cpp'| call AcmCppOnEnter()|endif
 augroup END

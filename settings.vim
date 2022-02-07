@@ -29,7 +29,7 @@ set wildmenu
 set wildmode=full
 
 " Search options
-set ignorecase
+set noignorecase
 set smartcase                  " discards ignore case if the search pattern contains upper case characters
 setglobal infercase            " convenient case in insert mode completion
 
