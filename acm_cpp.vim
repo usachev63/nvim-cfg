@@ -10,7 +10,8 @@ function AcmCppOnNewFile() abort
 endfunction
 
 function AcmCppOnRead() abort
-    args % in
+    %argdelete
+    argadd % in
 endfunction
 
 augroup AcmCppBufTriggers
