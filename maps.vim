@@ -36,3 +36,6 @@ nnoremap [T     :tfirst<CR>
 nnoremap ]T     :tlast<CR>
 nnoremap [<C-T> :ptprevious<CR>
 nnoremap ]<C-T> :ptnext<CR>
+
+" useful key for closing terminal buffer
+nnoremap <Leader><C-D> :bprevious <bar> :bdelete! #<CR>
