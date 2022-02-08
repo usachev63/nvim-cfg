@@ -14,6 +14,6 @@ set clipboard=unnamedplus " register + is essentially equal to register "
 
 " maps
 " compile and run
-nnoremap <F10> :argdo write<CR><CR>:first<CR>:terminal acm % -o %:r && ./%:r<CR>
+nnoremap <F10> :argdo write<CR><CR>:first<CR>:terminal acm % -o %:r && ./%:r < in<CR>
 " only run
-nnoremap <F9> :argdo write<CR><CR>:first<CR>:terminal ./%:r<CR>
+nnoremap <F9> :argdo write<CR><CR>:first<CR>:terminal ./%:r < in<CR>
