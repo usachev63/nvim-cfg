@@ -9,10 +9,11 @@ endif
 " import all settings from cpp filetype
 runtime! ftplugin/cpp.vim
 
-set autowriteall     " autowrite always
+set autowriteall          " autowrite always
+set clipboard=unnamedplus " register + is essentially equal to register "
 
 " maps
 " compile and run
-nnoremap <F10> :first<CR>:w <bar> terminal acm % -o %:r && ./%:r<CR>
+nnoremap <F10> :argdo write<CR><CR>:first<CR>:terminal acm % -o %:r && ./%:r<CR>
 " only run
-nnoremap <F9> :first<CR>:terminal ./%:r<CR>
+nnoremap <F9> :argdo write<CR><CR>:first<CR>:terminal ./%:r<CR>
