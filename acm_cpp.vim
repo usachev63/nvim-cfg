@@ -21,14 +21,8 @@ function AcmCppOnEnter() abort
 
 endfunction
 
-function AcmCppPyOnEnter() abort
-    nnoremap <F10> :write <bar> :terminal python3 %<CR>
-    nnoremap <F9> :write <bar> :terminal python3 %<CR>
-endfunction
-
 augroup AcmCppBufTriggers
     autocmd!
     autocmd BufNewFile * if &ft ==# 'acm_cpp'| call AcmCppOnNewFile()|endif
     autocmd BufNewFile,BufRead,BufEnter * if &ft ==# 'acm_cpp'| call AcmCppOnEnter()|endif
-    autocmd BufNewFile,BufRead,BufEnter ~/ACM/*.py call AcmCppPyOnEnter()
 augroup END

@@ -10,7 +10,7 @@ set path+=**                   " add all subdirectories of current working direc
 " Appearance
 set number                     " line numbers
 set nohlsearch                 " don't highlight search
-set listchars=tab:..,trail:-,nbsp:+
+set listchars=tab:..,nbsp:+
 set list
 set splitright                 " vsplit splits the window to the right
 
