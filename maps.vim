@@ -1,6 +1,7 @@
 " <Space> is the leader key
 nnoremap <Space> <NOR>
 let mapleader = "\<Space>"
+let maplocalleader = "\<Space>"
 
 " "%%" is now essentially "%:h/"
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
@@ -38,4 +39,4 @@ nnoremap [<C-T> :ptprevious<CR>
 nnoremap ]<C-T> :ptnext<CR>
 
 " useful key for closing terminal buffer
-nnoremap <Leader><C-D> :bprevious <bar> :bdelete! #<CR>
+nnoremap <Leader>q :b#<CR>:bdelete! #<CR>

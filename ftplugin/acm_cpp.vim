@@ -10,4 +10,3 @@ endif
 runtime! ftplugin/cpp.vim
 
 set autowriteall          " autowrite always
-set clipboard=unnamedplus " register + is essentially equal to register "
