@@ -15,9 +15,9 @@ let g:vimtex_compiler_method = 'latexmk'
 
 function TEX_OnNewFile()
     " copy everything from template.cpp file
-    % !cat ~/template.tex 
+    % !cat ~/Templates/template.tex 
     " move cursor to a good starting position
-    norm 79$zz
+    ?\\newpage
 endfunction
 
 augroup Latex

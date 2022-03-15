@@ -12,6 +12,8 @@ endfunction
 function AcmCppOnEnter() abort
     %argdelete
     argadd % in
+    last
+    first
 
     " maps
     " compile and run
