@@ -14,6 +14,8 @@ set nohlsearch                 " don't highlight search
 set listchars=tab:..,nbsp:+
 set list
 set splitright                 " vsplit splits the window to the right
+set termguicolors              " better colors
+colorscheme onedark
 
 " Indentation
 set tabstop=8
@@ -35,7 +37,7 @@ set smartcase                  " discards ignore case if the search pattern cont
 setglobal infercase            " convenient case in insert mode completion
 
 " netrw changes windows's working directory
-let g:netrw_keepdir=0
+"let g:netrw_keepdir=0
 
 " :grep uses ack
 set grepprg=ack\ --nogroup\ --column\ $*
@@ -45,3 +47,6 @@ set grepformat=%f:%l:%c:%m
 set keymap=russian-jcukenwin
 set iminsert=0                 " default is english
 set imsearch=-1                " search keymap is the same as insert
+
+" LSP omnicompletion
+setglobal omnifunc=v:lua.vim.lsp.omnifunc

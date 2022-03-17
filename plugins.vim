@@ -12,4 +12,8 @@ Plug 'lervag/vimtex'            " plugin for using tex
 " markdown preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 
+Plug 'joshdick/onedark.vim'     " color theme
+
+Plug 'lambdalisue/suda.vim'     " sudo write fix
+
 call plug#end()
