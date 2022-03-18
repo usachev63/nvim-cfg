@@ -17,7 +17,7 @@ function AcmCppOnEnter() abort
 
     " maps
     " compile and run
-    nnoremap <F10> :argdo write<CR><CR>:first<CR>:terminal acm % -o %:r && ./%:r < in<CR>
+    nnoremap <F10> :argdo write<CR><CR>:first<CR>:terminal acm % && ./%:r < in<CR>
     " only run
     nnoremap <F9> :argdo write<CR><CR>:first<CR>:terminal ./%:r < in<CR>
 
