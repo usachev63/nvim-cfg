@@ -1,3 +1,5 @@
+" Entry point of my neovim configuration.
+
 source ~/.config/nvim/plugins.vim     " plugins
 source ~/.config/nvim/settings.vim    " general settings
 source ~/.config/nvim/maps.vim        " general maps
