@@ -3,6 +3,7 @@ set hidden                     " buffers are not required to be written during b
 set mouse=a                    " enable mouse support
 set shell=/usr/bin/zsh\ -li    " default shell
 set clipboard=unnamedplus      " register + is essentially equal to register "
+set exrc                       " using project-local .nvimrc
 
 " path: for use in :find, gf, etc.
 set path+=**                   " add all subdirectories of current working directory
