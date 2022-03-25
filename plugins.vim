@@ -2,18 +2,21 @@ call plug#begin()
 
 Plug 'jiangmiao/auto-pairs'     " autocomplete brackets
 Plug 'tpope/vim-surround'       " surround text objects
+Plug 'lambdalisue/suda.vim'     " sudo write fix
+Plug 'joshdick/onedark.vim'     " color theme
+
 
 " LSP (Language Server Protocol)
 Plug 'neovim/nvim-lspconfig'    
 Plug 'williamboman/nvim-lsp-installer'
 
-Plug 'lervag/vimtex'            " plugin for using tex
+" Plugin for TeX
+Plug 'lervag/vimtex'            
 
-" markdown preview
+" Markdown preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 
-Plug 'joshdick/onedark.vim'     " color theme
-
-Plug 'lambdalisue/suda.vim'     " sudo write fix
+" Convienient plugin for CMake projects
+Plug 'Shatur/neovim-cmake'
 
 call plug#end()
