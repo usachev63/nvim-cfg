@@ -18,5 +18,8 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 
 " Convienient plugin for CMake projects
 Plug 'Shatur/neovim-cmake'
+" Dependencies for above
+Plug 'nvim-lua/plenary.nvim'    " internal helpers
+Plug 'mfussenegger/nvim-dap'    " debugging
 
 call plug#end()
