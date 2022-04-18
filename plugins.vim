@@ -30,7 +30,11 @@ Plug 'Shatur/neovim-cmake'
 Plug 'nvim-lua/plenary.nvim'    " internal helpers
 Plug 'mfussenegger/nvim-dap'    " debugging
 
+" clang-format support
 Plug 'rhysd/vim-clang-format'   " clang-format support
 Plug 'kana/vim-operator-user'   " dependency for above
+
+" Switching between source and header files
+Plug 'derekwyatt/vim-fswitch'
 
 call plug#end()

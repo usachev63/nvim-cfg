@@ -24,4 +24,6 @@ augroup Latex
     autocmd! 
 
     autocmd BufNewFile * if &ft ==# 'tex'| call TEX_OnNewFile()|endif
+
+    autocmd FocusLost,TextChanged,InsertLeave * if &ft ==# 'tex'| update|endif
 augroup END
