@@ -13,6 +13,14 @@ let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 " see ":help vimtex-compiler".
 let g:vimtex_compiler_method = 'latexmk'
 
+" disable quickfix
+let g:vimtex_quickfix_mode=0
+
+" concealment
+set conceallevel=1
+let g:tex_conceal='abdmg'
+
+
 function TEX_OnNewFile()
     " copy everything from template.cpp file
     % !cat ~/Templates/template.tex 
