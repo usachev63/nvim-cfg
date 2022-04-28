@@ -1,9 +1,13 @@
 call plug#begin()
 
-" GENERAL "
-
+"
+" General plugins
+" 
 Plug 'jiangmiao/auto-pairs'     " autocomplete brackets
 Plug 'tpope/vim-surround'       " surround text objects
+Plug 'SirVer/ultisnips'         " snippets
+
+" Small misc plugins
 Plug 'lambdalisue/suda.vim'     " sudo write fix
 Plug 'joshdick/onedark.vim'     " color theme
 
@@ -13,12 +17,10 @@ Plug 'williamboman/nvim-lsp-installer'
 
 
 " TeX "
-
 Plug 'lervag/vimtex'            
 
 
 " Markdown "
-
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 
 
