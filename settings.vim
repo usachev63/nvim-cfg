@@ -48,6 +48,11 @@ set grepformat=%f:%l:%c:%m
 set keymap=russian-jcukenwin
 set iminsert=0                 " default is english
 set imsearch=-1                " search keymap is the same as insert
+" xkb-switch
+let g:XkbSwitchEnabled = 1
+" keymap assistance in normal mode
+let g:XkbSwitchAssistNKeymap = 1    " for commands r and f
+let g:XkbSwitchAssistSKeymap = 1    " for search lines
 
 " ultisnips settings
 let g:UltiSnipsExpandTrigger = '<c-j>'

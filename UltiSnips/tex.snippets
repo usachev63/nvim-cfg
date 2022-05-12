@@ -1,7 +1,17 @@
+global !p
+import px.snippets
+endglobal
+
+
 snippet	env "General TeX environment" bA
 \begin{${1:align*}}
-    $0
-\end{$1}
+    $2
+\end{$1}$3
+endsnippet
+
+post_jump "px.snippets.expand(snip)"
+snippet утм "[ru] General TeX environment" bA
+env$1
 endsnippet
 
 snippet mk "Inline math: $...$" wA
@@ -13,8 +23,34 @@ else:
 `$2
 endsnippet
 
+post_jump "px.snippets.expand(snip)"
+snippet ьл "[ru] Inline math: $...$" wA
+mk$1
+endsnippet
+
 snippet dm "Display math" wA
-\[
-$1
-.\] $0
+\begin{align*}
+    $1
+.\end{align*}$2
+endsnippet
+
+post_jump "px.snippets.expand(snip)"
+snippet вь "[ru] Display math" wA
+dm$1
+endsnippet
+
+snippet fn "Fraction {\frac}" A
+\frac{$1}{$2}$3
+endsnippet
+
+snippet par "Partial derivative"
+\frac{\partial ${1:f}}{\partial ${2:x}}$3
+endsnippet
+
+snippet sum "Sum"
+\sum_{${1:i=1}}^{${2:n}} $3
+endsnippet
+
+snippet dl "Delimiter environment" A
+\left\l${1:floor} $2 \right\r$1 $0
 endsnippet
