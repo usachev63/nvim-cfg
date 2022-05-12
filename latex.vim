@@ -14,7 +14,7 @@ let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 let g:vimtex_compiler_method = 'latexmk'
 
 " disable quickfix
-let g:vimtex_quickfix_mode=0
+let g:vimtex_quickfix_mode=2
 
 " concealment
 set conceallevel=1
@@ -27,6 +27,8 @@ function TEX_OnNewFile()
     " move cursor to a good starting position
     ?\\newpage
 endfunction
+
+let g:XkbSwitchSyntaxRules = [ {'ft': 'tex', 'in': ['normal', 'texZone', 'texMathZone', 'texMathZoneX', 'texMathZoneXX', '', 'texMathZoneEnv', 'texMathDelimZone']} ]
 
 augroup Latex
     autocmd! 
