@@ -6,6 +6,7 @@ call plug#begin()
 Plug 'jiangmiao/auto-pairs'     " autocomplete brackets
 Plug 'tpope/vim-surround'       " surround text objects
 Plug 'nelstrom/vim-visual-star-search'
+Plug 'tpope/vim-commentary'     " comments
 
 " Small misc plugins
 Plug 'lambdalisue/suda.vim'     " sudo write fix
@@ -22,12 +23,19 @@ Plug 'reconquest/vim-pythonx'   " for smarter snippets
 " Language switching (xkg-switch)
 Plug 'lyokha/vim-xkbswitch'
 
+
+
+
 " TeX "
 Plug 'lervag/vimtex'            
 
 
+
+
 " Markdown "
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
+
+
 
 
 " C/C++ (projects)
