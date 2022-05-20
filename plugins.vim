@@ -5,6 +5,7 @@ call plug#begin()
 " 
 Plug 'jiangmiao/auto-pairs'     " autocomplete brackets
 Plug 'tpope/vim-surround'       " surround text objects
+Plug 'nelstrom/vim-visual-star-search'
 
 " Small misc plugins
 Plug 'lambdalisue/suda.vim'     " sudo write fix

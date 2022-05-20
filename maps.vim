@@ -40,3 +40,6 @@ nnoremap ]<C-T> :ptnext<CR>
 
 " useful key for closing terminal buffer
 nnoremap <Leader>q :b#<CR>:bdelete! #<CR>
+
+" instead of :E (now getting E464 error)
+nnoremap <Leader>e :Explore<CR>
