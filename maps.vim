@@ -43,3 +43,6 @@ nnoremap <Leader>q :b#<CR>:bdelete! #<CR>
 
 " instead of :E (now getting E464 error)
 nnoremap <Leader>e :Explore<CR>
+
+" useful short command for replacing the contents of whole file from "0
+nnoremap <Leader>dp :%delete\|0put0<CR>gg
