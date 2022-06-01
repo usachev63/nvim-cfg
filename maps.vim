@@ -1,5 +1,5 @@
 " <Space> is the leader key
-nnoremap <Space> <NOR>
+nnoremap <SPACE> <Nop>
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
 
