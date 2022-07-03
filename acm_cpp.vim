@@ -3,9 +3,9 @@
 
 function AcmCppOnNewFile() abort
     " copy everything from template.cpp file
-    0 read ~/ACM/template.cpp
+    0 read ~/ACM/lib/Template.cpp
     " move cursor to a good starting position
-    ?__solution
+    ?runSolution
     normal j$
 endfunction
 

@@ -53,4 +53,9 @@ Plug 'kana/vim-operator-user'   " dependency for above
 " Switching between source and header files
 Plug 'derekwyatt/vim-fswitch'
 
+
+
+" Rust
+Plug 'rust-lang/rust.vim'
+
 call plug#end()
