@@ -13,3 +13,6 @@ source ~/.config/nvim/markdown.vim    " markdown settings
 
 " nvim-lsp-installer configuration (in lua)
 lua require('nvim-lsp-installer-config') 
+
+" WSL-specific configuration
+source ~/.config/nvim/wsl.vim

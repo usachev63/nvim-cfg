@@ -5,7 +5,7 @@ let g:clang_format#auto_formatexpr = 1
 let g:clang_format#style_options = {
             \ "ColumnLimit" : 80,}
 
-ClangFormatAutoEnable
+" ClangFormatAutoEnable
 
 " Switching between source and header files (vim-fswitch)
 nnoremap <localleader>fs :FSHere<CR>

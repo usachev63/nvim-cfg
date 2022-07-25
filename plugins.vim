@@ -9,7 +9,7 @@ Plug 'tpope/vim-commentary'     " comments
 Plug 'SirVer/ultisnips'         " snippets
 Plug 'reconquest/vim-pythonx'   " for smarter snippets
 Plug 'lyokha/vim-xkbswitch'     " Language switching (xkg-switch)
-Plug 'valloric/youcompleteme'   " autocompletion
+"Plug 'valloric/youcompleteme'   " autocompletion
 
 " Small misc plugins
 Plug 'nelstrom/vim-visual-star-search'
@@ -38,14 +38,14 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 " C/C++ (projects)
 
 " Convienient plugin for CMake projects
-Plug 'Shatur/neovim-cmake'
+" Plug 'Shatur/neovim-cmake'
 " Dependencies for above
-Plug 'nvim-lua/plenary.nvim'    " internal helpers
-Plug 'mfussenegger/nvim-dap'    " debugging
+" Plug 'nvim-lua/plenary.nvim'    " internal helpers
+" Plug 'mfussenegger/nvim-dap'    " debugging
 
 " clang-format support
-Plug 'rhysd/vim-clang-format'   " clang-format support
-Plug 'kana/vim-operator-user'   " dependency for above
+" Plug 'rhysd/vim-clang-format'   " clang-format support
+" Plug 'kana/vim-operator-user'   " dependency for above
 
 " Switching between source and header files
 Plug 'derekwyatt/vim-fswitch'
