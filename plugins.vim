@@ -8,8 +8,8 @@ Plug 'tpope/vim-surround'       " surround text objects
 Plug 'tpope/vim-commentary'     " comments
 Plug 'SirVer/ultisnips'         " snippets
 Plug 'reconquest/vim-pythonx'   " for smarter snippets
-Plug 'lyokha/vim-xkbswitch'     " Language switching (xkg-switch)
-"Plug 'valloric/youcompleteme'   " autocompletion
+" Plug 'lyokha/vim-xkbswitch'     " Language switching (xkg-switch)
+" Plug 'valloric/youcompleteme'   " autocompletion
 
 " Small misc plugins
 Plug 'nelstrom/vim-visual-star-search'
