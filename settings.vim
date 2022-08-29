@@ -16,7 +16,8 @@ set listchars=tab:..,nbsp:+
 set list
 set splitright                 " vsplit splits the window to the right
 set termguicolors              " better colors
-colorscheme onedark
+let g:gruvbox_italic=1
+colorscheme gruvbox
 
 " Indentation
 set tabstop=8

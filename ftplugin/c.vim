@@ -15,4 +15,5 @@ ClangFormatAutoEnable
 nnoremap <localleader>fs :ClangdSwitchSourceHeader<CR>
 
 " Fix comment string for vim-commentary
-set commentstring=//\ %s
+setlocal commentstring=//\ %s
+

@@ -9,12 +9,13 @@ Plug 'tpope/vim-commentary'     " comments
 Plug 'SirVer/ultisnips'         " snippets
 Plug 'reconquest/vim-pythonx'   " for smarter snippets
 " Plug 'lyokha/vim-xkbswitch'     " Language switching (xkg-switch)
-" Plug 'valloric/youcompleteme'   " autocompletion
+" Plug 'ycm-core/YouCompleteMe'
 
 " Small misc plugins
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'lambdalisue/suda.vim'     " sudo write fix
 Plug 'joshdick/onedark.vim'     " color theme
+Plug 'morhetz/gruvbox'          " color theme
 
 " LSP (Language Server Protocol) support
 Plug 'neovim/nvim-lspconfig'    
@@ -44,11 +45,12 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 " Plug 'mfussenegger/nvim-dap'    " debugging
 
 " clang-format support
-" Plug 'rhysd/vim-clang-format'   " clang-format support
-" Plug 'kana/vim-operator-user'   " dependency for above
+Plug 'rhysd/vim-clang-format'   " clang-format support
+Plug 'kana/vim-operator-user'   " dependency for above
+Plug 'Shougo/vimproc.vim', {'do' : 'make'} " dependency for above
 
 " Switching between source and header files
-Plug 'derekwyatt/vim-fswitch'
+" Plug 'derekwyatt/vim-fswitch'
 
 
 

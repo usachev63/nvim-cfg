@@ -44,5 +44,15 @@ nnoremap <Leader>q :b#<CR>:bdelete! #<CR>
 " instead of :E (now getting E464 error)
 nnoremap <Leader>e :Explore<CR>
 
-" useful short command for replacing the contents of whole file from "+
+" Replace the contents of whole file from "+
 nnoremap <Leader>dp :%delete\|0put+<CR>gg
+
+" Escape from terminal buffer with Ctrl-[ and ESC
+tnoremap <C-[> <C-\><C-n>
+tnoremap <Esc> <C-\><C-n>
+
+" Switch with alternate file
+nnoremap <BS> <C-^>
+
+" Pick from list of buffers
+nnoremap <Leader>b :set nomore <Bar> :buffers <Bar> :set more <CR>:buffer<Space>

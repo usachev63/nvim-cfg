@@ -1,4 +1,8 @@
-local lsp_installer = require("nvim-lsp-installer")
+require("nvim-lsp-installer").setup {
+    log_level = vim.log.levels.DEBUG
+}
+
+local lsp_installer = require("nvim-lsp-installer") 
 
 -- Function "on_attach" sets up buffer-local keymaps, etc.
 -- Default for all language servers.
@@ -32,6 +36,8 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ww', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', ']w', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '[w', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
 
 end
 
@@ -42,21 +48,5 @@ local enhance_server_opts = {
     end,
 }
 
--- Register a handler that will be called for each installed server when it's ready (i.e. when installation is finished
--- or if the server is already installed).
-lsp_installer.on_server_ready(function(server)
-    -- Specify the default options which we'll use to setup all servers
-    local opts = {
-        on_attach = on_attach,
-    }
-
-    if enhance_server_opts[server.name] then
-        -- Enhance the default opts with the server-specific ones
-        enhance_server_opts[server.name](opts)
-    end
-
-    -- This setup() function will take the provided server configuration and decorate it with the necessary properties
-    -- before passing it onwards to lspconfig.
-    -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-    server:setup(opts)
-end)
+local lspconfig = require("lspconfig")
+lspconfig.clangd.setup { on_attach = on_attach }
