@@ -1,7 +1,7 @@
 " General
 set hidden                     " buffers are not required to be written during buffer switch
 set mouse=a                    " enable mouse support
-set shell=/usr/bin/bash\ -li    " default shell
+set shell=/usr/bin/zsh\ -li    " default shell
 set clipboard=unnamedplus      " register + is essentially equal to register "
 set exrc                       " using project-local .nvimrc
 

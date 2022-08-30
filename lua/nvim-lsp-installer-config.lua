@@ -41,12 +41,8 @@ local on_attach = function(client, bufnr)
 
 end
 
--- Provide settings that should only apply to a specific server.
-local enhance_server_opts = {
-    ["clangd"] = function(opts)
-        opts.filetypes = { "c", "cpp", "objc", "objcpp", "acm_cpp" }
-    end,
-}
-
 local lspconfig = require("lspconfig")
-lspconfig.clangd.setup { on_attach = on_attach }
+lspconfig.clangd.setup {
+  on_attach = on_attach,
+  filetypes = { "c", "cpp", "objc", "objcpp", "acm_cpp" }
+}
