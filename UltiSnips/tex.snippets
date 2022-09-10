@@ -2,36 +2,44 @@ global !p
 import px.snippets
 endglobal
 
+snippet c "General TeX command" i
+\\$1{$2}$0
+endsnippet
+
+snippet с "[ru] General TeX command" i
+\\$1{$2}$0
+endsnippet
 
 snippet	env "General TeX environment" bA
 \begin{${1:align*}}
-    $2
+ $2
 \end{$1}$3
 endsnippet
 
-post_jump "px.snippets.expand(snip)"
 snippet утм "[ru] General TeX environment" bA
-env$1
+\begin{${1:align*}}
+ $2
+\end{$1}$3
 endsnippet
 
 snippet mk "Inline math: $...$" wA
-$ ${1} $$2
+$ $1 $$2
 endsnippet
 
-post_jump "px.snippets.expand(snip)"
 snippet ьл "[ru] Inline math: $...$" wA
-mk$1
+$ $1 $$2
 endsnippet
 
 snippet dm "Display math" wA
 \begin{align*}
-    $1
+ $1
 .\end{align*}$2
 endsnippet
 
-post_jump "px.snippets.expand(snip)"
 snippet вь "[ru] Display math" wA
-dm$1
+\begin{align*}
+ $1
+.\end{align*}$2
 endsnippet
 
 snippet fn "Fraction {\frac}" A
@@ -48,4 +56,12 @@ endsnippet
 
 snippet dl "Delimiter environment" A
 \left\l${1:floor} $2 \right\r$1 $0
+endsnippet
+
+snippet B "Curly braces delimiter"
+\left\\{ $1 \right\\} $0
+endsnippet
+
+snippet И "[ru] Curly braces delimiter"
+\left\\{ $1 \right\\} $0
 endsnippet

@@ -1,7 +1,12 @@
 " General
 set hidden                     " buffers are not required to be written during buffer switch
 set mouse=a                    " enable mouse support
-set shell=/usr/bin/zsh\ -li    " default shell
+" Default shell setup
+if executable("zsh")
+    set shell=/usr/bin/zsh\ -li
+elseif executable("bash")
+    set shell=/usr/bin/bash\ -li
+endif
 set clipboard=unnamedplus      " register + is essentially equal to register "
 set exrc                       " using project-local .nvimrc
 
@@ -17,6 +22,8 @@ set list
 set splitright                 " vsplit splits the window to the right
 set termguicolors              " better colors
 let g:gruvbox_italic=1
+let g:gruvbox_improved_strings=1
+let g:gruvbox_improved_warnings=1
 colorscheme gruvbox
 
 " Indentation
@@ -48,7 +55,7 @@ set grepformat=%f:%l:%c:%m
 " russian keymap. To switch, use <C-^> in Insert mode
 set keymap=russian-jcukenwin
 set iminsert=0                 " default is english
-set imsearch=-1                " search keymap is the same as insert
+set imsearch=0
 " xkb-switch
 let g:XkbSwitchEnabled = 1
 " keymap assistance in normal mode
@@ -57,3 +64,5 @@ let g:XkbSwitchAssistSKeymap = 1    " for search lines
 
 " ultisnips settings
 let g:UltiSnipsExpandTrigger = '<c-j>'
+let g:UltiSnipsJumpForwardTrigger = '<c-j>'
+let g:UltiSnipsJumpBackwardTrigger = '<c-k>'

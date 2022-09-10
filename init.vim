@@ -11,5 +11,11 @@ source ~/.config/nvim/acm_cpp.vim     " custom filetype for acm cpp programs
 source ~/.config/nvim/latex.vim       " utilities for using latex
 source ~/.config/nvim/markdown.vim    " markdown settings
 
-" nvim-lsp-installer configuration (in lua)
-lua require('nvim-lsp-installer-config') 
+" Change-dir scripts
+source ~/.config/nvim/chdir.vim
+
+" Configuration of nvim-cmp autocompletion engine
+lua require('nvim-cmp-cfg')
+
+" Configuration of LSP, linters, formatters, etc.
+lua require('lsp-cfg')

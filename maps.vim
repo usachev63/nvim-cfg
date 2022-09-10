@@ -3,13 +3,6 @@ nnoremap <SPACE> <Nop>
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
 
-" "%%" is now essentially "%:h/"
-cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
-
-" & works as ":&&" and not as ":s"
-nnoremap & :&&<CR>
-xnoremap & :&&<CR>
-
 " some bracket maps from vim-unimpaired
 nnoremap [a     :previous<CR>
 nnoremap ]a     :next<CR>
@@ -56,3 +49,6 @@ nnoremap <BS> <C-^>
 
 " Pick from list of buffers
 nnoremap <Leader>b :set nomore <Bar> :buffers <Bar> :set more <CR>:buffer<Space>
+
+" CTRL-j is the ultisnips key
+noremap <C-j> <Nop>
