@@ -1,5 +1,5 @@
 -- Set up nvim-cmp.
-local cmp = require'cmp'
+local cmp = require 'cmp'
 
 cmp.setup({
     snippet = {
@@ -23,7 +23,12 @@ cmp.setup({
         { name = 'nvim_lsp' },
         { name = 'ultisnips' }, -- For ultisnips users.
     }, {
-        { name = 'buffer' },
+        {
+            name = 'buffer',
+            option = {
+                keyword_pattern = [[\k\+]],
+            },
+        },
     })
 })
 

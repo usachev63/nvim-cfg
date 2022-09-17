@@ -6,6 +6,9 @@ if exists("b:did_ftplugin")
   finish
 endif
 
+setlocal softtabstop=2
+setlocal shiftwidth=2
+
 " import all settings from cpp filetype
 runtime! ftplugin/cpp.vim
 

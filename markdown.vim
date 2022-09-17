@@ -2,8 +2,8 @@
 let g:mkdp_auto_close = 0
 
 function MarkdownOnEnter() abort
-    nnoremap <F10> :MarkdownPreview<CR>
-    nnoremap <F9> :MarkdownPreview<CR>
+    nnoremap <buffer> <F10> :MarkdownPreview<CR>
+    nnoremap <buffer> <F9> :MarkdownPreview<CR>
 endfunction
 
 augroup MarkdownOnEnterMap

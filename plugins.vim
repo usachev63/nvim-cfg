@@ -32,10 +32,13 @@ Plug 'hrsh7th/nvim-cmp'
 " For ultisnips:
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 
+
+
+
 "
 " TeX
 "
-Plug 'lervag/vimtex'            
+Plug 'lervag/vimtex'
 
 
 
@@ -45,15 +48,6 @@ Plug 'lervag/vimtex'
 " 
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 
-
-
-
-" C/C++ (projects)
-
-" clang-format support
-" Plug 'rhysd/vim-clang-format'   " clang-format support
-" Plug 'kana/vim-operator-user'   " dependency for above
-" Plug 'Shougo/vimproc.vim', {'do' : 'make'} " dependency for above
 
 
 

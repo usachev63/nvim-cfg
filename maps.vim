@@ -47,8 +47,5 @@ tnoremap <Esc> <C-\><C-n>
 " Switch with alternate file
 nnoremap <BS> <C-^>
 
-" Pick from list of buffers
-nnoremap <Leader>b :set nomore <Bar> :buffers <Bar> :set more <CR>:buffer<Space>
-
-" CTRL-j is the ultisnips key
-noremap <C-j> <Nop>
+" Sometimes this works unexpected
+inoremap <C-Space> <Space>

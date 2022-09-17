@@ -1,6 +1,6 @@
 " Viewer options: One may configure the viewer either by specifying a built-in
 " viewer method:
-"let g:vimtex_view_method = 'zathura'
+" let g:vimtex_view_method = 'zathura'
 
 " Or with a generic interface:
 let g:vimtex_view_general_viewer = 'okular'
@@ -16,9 +16,12 @@ let g:vimtex_compiler_method = 'latexmk'
 " disable quickfix
 let g:vimtex_quickfix_mode=0
 
+" fix indentation
+let g:vimtex_indent_on_ampersands=0
+
 " concealment
 set conceallevel=2
-let g:tex_conceal='abdmg'
+let g:tex_conceal='abdgm'
 
 
 function TEX_OnNewFile()
@@ -26,6 +29,26 @@ function TEX_OnNewFile()
     % !cat ~/Templates/template.tex 
     " move cursor to a good starting position
     ?\\newpage
+endfunction
+
+" Expands inline math block to display math (align*)
+function TEX_InlineMathToDisplay()
+    normal yi$
+    let l:content = getreg("0")
+    execute(':substitute/\V$\(' . escape(l:content, '\') . '\)$/\r\\begin{align*}\r\1\r\\end{align*}\r')
+endfunction
+
+" Wraps a TeX command around a visual selection
+function TEX_WrapCommand(command)
+    normal gvSB
+    execute('normal i\' . a:command)
+endfunction
+
+" Wraps \underbrace around a visual selection
+function TEX_WrapUnderbrace()
+    call TEX_WrapCommand('underbrace')
+    normal f}a_{}
+    startinsert
 endfunction
 
 " let g:tex_synroles = [
@@ -298,81 +321,109 @@ endfunction
 "             \]
 let g:tex_default_layout = 'us'
 
-function! TEX_SetLangForce(lang)
+function! TEX_Init()
+    " by default every syntax id maps to 'us'
+    let b:saved_cur_layout = {}
+    " but some of them map to 'ru'
+    let b:saved_cur_layout[""] = 'ru'
+    let b:saved_cur_layout["texTitleArg"] = 'ru'
+    let b:saved_cur_layout["texAuthorArg"] = 'ru'
+    let b:saved_cur_layout["texMathTextConcArg"] = 'ru'
+    let b:saved_cur_layout["texPartArgTitle"] = 'ru'
+    let b:saved_cur_layout["texStyleBoth"] = 'ru'
+    let b:saved_cur_layout["texStyleItal"] = 'ru'
+    let b:saved_cur_layout["texTheoremEnvOpt"] = 'ru'
+
+    nnoremap <buffer> <leader>i2d :call TEX_InlineMathToDisplay()<CR>
+    xnoremap <buffer> <leader>bf :call TEX_WrapCommand("textbf")<CR>
+    xnoremap <buffer> <leader>it :call TEX_WrapCommand("textit")<CR>
+    xnoremap <buffer> <leader>u :call TEX_WrapUnderbrace()<CR>
+endfunction
+
+function! TEX_CheckXkbSwitchLib() abort
     if !filereadable(g:XkbSwitchLib)
-        return
+        throw "Couldn't find XkbSwitch library!"
     endif
+endfunction
+
+function! TEX_GetXkbLayout() abort
+    call TEX_CheckXkbSwitchLib()
+
+    return libcall(g:XkbSwitchLib, 'Xkb_Switch_getXkbLayout', '')
+endfunction
+
+function! TEX_SetXkbLayout(lang) abort
+    call TEX_CheckXkbSwitchLib()
 
     call libcall(g:XkbSwitchLib, 'Xkb_Switch_setXkbLayout', a:lang)
 endfunction
 
-function! TEX_SwitchLang()
-    if !filereadable(g:XkbSwitchLib)
-        return
+function! TEX_GetCurSynIdName() abort
+    let l:col = col(".")
+    if l:col == col("$")
+        let l:col = l:col - 1
     endif
-
-    let cur_synid  = synIDattr(synID(line("."), col(".") - 1, 1), "name")
-    let cur_layout = libcall(g:XkbSwitchLib, 'Xkb_Switch_getXkbLayout', '')
-
-    if !exists('b:saved_cur_layout')
-        let b:saved_cur_layout = {}
-    endif
-
-    if !exists('b:saved_cur_layout[cur_synid]')
-        let b:saved_cur_layout[cur_synid] = g:tex_default_layout
-    endif
-    let b:xkb_ilayout = b:saved_cur_layout[cur_synid]
+    return synIDattr(synID(line("."), l:col, 1), "name")
 endfunction
 
-fun! TEX_SaveLang()
-    if !filereadable(g:XkbSwitchLib)
-        return
-    endif
+function! TEX_SwitchLangOnIEnter() abort
+    call TEX_CheckXkbSwitchLib()
 
-    let cur_synid  = synIDattr(synID(line("."), col(".") - 1, 1), "name")
-    let cur_layout = libcall(g:XkbSwitchLib, 'Xkb_Switch_getXkbLayout', '')
+    let l:cur_synid  = TEX_GetCurSynIdName()
 
-    let b:saved_cur_layout[b:saved_cur_synid] = cur_layout
-endfun
-
-fun! TEX_CheckLang()
-    if !filereadable(g:XkbSwitchLib)
-        return
-    endif
-
-    let cur_synid  = synIDattr(synID(line("."), col(".") - 1, 1), "name")
-    let cur_layout = libcall(g:XkbSwitchLib, 'Xkb_Switch_getXkbLayout', '')
-
-    if !exists('b:saved_cur_synid')
-        let b:saved_cur_synid = cur_synid
-    endif
-    if !exists('b:saved_cur_layout')
-        let b:saved_cur_layout = {}
-    endif
-
-    if cur_synid == b:saved_cur_synid
-        return
-    endif
-
-    let b:saved_cur_layout[b:saved_cur_synid] = cur_layout
     if !exists('b:saved_cur_layout[cur_synid]')
-        let b:saved_cur_layout[cur_synid] = g:tex_default_layout
+        let b:saved_cur_layout[l:cur_synid] = g:tex_default_layout
     endif
-    call libcall(g:XkbSwitchLib, 'Xkb_Switch_setXkbLayout',
-                \ b:saved_cur_layout[cur_synid])
-    let b:saved_cur_synid = cur_synid
-endfun
+
+    call TEX_SetXkbLayout(b:saved_cur_layout[l:cur_synid])
+    let b:saved_cur_synid = l:cur_synid
+endfunction
+
+function! TEX_SaveLang() abort
+    call TEX_CheckXkbSwitchLib()
+
+    let b:saved_cur_layout[b:saved_cur_synid] = TEX_GetXkbLayout()
+endfunction
+
+function! TEX_SaveLangOnILeave() abort
+    call TEX_CheckXkbSwitchLib()
+
+    call TEX_SaveLang()
+    unlet b:saved_cur_synid
+endfunction
+
+function! TEX_SwitchLangOnSynIdChange() abort
+    call TEX_CheckXkbSwitchLib()
+
+    call TEX_SaveLang()
+
+    let l:cur_synid  = TEX_GetCurSynIdName()
+    if l:cur_synid == b:saved_cur_synid
+        return
+    endif
+
+    if !exists('b:saved_cur_layout[l:cur_synid]')
+        let b:saved_cur_layout[l:cur_synid] = g:tex_default_layout
+    endif
+    call TEX_SetXkbLayout(b:saved_cur_layout[l:cur_synid])
+    let b:saved_cur_synid = l:cur_synid
+endfunction
 
 let g:XkbSwitchPostIEnterAuto = [
-            \ [{'ft': 'tex', 'cmd': 'call TEX_SwitchLang()'}, 0] ]
+            \ [{'ft': 'tex', 'cmd': 'call TEX_SwitchLangOnIEnter()'}, 0] ]
 
 augroup Latex
     autocmd! 
 
-    autocmd BufNewFile * if &ft ==# 'tex'| call TEX_OnNewFile()|endif
+    autocmd BufNewFile * if &ft ==# "tex"| call TEX_OnNewFile()|endif
 
-    autocmd FocusLost,TextChanged,InsertLeave * if &ft ==# 'tex'| update|endif
+    autocmd BufRead * if &ft ==# "tex"| call TEX_Init()|endif
 
-    autocmd CursorMovedI * if &ft ==# 'tex'| call TEX_CheckLang()|endif
-    autocmd InsertLeave * if $ft ==# 'tex' | call TEX_SaveLang()|endif
+    autocmd Filetype tex
+                \ autocmd FocusLost,TextChanged,InsertLeave <buffer> update
+
+    autocmd Filetype tex
+                \ autocmd CursorMovedI,TextChangedI <buffer> call TEX_SwitchLangOnSynIdChange()
+    " autocmd Filetype tex
+    "             \ autocmd InsertLeave <buffer> call TEX_SaveLangOnILeave()
 augroup END
