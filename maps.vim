@@ -35,7 +35,7 @@ nnoremap ]<C-T> :ptnext<CR>
 nnoremap <Leader>q :b#<CR>:bdelete! #<CR>
 
 " instead of :E (now getting E464 error)
-nnoremap <Leader>e :Explore<CR>
+nmap <Leader>e :e %%<CR>
 
 " Replace the contents of whole file from "+
 nnoremap <Leader>dp :%delete\|0put+<CR>gg
