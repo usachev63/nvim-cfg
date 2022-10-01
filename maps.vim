@@ -49,3 +49,6 @@ nnoremap <BS> <C-^>
 
 " Sometimes this works unexpected
 inoremap <C-Space> <Space>
+
+" <C-K> is LSP signature help
+inoremap <C-K> <Nop>

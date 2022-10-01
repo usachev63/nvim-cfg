@@ -45,6 +45,8 @@ setglobal infercase            " convenient case in insert mode completion
 
 " netrw changes windows's working directory
 "let g:netrw_keepdir=0
+let g:netrw_liststyle=3        " tree-style netrw view
+let g:netrw_banner=0           " suppress netrw banner
 
 " :grep uses ack
 set grepprg=ack\ --nogroup\ --column\ $*
