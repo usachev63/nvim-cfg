@@ -73,7 +73,8 @@ mason.setup()
 -- LSP
 --
 
-local cmp_nvim_lsp_capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local cmp_nvim_lsp_capabilities = vim.lsp.protocol.make_client_capabilities()
+cmp_nvim_lsp_capabilities = require('cmp_nvim_lsp').update_capabilities(cmp_nvim_lsp_capabilities)
 
 local mason_lspconfig = require("mason-lspconfig")
 mason_lspconfig.setup()

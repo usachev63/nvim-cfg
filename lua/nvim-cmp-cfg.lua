@@ -19,17 +19,21 @@ cmp.setup({
         -- ['<C-e>'] = cmp.mapping.abort(),
         -- ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
-    sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'ultisnips' }, -- For ultisnips users.
-    }, {
+    sources = cmp.config.sources(
         {
-            name = 'buffer',
-            option = {
-                keyword_pattern = [[\k\+]],
-            },
+            { name = 'omni' },
+            { name = 'ultisnips' }, -- For ultisnips users.
         },
-    })
+        {
+            { name = 'nvim_lsp', },
+            {
+                name = 'buffer',
+                option = {
+                    keyword_pattern = [[\k\+]],
+                },
+            },
+        }
+    )
 })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
