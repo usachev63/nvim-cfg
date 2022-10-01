@@ -23,6 +23,7 @@ LSP_OnAttach = function(_, bufnr)
     end
 
     -- Mappings.
+    -- compare
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     -- Function "on_attach" sets up buffer-local keymaps, etc.
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -115,6 +116,15 @@ mason_lspconfig.setup_handlers({
                 }
             },
             on_attach = LSP_OnAttach,
+            capabilities = cmp_nvim_lsp_capabilities,
+        }
+    end,
+    ["hls"] = function()
+        lspconfig.hls.setup {
+            on_attach = function(client, bufnr)
+                LSP_OnAttach(client, bufnr)
+                on_attach_formatting()
+            end,
             capabilities = cmp_nvim_lsp_capabilities,
         }
     end,

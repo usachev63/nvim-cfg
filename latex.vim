@@ -47,7 +47,7 @@ endfunction
 " Wraps \underbrace around a visual selection
 function TEX_WrapUnderbrace()
     call TEX_WrapCommand('underbrace')
-    normal f}a_{}
+    normal f{%a_{}
     startinsert
 endfunction
 

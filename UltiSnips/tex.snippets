@@ -5,6 +5,15 @@ import px.snippets
 def math_context():
     return vim.eval('vimtex#syntax#in_mathzone()') == '1'
 
+def inline_math_context():
+    return vim.eval('vimtex#syntax#in(\'texMathZoneTI\')') == '1'
+
+def non_inline_math_context():
+    return math_context() and not inline_math_context()
+
+def non_math_context():
+    return not math_context()
+
 endglobal
 
 snippet \ "TeX command" A
@@ -65,12 +74,12 @@ endsnippet
 snippet dm "Display math" wA
 \\begin{align*}
  $1
-.\\end{align*} $2
+\\end{align*} $2
 endsnippet
 snippet вь "[ru] Display math" wA
 \\begin{align*}
  $1
-.\\end{align*} $2
+\\end{align*} $2
 endsnippet
 
 priority 100
@@ -80,6 +89,36 @@ endsnippet
 
 snippet й "[ru] Quotes" w
 <<$1>>$0
+endsnippet
+
+context "non_math_context()"
+snippet i "Italic text" w
+\\textit{$1}$0
+endsnippet
+
+context "non_math_context()"
+snippet ш "[ru] Italic text" w
+\\textit{$1}$0
+endsnippet
+
+context "non_math_context()"
+snippet b "Bold text" w
+\\textbf{$1}$0
+endsnippet
+
+context "non_math_context()"
+snippet и "[ru] Bold text" w
+\\textbf{$1}$0
+endsnippet
+
+context "non_math_context()"
+snippet t "\texttt" w
+\\texttt{$1}$0
+endsnippet
+
+context "non_math_context()"
+snippet е "[ru] \texttt" w
+\\texttt{$1}$0
 endsnippet
 
 #
@@ -104,6 +143,11 @@ endsnippet
 context "math_context()"
 snippet oo "Infinity sign" iA
 \infty
+endsnippet
+
+context "math_context()"
+snippet ES "Empty set" wA
+\varnothing
 endsnippet
 
 context "math_context()"
@@ -180,8 +224,17 @@ if snip.rv in {"cup", "sqcup", "cap", "sqcap"}:
 `_{${1:i \in I}} $0
 endsnippet
 
+context "inline_math_context()"
+snippet intr "Integral over a range" wA
+\\int_{${1:1}}^{${2:+\infty}} $3 \, d${4:x} $0
+endsnippet
+context "non_inline_math_context()"
+snippet intr "Integral over a range" wA
+\\int\\limits_{${1:1}}^{${2:+\infty}} $3 \, d${4:x} $0
+endsnippet
+
 context "math_context()"
-snippet dl "Delimiter environment" A
+snippet dl "Delimiter environment" wA
 \\left\\l${1:floor} $2 \\right\\r$1 $0
 endsnippet
 
@@ -219,8 +272,21 @@ snippet isq "Sequence declaration in braces" wA
 endsnippet
 
 context "math_context()"
+snippet ixf "General indexed family declaration in braces" wA
+\\left\\{$1\\right\\}_{$2}$0
+endsnippet
+
+context "math_context()"
 snippet fun "Function declaration" wA
-${1:f} \colon\, ${2:E} \to \R $0 
+${1:f} \\colon\\, ${2:E} \\to \\R $0 
+endsnippet
+context "math_context()"
+snippet mp "Map declaration" wA
+${1:f} \\colon\\, ${2:X} \\to ${3:Y} $0
+endsnippet
+context "math_context()"
+snippet tfn "Transformation declaration" wA
+${1:f} \\colon\\, ${2:X} \\to ${2} $0
 endsnippet
 
 context "math_context()"
