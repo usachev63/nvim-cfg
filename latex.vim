@@ -59,7 +59,6 @@ function TEX_WrapDelimiter(del_open, del_close)
     execute("normal gvc\<C-r>\<C-r>=l:open\<CR>\<C-r>\<C-r>v\<C-r>\<C-r>=l:close\<CR>")
 endfunction
 
-" Avaliable syntax IDs: {{{1
 " let g:tex_synroles = [
 "             \'', 
 "             \'normal', 
