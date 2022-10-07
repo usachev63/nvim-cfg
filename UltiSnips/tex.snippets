@@ -8,7 +8,7 @@ def math_context():
 def inline_math_context():
     return vim.eval('vimtex#syntax#in(\'texMathZoneTI\')') == '1'
 
-def non_inline_math_context():
+def display_math_context():
     return math_context() and not inline_math_context()
 
 def non_math_context():
@@ -141,38 +141,48 @@ snippet ^ "Superscript" iA
 endsnippet
 
 context "math_context()"
-snippet oo "Infinity sign" iA
-\infty
+snippet invs "Map inverse" iA
+^{-1}
+endsnippet
+
+context "math_context()"
+snippet oo "Infinity sign" wA
+\\infty
+endsnippet
+
+context "math_context()"
+snippet cc "Subset sign" wA
+\\subset
 endsnippet
 
 context "math_context()"
 snippet ES "Empty set" wA
-\varnothing
+\\varnothing
 endsnippet
 
 context "math_context()"
 snippet -> "\rightarrow, \to" iA
-\to
+\\to
 endsnippet
 
 context "math_context()"
 snippet => "\implies" iA
-\implies
+\\implies
 endsnippet
 
 context "math_context()"
 snippet =< "\impliedby" iA
-\impliedby
+\\impliedby
 endsnippet
 
 context "math_context()"
 snippet <= "\leqslant" iA
-\leqslant
+\\leqslant
 endsnippet
 
 context "math_context()"
 snippet >= "\geqslant" iA
-\geqslant
+\\geqslant
 endsnippet
 
 context "math_context()"
@@ -224,13 +234,32 @@ if snip.rv in {"cup", "sqcup", "cap", "sqcap"}:
 `_{${1:i \in I}} $0
 endsnippet
 
+context "math_context()"
+snippet limseq "Limit of a sequence" wA
+\\lim_{${1:n} \to \infty} ${2:${3:x}_{$1}} $0
+endsnippet
+
 context "inline_math_context()"
 snippet intr "Integral over a range" wA
-\\int_{${1:1}}^{${2:+\infty}} $3 \, d${4:x} $0
+\\int_{${1:1}}^{${2:+\infty}} $3 \\, d${4:x} $0
 endsnippet
-context "non_inline_math_context()"
+context "display_math_context()"
 snippet intr "Integral over a range" wA
-\\int\\limits_{${1:1}}^{${2:+\infty}} $3 \, d${4:x} $0
+\\int\\limits_{${1:1}}^{${2:+\infty}} $3 \\, d${4:x} $0
+endsnippet
+
+context "math_context()"
+snippet inti "Antiderivative (indefinite integral)" wA
+\\int $1 \\, d${2:x} $0
+endsnippet
+
+context "inline_math_context()"
+snippet intl "Lebesgue integral" wA
+\\int_{${1:E}} ${3:f} \\, d${4:\mu} $0
+endsnippet
+context "display_math_context()"
+snippet intl "Lebesgue integral" wA
+\\int\\limits_{${1:E}} ${3:f} \\, d${4:\mu} $0
 endsnippet
 
 context "math_context()"

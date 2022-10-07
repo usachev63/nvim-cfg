@@ -51,6 +51,14 @@ function TEX_WrapUnderbrace()
     startinsert
 endfunction
 
+" Wraps a delimiter around a visual selection
+function TEX_WrapDelimiter(del_open, del_close)
+    execute('normal gv"vy')
+    let l:open = '\left' . a:del_open .' '
+    let l:close = ' \right' . a:del_close
+    execute("normal gvc\<C-r>\<C-r>=l:open\<CR>\<C-r>\<C-r>v\<C-r>\<C-r>=l:close\<CR>")
+endfunction
+
 " let g:tex_synroles = [
 "             \'', 
 "             \'normal', 
@@ -338,6 +346,10 @@ function! TEX_Init()
     xnoremap <buffer> <leader>bf :call TEX_WrapCommand("textbf")<CR>
     xnoremap <buffer> <leader>it :call TEX_WrapCommand("textit")<CR>
     xnoremap <buffer> <leader>u :call TEX_WrapUnderbrace()<CR>
+    xnoremap <buffer> <leader>sb :call TEX_WrapDelimiter('(', ')')<CR>
+    xnoremap <buffer> <leader>sB :call TEX_WrapDelimiter('\{', '\}')<CR>
+    xnoremap <buffer> <leader>sa :call TEX_WrapDelimiter('<Bar>', '<Bar>')<CR>
+    xnoremap <buffer> <leader>sq :call TEX_WrapDelimiter('[', ']')<CR>
 endfunction
 
 function! TEX_CheckXkbSwitchLib() abort

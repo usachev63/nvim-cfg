@@ -6,5 +6,5 @@ runtime! ftplugin/cpp.vim
 
 set autowriteall          " autowrite always
 
-setlocal softtabstop=2
-setlocal shiftwidth=2
+set softtabstop=2
+set shiftwidth=2
