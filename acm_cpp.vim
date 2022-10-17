@@ -12,14 +12,12 @@ endfunction
 function AcmCppOnEnter() abort
     %argdelete
     argadd % in
-    last
-    first
 
     " maps
     " compile and run
     nnoremap <F10> :argdo write<CR><CR>:first<CR>:terminal acm % && ./%:r < in<CR>
     " only run
-    nnoremap <F9> :argdo write<CR><CR>:first<CR>:terminal ./%:r < in<CR>
+    nnoremap <F9> :last<CR>:write<CR>:first<CR>:terminal ./%:r < in<CR>
 
 endfunction
 

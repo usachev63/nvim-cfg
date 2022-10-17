@@ -32,6 +32,36 @@ snippet у "[ru] General TeX environment"
 \\end{$1}
 endsnippet
 
+context "non_math_context()"
+snippet	ec "TeX theorem-environment with custom name" b
+\\begin{${1:thm}}[%
+$2]
+ $0
+\\end{$1}
+endsnippet
+
+context "non_math_context()"
+snippet	ус "[ru] TeX theorem-environment with custom name" b
+\\begin{${1:thm}}[%
+$2]
+ $0
+\\end{$1}
+endsnippet
+
+context "non_math_context()"
+snippet proof "TeX proof environment" A
+\\begin{proof}[\\normalfont\\textsc{Доказательство$1}]
+ $0
+\\end{proof}
+endsnippet
+
+context "non_math_context()"
+snippet зкщща "TeX proof environment" A
+\\begin{proof}[\\normalfont\\textsc{Доказательство$1}]
+ $0
+\\end{proof}
+endsnippet
+
 snippet item "itemize environment" bA
 \\begin{itemize}
  \item $0
@@ -156,6 +186,11 @@ snippet cc "Subset sign" wA
 endsnippet
 
 context "math_context()"
+snippet \\\ "Set difference" iA
+\\setminus
+endsnippet
+
+context "math_context()"
 snippet ES "Empty set" wA
 \\varnothing
 endsnippet
@@ -255,11 +290,11 @@ endsnippet
 
 context "inline_math_context()"
 snippet intl "Lebesgue integral" wA
-\\int_{${1:E}} ${3:f} \\, d${4:\mu} $0
+\\int_{${1:X}} ${2:f} \\, d${3:\mu} $0 
 endsnippet
 context "display_math_context()"
 snippet intl "Lebesgue integral" wA
-\\int\\limits_{${1:E}} ${3:f} \\, d${4:\mu} $0
+\\int\\limits_{${1:X}} ${2:f} \\, d${3:\mu} $0 
 endsnippet
 
 context "math_context()"
@@ -285,6 +320,11 @@ endsnippet
 context "math_context()"
 snippet q "Square brackets delimiter" w
 \\left[ $1 \\right]$0
+endsnippet
+
+context "math_context()"
+snippet n "Norm (double pipe) delimiter" w
+\\left\\| $1 \\right\\|$0
 endsnippet
 
 context "math_context()"
@@ -330,4 +370,21 @@ endsnippet
 context "math_context()"
 snippet tt "\mathtt environment" wA
 \\mathtt{$1}$0 
+endsnippet
+
+context "math_context()"
+snippet qq "Segment [a, b]" i
+\\left[${1:0}, ${2:1}\\right] $0 
+endsnippet
+context "math_context()"
+snippet qb "Half-interval [a, b)" i
+\\left[${1:0}, ${2:1}\\right) $0 
+endsnippet
+context "math_context()"
+snippet bq "Half-interval (a, b]" i
+\\left(${1:0}, ${2:1}\\right] $0 
+endsnippet
+context "math_context()"
+snippet bb "Interval (a, b)" i
+\\left(${1:0}, ${2:1}\\right) $0 
 endsnippet

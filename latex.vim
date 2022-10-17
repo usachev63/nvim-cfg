@@ -28,7 +28,7 @@ function TEX_OnNewFile()
     " copy everything from template.cpp file
     % !cat ~/Templates/template.tex 
     " move cursor to a good starting position
-    ?\\newpage
+    ?\\maketitle
 endfunction
 
 " Expands inline math block to display math (align*)
@@ -341,6 +341,7 @@ function! TEX_Init()
     let b:saved_cur_layout["texStyleBoth"] = 'ru'
     let b:saved_cur_layout["texStyleItal"] = 'ru'
     let b:saved_cur_layout["texTheoremEnvOpt"] = 'ru'
+    let b:saved_cur_layout["texStyleArgConc"] = 'ru'
 
     nnoremap <buffer> <leader>i2d :call TEX_InlineMathToDisplay()<CR>
     xnoremap <buffer> <leader>bf :call TEX_WrapCommand("textbf")<CR>
@@ -350,6 +351,7 @@ function! TEX_Init()
     xnoremap <buffer> <leader>sB :call TEX_WrapDelimiter('\{', '\}')<CR>
     xnoremap <buffer> <leader>sa :call TEX_WrapDelimiter('<Bar>', '<Bar>')<CR>
     xnoremap <buffer> <leader>sq :call TEX_WrapDelimiter('[', ']')<CR>
+    xnoremap <buffer> <leader>sn :call TEX_WrapDelimiter('\<Bar>', '\<Bar>')<CR>
 endfunction
 
 function! TEX_CheckXkbSwitchLib() abort
@@ -372,7 +374,7 @@ endfunction
 
 function! TEX_GetCurSynIdName() abort
     let l:col = col(".")
-    if l:col == col("$")
+    if l:col > 0
         let l:col = l:col - 1
     endif
     return synIDattr(synID(line("."), l:col, 1), "name")
