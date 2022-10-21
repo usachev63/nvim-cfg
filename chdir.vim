@@ -1,5 +1,5 @@
 function GetCurFileDir()
-    if $ft ==# "netrw" && exists("b:netrw_curdir")
+    if &ft ==# "netrw" && exists("b:netrw_curdir")
         return b:netrw_curdir
     endif
     return expand("%:p:h") . "/"
