@@ -9,6 +9,7 @@ Plug 'tpope/vim-commentary'      " comments
 Plug 'SirVer/ultisnips'          " snippets
 Plug 'reconquest/vim-pythonx'    " for smarter snippets
 Plug 'lyokha/vim-xkbswitch'      " Language switching (xkg-switch)
+Plug 'tpope/vim-fugitive'        " Git
 
 " Small misc plugins
 Plug 'nelstrom/vim-visual-star-search'
