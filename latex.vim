@@ -352,6 +352,11 @@ function! TEX_Init()
     xnoremap <buffer> <leader>sa :call TEX_WrapDelimiter('<Bar>', '<Bar>')<CR>
     xnoremap <buffer> <leader>sq :call TEX_WrapDelimiter('[', ']')<CR>
     xnoremap <buffer> <leader>sn :call TEX_WrapDelimiter('\<Bar>', '\<Bar>')<CR>
+
+    " Integration with inkscape-figures CLI tool
+    silent exec '.!~/.local/bin/inkscape-figures watch'
+    inoremap <buffer> <C-f> <Esc>: silent exec '.!~/.local/bin/inkscape-figures create "'.getline('.').'" "'.b:vimtex.root.'/figures/"'<CR><CR>:w<CR>
+    nnoremap <buffer> <C-f> : silent exec '!~/.local/bin/inkscape-figures edit "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>
 endfunction
 
 function! TEX_CheckXkbSwitchLib() abort

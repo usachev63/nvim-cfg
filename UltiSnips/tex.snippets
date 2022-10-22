@@ -90,7 +90,7 @@ if t[2] and t[2][0] not in [',', '.', '?', '-', ' ', ':']:
     snip.rv = ' '
 else:
     snip.rv = ''
-`$2
+`$0
 endsnippet
 snippet ьл "[ru] Inline math: $...$" wA
 $$1$`!p
@@ -98,23 +98,23 @@ if t[2] and t[2][0] not in [',', '.', '?', '-', ' ', ':']:
     snip.rv = ' '
 else:
     snip.rv = ''
-`$2
+`$0
 endsnippet
 
 snippet dm "Display math" wA
 \\begin{align*}
  $1
-\\end{align*} $2
+\\end{align*} $0
 endsnippet
 snippet вь "[ru] Display math" wA
 \\begin{align*}
  $1
-\\end{align*} $2
+\\end{align*} $0
 endsnippet
 
 priority 100
-snippet ... "ldots" iA
-\ldots
+snippet .. "ldots" iA
+\\ldots
 endsnippet
 
 snippet й "[ru] Quotes" w
@@ -176,13 +176,18 @@ snippet invs "Map inverse" iA
 endsnippet
 
 context "math_context()"
-snippet "(\\?\w+)hat" "hat postfix" riA
+snippet "(\\?\w+)hat" "\hat postfix" riA
 \\hat{`!p snip.rv=match.group(1)`}
 endsnippet
 
 context "math_context()"
-snippet "(\\?\w+)tld" "tilde postfix" riA
+snippet "(\\?\w+)tld" "\tilde postfix" riA
 \\tilde{`!p snip.rv=match.group(1)`}
+endsnippet
+
+context "math_context()"
+snippet "(\\?\w+)bar" "\overline postfix" riA
+\\overline{`!p snip.rv=match.group(1)`}
 endsnippet
 
 context "math_context()"
@@ -201,7 +206,7 @@ snippet \\\ "Set difference" iA
 endsnippet
 
 context "math_context()"
-snippet ES "Empty set" wA
+snippet O/ "Empty set" wA
 \\varnothing
 endsnippet
 
@@ -257,11 +262,6 @@ snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
 endsnippet
 
 context "math_context()"
-snippet par "Partial derivative"
-\\frac{\\partial ${1:f}}{\\partial ${2:x}}$3
-endsnippet
-
-context "math_context()"
 snippet '(sum|prod|cup|bigcup|cap|bigcap|sqcup|bigsqcup|sqcap|bigsqcap)r' "Operation over a range (possibly infinite)" wrA
 \\`!p
 snip.rv = match.group(1)
@@ -280,7 +280,7 @@ if snip.rv in {"cup", "sqcup", "cap", "sqcap"}:
 endsnippet
 
 context "math_context()"
-snippet limseq "Limit of a sequence" wA
+snippet limr "Limit of a sequence" wA
 \\lim_{${1:n} \to \infty} ${2:${3:x}_{$1}} $0
 endsnippet
 
@@ -346,12 +346,12 @@ snippet cases "cases environment" wA
 endsnippet
 
 context "math_context()"
-snippet isq "Sequence declaration in braces" wA
+snippet seqr "Sequence declaration in braces" wA
 \\{${1:x}_{${2:n}}\\}_{$2=1}^{\\infty}$0 
 endsnippet
 
 context "math_context()"
-snippet ixf "General indexed family declaration in braces" wA
+snippet seqs "General indexed family declaration in braces" wA
 \\left\\{$1\\right\\}_{$2}$0
 endsnippet
 
