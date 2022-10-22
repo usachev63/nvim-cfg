@@ -176,6 +176,16 @@ snippet invs "Map inverse" iA
 endsnippet
 
 context "math_context()"
+snippet "(\\?\w+)hat" "hat postfix" riA
+\\hat{`!p snip.rv=match.group(1)`}
+endsnippet
+
+context "math_context()"
+snippet "(\\?\w+)tld" "tilde postfix" riA
+\\tilde{`!p snip.rv=match.group(1)`}
+endsnippet
+
+context "math_context()"
 snippet oo "Infinity sign" wA
 \\infty
 endsnippet
