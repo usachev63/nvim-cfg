@@ -15,8 +15,6 @@ Plug 'nelstrom/vim-visual-star-search'
 Plug 'lambdalisue/suda.vim'      " sudo write fix
 Plug 'joshdick/onedark.vim'      " color theme
 Plug 'morhetz/gruvbox'           " color theme
-" git merge conflicts fixer
-Plug 'akinsho/git-conflict.nvim', { 'tag': '*' } 
 
 " LSP, linters, formatters support
 Plug 'neovim/nvim-lspconfig'    

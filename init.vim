@@ -18,6 +18,3 @@ lua require('nvim-cmp-cfg')
 
 " Configuration of LSP, linters, formatters, etc.
 lua require('lsp-cfg')
-
-" git-conflict.nvim plugin
-lua require('git-conflict-cfg')
