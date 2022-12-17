@@ -60,7 +60,6 @@ set imsearch=0
 let g:XkbSwitchEnabled = 1
 " keymap assistance in normal mode
 let g:XkbSwitchAssistNKeymap = 1    " for commands r and f
-let g:XkbSwitchAssistSKeymap = 1    " for search lines
 
 " ultisnips settings
 let g:UltiSnipsExpandTrigger = '<c-l>'
