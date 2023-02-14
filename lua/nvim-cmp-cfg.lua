@@ -21,7 +21,6 @@ cmp.setup({
     }),
     sources = cmp.config.sources(
         {
-            { name = 'omni' },
             { name = 'ultisnips' }, -- For ultisnips users.
         },
         {

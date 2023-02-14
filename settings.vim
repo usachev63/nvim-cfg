@@ -67,7 +67,7 @@ let g:UltiSnipsJumpForwardTrigger = '<c-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 
 " nvim-cmp settings
-set completeopt=menu,menuone
+set completeopt=menu,menuone,noselect
 
 " Workaround for 
 "  SQLComplete: the dbext plugin must be loaded for dynamic SQL completion
