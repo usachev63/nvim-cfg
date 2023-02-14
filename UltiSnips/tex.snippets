@@ -16,6 +16,7 @@ def non_math_context():
 
 endglobal
 
+context "non_math_context()"
 snippet \ "TeX command" A
 \\${0:item}
 endsnippet
@@ -176,6 +177,16 @@ snippet invs "Map inverse" iA
 endsnippet
 
 context "math_context()"
+snippet * "\cdot multiplication" iA
+\\cdot
+endsnippet
+
+context "math_context()"
+snippet xx "\times multiplication" wA
+\\times
+endsnippet
+
+context "math_context()"
 snippet "(\\?\w+)hat" "\hat postfix" riA
 \\hat{`!p snip.rv=match.group(1)`}
 endsnippet
@@ -206,13 +217,18 @@ snippet \\\ "Set difference" iA
 endsnippet
 
 context "math_context()"
-snippet O/ "Empty set" wA
+snippet O\ "Empty set" wA
 \\varnothing
 endsnippet
 
 context "math_context()"
 snippet -> "\rightarrow, \to" iA
 \\to
+endsnippet
+
+context "math_context()"
+snippet |> "\mapsto" iA
+\\mapsto
 endsnippet
 
 context "math_context()"
@@ -223,6 +239,11 @@ endsnippet
 context "math_context()"
 snippet =< "\impliedby" iA
 \\impliedby
+endsnippet
+
+context "math_context()"
+snippet != "\neq" iA
+\\neq
 endsnippet
 
 context "math_context()"
@@ -283,14 +304,18 @@ context "math_context()"
 snippet limr "Limit of a sequence" wA
 \\lim_{${1:n} \to \infty} ${2:${3:x}_{$1}} $0
 endsnippet
+context "math_context()"
+snippet limf "Limit of a function" wA
+\\lim_{${1:\\eps \\to 0}} $0
+endsnippet
 
 context "inline_math_context()"
 snippet intr "Integral over a range" wA
-\\int_{${1:1}}^{${2:+\infty}} $3 \\, d${4:x} $0
+\\int_{${1:1}}^{${2:+\infty}} $0
 endsnippet
 context "display_math_context()"
 snippet intr "Integral over a range" wA
-\\int\\limits_{${1:1}}^{${2:+\infty}} $3 \\, d${4:x} $0
+\\int\\limits_{${1:1}}^{${2:+\infty}} $0
 endsnippet
 
 context "math_context()"
@@ -300,11 +325,11 @@ endsnippet
 
 context "inline_math_context()"
 snippet intl "Lebesgue integral" wA
-\\int_{${1:X}} ${2:f} \\, d${3:\mu} $0 
+\\int_{${1:X}} $0 
 endsnippet
 context "display_math_context()"
 snippet intl "Lebesgue integral" wA
-\\int\\limits_{${1:X}} ${2:f} \\, d${3:\mu} $0 
+\\int\\limits_{${1:X}} $0 
 endsnippet
 
 context "math_context()"
@@ -349,7 +374,6 @@ context "math_context()"
 snippet seqr "Sequence declaration in braces" wA
 \\{${1:x}_{${2:n}}\\}_{$2=1}^{\\infty}$0 
 endsnippet
-
 context "math_context()"
 snippet seqs "General indexed family declaration in braces" wA
 \\left\\{$1\\right\\}_{$2}$0
@@ -379,7 +403,11 @@ endsnippet
 
 context "math_context()"
 snippet tt "\mathtt environment" wA
-\\mathtt{$1}$0 
+\\mathtt{$1}$0
+endsnippet
+context "math_context()"
+snippet txt "\text environment in math" wA
+\\text{$1}$0
 endsnippet
 
 context "math_context()"

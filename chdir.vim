@@ -1,6 +1,11 @@
+" Get directory of current buffer (smart)
 function GetCurFileDir()
     if &filetype ==# "netrw" && exists("b:netrw_curdir")
         return b:netrw_curdir
+    endif
+    if &buftype ==# "terminal" && exists("b:term_title")
+        " We extact current directory from terminal title (b:term_title variable)
+        return get(split(b:term_title, ':'), 1, '')
     endif
     return expand("%:p:h") . "/"
 endfunction

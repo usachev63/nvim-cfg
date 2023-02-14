@@ -26,8 +26,8 @@ colorscheme gruvbox
 
 " Indentation
 set tabstop=8
-set softtabstop=2
-set shiftwidth=2
+set softtabstop=4
+set shiftwidth=4
 set expandtab
 
 " File type
@@ -68,3 +68,8 @@ let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 
 " nvim-cmp settings
 set completeopt=menu,menuone
+
+" Workaround for 
+"  SQLComplete: the dbext plugin must be loaded for dynamic SQL completion
+" problem
+let g:omni_sql_default_compl_type = 'syntax'

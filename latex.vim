@@ -13,6 +13,22 @@ let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 " see ":help vimtex-compiler".
 let g:vimtex_compiler_method = 'latexmk'
 
+
+let g:vimtex_compiler_latexmk = {
+    \ 'build_dir' : '',
+    \ 'callback' : 1,
+    \ 'continuous' : 1,
+    \ 'executable' : 'latexmk',
+    \ 'hooks' : [],
+    \ 'options' : [
+    \   '-verbose',
+    \   '-file-line-error',
+    \   '-synctex=1',
+    \   '-interaction=nonstopmode',
+    \   '-shell-escape',
+    \ ],
+    \}
+
 " disable quickfix
 let g:vimtex_quickfix_mode=0
 
@@ -36,6 +52,16 @@ function TEX_InlineMathToDisplay()
     normal yi$
     let l:content = getreg("0")
     execute(':substitute/\V$\(' . escape(l:content, '\') . '\)$/\r\\begin{align*}\r\1\r\\end{align*}\r')
+endfunction
+
+" Expands \begin{align*} ... \end{align*} block to inline math ($...$)
+function TEX_DisplayMathToInline()
+    normal dae
+    let l:content = getreg("+")
+    let l:content = substitute(l:content, '\\begin{align\*}', '$', '')
+    let l:content = substitute(l:content, '\\end{align\*}$', '$', '')
+    call append(line('.'), split(l:content, "\n"))
+    normal JJ
 endfunction
 
 " Wraps a TeX command around a visual selection
@@ -330,6 +356,8 @@ endfunction
 let g:tex_default_layout = 'us'
 
 function! TEX_Init()
+    call TEX_CheckXkbSwitchLib()
+
     " by default every syntax id maps to 'us'
     let b:saved_cur_layout = {}
     " but some of them map to 'ru'
@@ -340,10 +368,15 @@ function! TEX_Init()
     let b:saved_cur_layout["texPartArgTitle"] = 'ru'
     let b:saved_cur_layout["texStyleBoth"] = 'ru'
     let b:saved_cur_layout["texStyleItal"] = 'ru'
+    let b:saved_cur_layout["texStyleBold"] = 'ru'
     let b:saved_cur_layout["texTheoremEnvOpt"] = 'ru'
     let b:saved_cur_layout["texStyleArgConc"] = 'ru'
 
+    let b:mathzone_driven_zones = {}
+    let b:mathzone_driven_zones['texDelim'] = 1
+
     nnoremap <buffer> <leader>i2d :call TEX_InlineMathToDisplay()<CR>
+    nnoremap <buffer> <leader>d2i :call TEX_DisplayMathToInline()<CR>
     xnoremap <buffer> <leader>bf :call TEX_WrapCommand("textbf")<CR>
     xnoremap <buffer> <leader>it :call TEX_WrapCommand("textit")<CR>
     xnoremap <buffer> <leader>u :call TEX_WrapUnderbrace()<CR>
@@ -354,7 +387,7 @@ function! TEX_Init()
     xnoremap <buffer> <leader>sn :call TEX_WrapDelimiter('\<Bar>', '\<Bar>')<CR>
 
     " Integration with inkscape-figures CLI tool
-    silent exec '.!~/.local/bin/inkscape-figures watch'
+    " silent exec '.!~/.local/bin/inkscape-figures watch'
     inoremap <buffer> <C-f> <Esc>: silent exec '.!~/.local/bin/inkscape-figures create "'.getline('.').'" "'.b:vimtex.root.'/figures/"'<CR><CR>:w<CR>
     nnoremap <buffer> <C-f> : silent exec '!~/.local/bin/inkscape-figures edit "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>
 endfunction
@@ -366,14 +399,10 @@ function! TEX_CheckXkbSwitchLib() abort
 endfunction
 
 function! TEX_GetXkbLayout() abort
-    call TEX_CheckXkbSwitchLib()
-
     return libcall(g:XkbSwitchLib, 'Xkb_Switch_getXkbLayout', '')
 endfunction
 
 function! TEX_SetXkbLayout(lang) abort
-    call TEX_CheckXkbSwitchLib()
-
     call libcall(g:XkbSwitchLib, 'Xkb_Switch_setXkbLayout', a:lang)
 endfunction
 
@@ -386,8 +415,6 @@ function! TEX_GetCurSynIdName() abort
 endfunction
 
 function! TEX_SwitchLangOnIEnter() abort
-    call TEX_CheckXkbSwitchLib()
-
     let l:cur_synid  = TEX_GetCurSynIdName()
 
     if !exists('b:saved_cur_layout[cur_synid]')
@@ -399,25 +426,29 @@ function! TEX_SwitchLangOnIEnter() abort
 endfunction
 
 function! TEX_SaveLang() abort
-    call TEX_CheckXkbSwitchLib()
-
     let b:saved_cur_layout[b:saved_cur_synid] = TEX_GetXkbLayout()
 endfunction
 
 function! TEX_SaveLangOnILeave() abort
-    call TEX_CheckXkbSwitchLib()
-
     call TEX_SaveLang()
     unlet b:saved_cur_synid
 endfunction
 
 function! TEX_SwitchLangOnSynIdChange() abort
-    call TEX_CheckXkbSwitchLib()
-
     call TEX_SaveLang()
 
     let l:cur_synid  = TEX_GetCurSynIdName()
     if l:cur_synid == b:saved_cur_synid
+        return
+    endif
+
+    if exists('b:mathzone_driven_zones[l:cur_synid]')
+        let l:new_layout = 'en'
+        if !vimtex#syntax#in_mathzone() && !vimtex#syntax#in('texRefArg') && !vimtex#syntax#in('texArg') && !vimtex#syntax#in('texStyleArgConc')
+            let l:new_layout = 'ru'
+        endif
+        call TEX_SetXkbLayout(l:new_layout)
+        let b:saved_cur_synid = l:cur_synid
         return
     endif
 
