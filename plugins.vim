@@ -24,18 +24,9 @@ Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'nvim-lua/plenary.nvim'     " dependecy for above
 
-" nvim-cmp: autocompletion engine
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-omni'
-" For ultisnips:
-Plug 'quangnguyen30192/cmp-nvim-ultisnips'
-
-
-
+" coq_nvim: autocompletion
+Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 
 "
 " TeX

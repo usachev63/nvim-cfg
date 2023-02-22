@@ -28,7 +28,7 @@ LSP_OnAttach = function(_, bufnr)
     -- Function "on_attach" sets up buffer-local keymaps, etc.
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
@@ -52,7 +52,7 @@ local on_attach_formatting = function()
     vim.api.nvim_set_keymap("", "=", "<cmd>lua Format_range_operator()<cr>", { noremap = true })
     vim.api.nvim_create_autocmd({ "bufwritepre" }, {
         callback = function()
-            vim.lsp.buf.formatting_sync()
+            vim.lsp.buf.formatting_seq_sync()
         end,
     })
 end
@@ -74,39 +74,49 @@ mason.setup()
 -- LSP
 --
 
-local cmp_nvim_lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+local coq = require("coq")
 
 local mason_lspconfig = require("mason-lspconfig")
 mason_lspconfig.setup()
 local lspconfig = require("lspconfig")
 mason_lspconfig.setup_handlers({
     function(server_name) -- default handler (optional)
-        lspconfig[server_name].setup {
-            on_attach = LSP_OnAttach,
-            capabilities = cmp_nvim_lsp_capabilities,
-        }
+        lspconfig[server_name].setup(
+        coq.lsp_ensure_capabilities({
+            on_attach = LSP_OnAttach
+        })
+        )
     end,
     ["clangd"] = function()
-        lspconfig.clangd.setup {
+        lspconfig.clangd.setup(coq.lsp_ensure_capabilities ({
             on_attach = function(client, bufnr)
                 LSP_OnAttach(client, bufnr)
-                on_attach_formatting()
+                vim.api.nvim_set_keymap("", "=", "<cmd>lua Format_range_operator()<cr>", { noremap = true })
+                --on_attach_formatting()
             end,
             filetypes = { "c", "cpp", "objc", "objcpp", "acm_cpp" },
-            capabilities = cmp_nvim_lsp_capabilities,
-        }
+            cmd = {
+                "clangd",
+                "--header-insertion=never",
+                "--limit-references=100",
+                "--limit-results=20",
+                "-j=8",
+                "--malloc-trim",
+                "--background-index",
+                "--pch-storage=memory",
+            }
+        }))
     end,
     ["texlab"] = function()
-        lspconfig.texlab.setup {
+        lspconfig.texlab.setup(coq.lsp_ensure_capabilities({
             on_attach = function(client, bufnr)
                 LSP_OnAttach(client, bufnr)
                 client.resolved_capabilities.document_formatting = false
             end,
-            capabilities = cmp_nvim_lsp_capabilities,
-        }
+        }))
     end,
     ["sumneko_lua"] = function()
-        lspconfig.sumneko_lua.setup {
+        lspconfig.sumneko_lua.setup(coq.lsp_ensure_capabilities({
             settings = {
                 Lua = {
                     diagnostics = {
@@ -115,17 +125,15 @@ mason_lspconfig.setup_handlers({
                 }
             },
             on_attach = LSP_OnAttach,
-            capabilities = cmp_nvim_lsp_capabilities,
-        }
+        }))
     end,
     ["hls"] = function()
-        lspconfig.hls.setup {
+        lspconfig.hls.setup(coq.lsp_ensure_capabilities({
             on_attach = function(client, bufnr)
                 LSP_OnAttach(client, bufnr)
                 on_attach_formatting()
             end,
-            capabilities = cmp_nvim_lsp_capabilities,
-        }
+        }))
     end,
 })
 

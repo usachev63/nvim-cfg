@@ -13,8 +13,5 @@ source ~/.config/nvim/markdown.vim    " markdown settings
 " Change directory scripts
 source ~/.config/nvim/chdir.vim
 
-" Configuration of nvim-cmp autocompletion engine
-lua require('nvim-cmp-cfg')
-
 " Configuration of LSP, linters, formatters, etc.
 lua require('lsp-cfg')

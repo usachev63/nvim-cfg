@@ -66,10 +66,9 @@ let g:UltiSnipsExpandTrigger = '<c-l>'
 let g:UltiSnipsJumpForwardTrigger = '<c-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 
-" nvim-cmp settings
-set completeopt=menu,menuone,noselect
-
 " Workaround for 
 "  SQLComplete: the dbext plugin must be loaded for dynamic SQL completion
 " problem
 let g:omni_sql_default_compl_type = 'syntax'
+
+let g:coq_settings = { 'auto_start' : 'shut-up', 'display.pum.source_context' : ["", ""]}
