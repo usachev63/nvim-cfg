@@ -92,7 +92,6 @@ mason_lspconfig.setup_handlers({
             on_attach = function(client, bufnr)
                 LSP_OnAttach(client, bufnr)
                 vim.api.nvim_set_keymap("", "=", "<cmd>lua Format_range_operator()<cr>", { noremap = true })
-                --on_attach_formatting()
             end,
             filetypes = { "c", "cpp", "objc", "objcpp", "acm_cpp" },
             cmd = {

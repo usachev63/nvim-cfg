@@ -1,10 +1,10 @@
 " Viewer options: One may configure the viewer either by specifying a built-in
 " viewer method:
-" let g:vimtex_view_method = 'zathura'
+let g:vimtex_view_method = 'zathura'
 
 " Or with a generic interface:
-let g:vimtex_view_general_viewer = 'okular'
-let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
+" let g:vimtex_view_general_viewer = 'okular'
+" let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 
 " VimTeX uses latexmk as the default compiler backend. If you use it, which is
 " strongly recommended, you probably don't need to configure anything. If you
@@ -39,12 +39,20 @@ let g:vimtex_indent_on_ampersands=0
 set conceallevel=2
 let g:tex_conceal='abdgm'
 
+function TEX_ShouldInsertTemplate()
+    let l:filename = expand("%:t")
+    return index(["main.tex", "sol.tex", "solution.tex"], l:filename) >= 0
+endfunction
 
 function TEX_OnNewFile()
-    " copy everything from template.cpp file
-    % !cat ~/Templates/template.tex 
-    " move cursor to a good starting position
-    ?\\maketitle
+    if (TEX_ShouldInsertTemplate())
+        " copy everything from template.cpp file
+        0:read ~/Templates/template.tex
+        " move cursor to a good starting position
+        ?\\maketitle
+        normal j$
+    endif
+    write
 endfunction
 
 " Expands inline math block to display math (align*)
@@ -77,12 +85,14 @@ function TEX_WrapUnderbrace()
     startinsert
 endfunction
 
+function TEX_Wrap(open, close)
+    execute('normal gv"vy')
+    execute("normal gvc\<C-r>\<C-r>=a:open\<CR>\<C-r>\<C-r>v\<C-r>\<C-r>=a:close\<CR>")
+endfunction
+
 " Wraps a delimiter around a visual selection
 function TEX_WrapDelimiter(del_open, del_close)
-    execute('normal gv"vy')
-    let l:open = '\left' . a:del_open .' '
-    let l:close = ' \right' . a:del_close
-    execute("normal gvc\<C-r>\<C-r>=l:open\<CR>\<C-r>\<C-r>v\<C-r>\<C-r>=l:close\<CR>")
+    call TEX_Wrap('\left' . a:del_open, ' \right' . a:del_close)
 endfunction
 
 " let g:tex_synroles = [
@@ -385,6 +395,7 @@ function! TEX_Init()
     xnoremap <buffer> <leader>sa :call TEX_WrapDelimiter('<Bar>', '<Bar>')<CR>
     xnoremap <buffer> <leader>sq :call TEX_WrapDelimiter('[', ']')<CR>
     xnoremap <buffer> <leader>sn :call TEX_WrapDelimiter('\<Bar>', '\<Bar>')<CR>
+    xnoremap <buffer> <leader>sQ :call TEX_Wrap('<<', '>>')<CR>
 
     " Integration with inkscape-figures CLI tool
     " silent exec '.!~/.local/bin/inkscape-figures watch'
@@ -465,9 +476,11 @@ let g:XkbSwitchPostIEnterAuto = [
 augroup Latex
     autocmd! 
 
-    autocmd BufNewFile * if &ft ==# "tex"| call TEX_OnNewFile()|endif
-
-    autocmd BufRead * if &ft ==# "tex"| call TEX_Init()|endif
+    autocmd BufNewFile *.tex
+                \ call TEX_OnNewFile() |
+                \ call TEX_Init()
+    autocmd BufRead *.tex
+                \ call TEX_Init()
 
     autocmd Filetype tex
                 \ autocmd FocusLost,TextChanged,InsertLeave <buffer> update

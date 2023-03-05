@@ -47,4 +47,10 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 " Rust
 Plug 'rust-lang/rust.vim'
 
+
+
+
+" Coq
+Plug 'whonore/Coqtail'
+
 call plug#end()
