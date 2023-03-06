@@ -25,7 +25,7 @@ Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'nvim-lua/plenary.nvim'     " dependecy for above
 
 " coq_nvim: autocompletion
-Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+Plug 'skylerberg/coq_nvim', {'branch': 'preview-enable-setting'}
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 
 "

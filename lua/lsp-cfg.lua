@@ -18,9 +18,9 @@ LSP_OnAttach = function(_, bufnr)
     local opts = { noremap = true, silent = true }
 
     -- Enable completion triggered by <c-x><c-o>
-    if vim.api.nvim_buf_get_option(bufnr, 'filetype') ~= 'tex' then
-        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    end
+    -- if vim.api.nvim_buf_get_option(bufnr, 'filetype') ~= 'tex' then
+    --     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    -- end
 
     -- Mappings.
     -- compare
@@ -39,7 +39,7 @@ LSP_OnAttach = function(_, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ff', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ww', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', ']w', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
@@ -114,8 +114,8 @@ mason_lspconfig.setup_handlers({
             end,
         }))
     end,
-    ["sumneko_lua"] = function()
-        lspconfig.sumneko_lua.setup(coq.lsp_ensure_capabilities({
+    ["lua_ls"] = function()
+        lspconfig.lua_ls.setup(coq.lsp_ensure_capabilities({
             settings = {
                 Lua = {
                     diagnostics = {
@@ -135,16 +135,3 @@ mason_lspconfig.setup_handlers({
         }))
     end,
 })
-
--- local null_ls = require("null-ls")
--- null_ls.setup({
---     sources = {
---         -- null_ls.builtins.formatting.latexindent.with({
---         --     extra_args = { "-y",
---         --         "defaultIndent:\" \",indentAfterItems:itemize:0;itemize*:0;enumerate:0;enumerate*:0;description:0;description*:0;list:0,lookForAlignDelims:align*:alignDoubleBackSlash:0" },
---         -- })
---     },
---     on_attach = function(_, _)
---         on_attach_formatting_overkill()
---     end
--- })
