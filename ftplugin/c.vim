@@ -13,7 +13,3 @@ setlocal shiftwidth=2
 
 " Switching between source and header files
 nnoremap <localleader>fs :ClangdSwitchSourceHeader<CR>
-
-" Fix comment string for vim-commentary
-setlocal commentstring=//\ %s
-

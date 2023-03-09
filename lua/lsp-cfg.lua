@@ -17,6 +17,10 @@ end
 LSP_OnAttach = function(_, bufnr)
     local opts = { noremap = true, silent = true }
 
+    vim.diagnostic.config({
+        signs = false
+    })
+
     -- Enable completion triggered by <c-x><c-o>
     -- if vim.api.nvim_buf_get_option(bufnr, 'filetype') ~= 'tex' then
     --     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -57,22 +61,12 @@ local on_attach_formatting = function()
     })
 end
 
--- local on_attach_formatting_overkill = function()
---     -- formatting
---     vim.api.nvim_set_keymap("", "=", "<cmd>lua vim.lsp.buf.formatting_sync()<cr>", { noremap = true })
---     vim.api.nvim_create_autocmd({ "bufwritepre" }, {
---         callback = function()
---             vim.lsp.buf.formatting_sync()
---         end,
---     })
--- end
-
-local mason = require("mason")
-mason.setup()
-
 --
 -- LSP
 --
+
+local mason = require("mason")
+mason.setup()
 
 local coq = require("coq")
 
@@ -81,14 +75,12 @@ mason_lspconfig.setup()
 local lspconfig = require("lspconfig")
 mason_lspconfig.setup_handlers({
     function(server_name) -- default handler (optional)
-        lspconfig[server_name].setup(
-        coq.lsp_ensure_capabilities({
+        lspconfig[server_name].setup({
             on_attach = LSP_OnAttach
         })
-        )
     end,
     ["clangd"] = function()
-        lspconfig.clangd.setup(coq.lsp_ensure_capabilities ({
+        lspconfig.clangd.setup({
             on_attach = function(client, bufnr)
                 LSP_OnAttach(client, bufnr)
                 vim.api.nvim_set_keymap("", "=", "<cmd>lua Format_range_operator()<cr>", { noremap = true })
@@ -104,18 +96,18 @@ mason_lspconfig.setup_handlers({
                 "--background-index",
                 "--pch-storage=memory",
             }
-        }))
+        })
     end,
     ["texlab"] = function()
-        lspconfig.texlab.setup(coq.lsp_ensure_capabilities({
+        lspconfig.texlab.setup({
             on_attach = function(client, bufnr)
                 LSP_OnAttach(client, bufnr)
                 client.resolved_capabilities.document_formatting = false
             end,
-        }))
+        })
     end,
     ["lua_ls"] = function()
-        lspconfig.lua_ls.setup(coq.lsp_ensure_capabilities({
+        lspconfig.lua_ls.setup({
             settings = {
                 Lua = {
                     diagnostics = {
@@ -124,14 +116,14 @@ mason_lspconfig.setup_handlers({
                 }
             },
             on_attach = LSP_OnAttach,
-        }))
+        })
     end,
     ["hls"] = function()
-        lspconfig.hls.setup(coq.lsp_ensure_capabilities({
+        lspconfig.hls.setup({
             on_attach = function(client, bufnr)
                 LSP_OnAttach(client, bufnr)
                 on_attach_formatting()
             end,
-        }))
+        })
     end,
 })

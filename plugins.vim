@@ -3,7 +3,7 @@ call plug#begin()
 "
 " General plugins
 " 
-Plug 'jiangmiao/auto-pairs'      " autocomplete brackets
+Plug 'windwp/nvim-autopairs'     " autocomplete brackets
 Plug 'tpope/vim-surround'        " surround text objects
 Plug 'tpope/vim-commentary'      " comments
 Plug 'SirVer/ultisnips'          " snippets
@@ -21,7 +21,7 @@ Plug 'morhetz/gruvbox'           " color theme
 Plug 'neovim/nvim-lspconfig'    
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
-Plug 'jose-elias-alvarez/null-ls.nvim'
+"Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'nvim-lua/plenary.nvim'     " dependecy for above
 
 " coq_nvim: autocompletion
