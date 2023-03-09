@@ -471,7 +471,7 @@ function! TEX_SwitchLangOnSynIdChange() abort
 endfunction
 
 let g:XkbSwitchPostIEnterAuto = [
-            \ [{'ft': 'tex', 'cmd': 'call TEX_SwitchLangOnIEnter()'}, 0] ]
+            \ [{'ft': 'tex', 'cmd': 'call TEX_SwitchLangOnIEnter()'}, 1] ]
 
 augroup Latex
     autocmd! 
