@@ -85,16 +85,18 @@ snippet утгь "[ru] enumerate environment" bA
 \\end{enumerate}
 endsnippet
 
+context "non_math_context()"
 snippet mk "Inline math: $...$" wA
-$$1$`!p
+$ $1 $`!p
 if t[2] and t[2][0] not in [',', '.', '?', '-', ' ', ':']:
     snip.rv = ' '
 else:
     snip.rv = ''
 `$0
 endsnippet
+context "non_math_context()"
 snippet ьл "[ru] Inline math: $...$" wA
-$$1$`!p
+$ $1 $`!p
 if t[2] and t[2][0] not in [',', '.', '?', '-', ' ', ':']:
     snip.rv = ' '
 else:
@@ -161,10 +163,10 @@ snippet '([A-Za-z])(\d)' "Subscript with single digit" wrA
 `!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
 endsnippet
 
-context "math_context()"
-snippet '_([\\\w]\w)' "Subscript with braces" irA
-_{`!p snip.rv = match.group(1)`$1}$0
-endsnippet
+# context "math_context()"
+# snippet '_([\\\w]\w)' "Subscript with braces" irA
+# _{`!p snip.rv = match.group(1)`$1}$0
+# endsnippet
 
 context "math_context()"
 snippet ^ "Superscript" iA
@@ -288,7 +290,7 @@ snippet '(sum|prod|cup|bigcup|cap|bigcap|sqcup|bigsqcup|sqcap|bigsqcap)r' "Opera
 snip.rv = match.group(1)
 if snip.rv in {"cup", "sqcup", "cap", "sqcap"}:
     snip.rv = "big" + snip.rv
-`_{${1:k=1}}^{${2:\infty}} $0
+`_{${1:k=1}}^{${2:\\infty}}$0
 endsnippet
 
 context "math_context()"
@@ -297,7 +299,7 @@ snippet '(sum|prod|cup|bigcup|cap|bigcap|sqcup|bigsqcup|sqcap|bigsqcap)s' "Opera
 snip.rv = match.group(1)
 if snip.rv in {"cup", "sqcup", "cap", "sqcap"}:
     snip.rv = "big" + snip.rv
-`_{${1:i \in I}} $0
+`_{${1:i \in I}}$0
 endsnippet
 
 context "math_context()"
@@ -307,6 +309,11 @@ endsnippet
 context "math_context()"
 snippet limf "Limit of a function" wA
 \\lim_{${1:\\eps \\to 0}} $0
+endsnippet
+
+context "math_context()"
+snippet limsupr "Limit superior of a sequence" wA
+\\limsup\\limits_{${1:n} \to \infty} ${2:${3:x}_{$1}} $0
 endsnippet
 
 context "inline_math_context()"
