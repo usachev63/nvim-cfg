@@ -2,7 +2,7 @@
 
 vim.g.coq_settings = {
     auto_start = 'shut-up',
-    ['keymap.pre_select'] = true,
+    ['keymap.pre_select'] = false,
     display = {
         ['pum.source_context'] = {"", ""},
         ['ghost_text.enabled'] = false,
