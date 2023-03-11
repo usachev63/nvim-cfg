@@ -21,8 +21,7 @@ Plug 'morhetz/gruvbox'           " color theme
 Plug 'neovim/nvim-lspconfig'    
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
-"Plug 'jose-elias-alvarez/null-ls.nvim'
-Plug 'nvim-lua/plenary.nvim'     " dependecy for above
+Plug 'mhartington/formatter.nvim'
 
 " coq_nvim: autocompletion
 Plug 'skylerberg/coq_nvim', {'branch': 'preview-enable-setting'}
