@@ -61,13 +61,6 @@ let g:XkbSwitchEnabled = 1
 " keymap assistance in normal mode
 let g:XkbSwitchAssistNKeymap = 1    " for commands r and f
 
-" ultisnips settings
-
-nnoremap <C-j> <Nop>
-let g:UltiSnipsExpandTrigger = '<c-l>'
-let g:UltiSnipsJumpForwardTrigger = '<c-j>'
-let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
-
 " Workaround for 
 "  SQLComplete: the dbext plugin must be loaded for dynamic SQL completion
 " problem
