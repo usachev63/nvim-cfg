@@ -1,10 +1,7 @@
 " Viewer options: One may configure the viewer either by specifying a built-in
 " viewer method:
 let g:vimtex_view_method = 'zathura'
-
-" Or with a generic interface:
-" let g:vimtex_view_general_viewer = 'okular'
-" let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
+" let g:vimtex_view_general_viewer = 'zathura'
 
 " VimTeX uses latexmk as the default compiler backend. If you use it, which is
 " strongly recommended, you probably don't need to configure anything. If you
@@ -95,6 +92,8 @@ function TEX_WrapDelimiter(del_open, del_close)
 endfunction
 
 function! TEX_Init()
+    setlocal linebreak
+
     nnoremap <buffer> <leader>i2d :call TEX_InlineMathToDisplay()<CR>
     nnoremap <buffer> <leader>d2i :call TEX_DisplayMathToInline()<CR>
     xnoremap <buffer> <leader>bf :call TEX_WrapCommand("textbf")<CR>

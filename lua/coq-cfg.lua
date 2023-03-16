@@ -4,6 +4,7 @@ vim.g.coq_settings = {
   auto_start = 'shut-up',
   keymap = {
     pre_select = false,
+    jump_to_mark = "<nop>",
   },
   display = {
     ['pum.source_context'] = { "", "" },
@@ -14,7 +15,7 @@ vim.g.coq_settings = {
   },
   clients = {
     ['snippets.enabled'] = false,
-    --['lsp.resolve_timeout'] = 0.5,
+    ['lsp.resolve_timeout'] = 0.5,
   },
-  ['limits.completion_auto_timeout'] = 0.3,
+  ['limits.completion_auto_timeout'] = 0.5,
 }

@@ -20,6 +20,7 @@ local lastSynID = nil
 local irrelevantSynIDs = {
       [787] = true, -- texDelim
       [907] = true, -- texMathDelimZoneTI
+      [970] = true, -- texRefEqConcealedDelim 
 }
 
 local getPosition = function()
@@ -129,6 +130,8 @@ local init = function()
         [797] = 'ru', -- texTitleArg 
         [817] = 'ru', -- texStyleBold
         [818] = 'ru', -- texStyleItal
+        [819] = 'ru', -- texStyleArgConc
+        [846] = 'ru', -- texPartArgTitle 
         [873] = 'ru', -- texNewthmArgPrinted
         [875] = 'ru', -- texTheoremEnvOpt
         [918] = 'ru', -- texMathTextConcArg

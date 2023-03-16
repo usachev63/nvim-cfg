@@ -62,6 +62,8 @@ let g:XkbSwitchEnabled = 1
 let g:XkbSwitchAssistNKeymap = 1    " for commands r and f
 
 " ultisnips settings
+
+nnoremap <C-j> <Nop>
 let g:UltiSnipsExpandTrigger = '<c-l>'
 let g:UltiSnipsJumpForwardTrigger = '<c-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
