@@ -101,7 +101,7 @@ mason_lspconfig.setup_handlers({
     lspconfig.texlab.setup({
       on_attach = function(client, bufnr)
         LSP_OnAttach(client, bufnr)
-        client.resolved_capabilities.document_formatting = false
+        client.server_capabilities.document_formatting = false
       end,
     })
   end,
