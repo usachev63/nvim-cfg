@@ -16,12 +16,7 @@ local defaultLayout = 'us'
 local savedLayouts = {}
 local lastLayout
 local lastSynID = nil
-
-local irrelevantSynIDs = {
-      [787] = true, -- texDelim
-      [907] = true, -- texMathDelimZoneTI
-      [970] = true, -- texRefEqConcealedDelim 
-}
+local irrelevantSynIDs = {}
 
 local getPosition = function()
   local row, col = unpack(api.nvim_win_get_cursor(0))
@@ -125,16 +120,22 @@ local init = function()
   })
 
   savedLayouts = {
-        [0] = 'ru',   -- ""
-        [795] = 'ru', -- texAuthorArg
-        [797] = 'ru', -- texTitleArg 
-        [817] = 'ru', -- texStyleBold
-        [818] = 'ru', -- texStyleItal
-        [819] = 'ru', -- texStyleArgConc
-        [846] = 'ru', -- texPartArgTitle 
-        [873] = 'ru', -- texNewthmArgPrinted
-        [875] = 'ru', -- texTheoremEnvOpt
-        [918] = 'ru', -- texMathTextConcArg
+        [0] = 'ru',   -- empty syntax ID
+        [fn.hlID('texAuthorArg')] = 'ru',
+        [fn.hlID('texTitleArg')] = 'ru',
+        [fn.hlID('texStyleBold')] = 'ru',
+        [fn.hlID('texStyleItal')] = 'ru',
+        [fn.hlID('texStyleArgConc')] = 'ru',
+        [fn.hlID('texPartArgTitle')] = 'ru',
+        [fn.hlID('texNewthmArgPrinted')] = 'ru',
+        [fn.hlID('texTheoremEnvOpt')] = 'ru',
+        [fn.hlID('texMathTextConcArg')] = 'ru',
+  }
+
+  irrelevantSynIDs = {
+        [fn.hlID('texDelim')] = true,
+        [fn.hlID('texMathDelimZoneTI')] = true,
+        [fn.hlID('texRefEqConcealedDelim')] = true,
   }
 end
 
