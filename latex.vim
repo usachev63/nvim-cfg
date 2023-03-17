@@ -10,7 +10,6 @@ let g:vimtex_view_method = 'zathura'
 " see ":help vimtex-compiler".
 let g:vimtex_compiler_method = 'latexmk'
 
-
 let g:vimtex_compiler_latexmk = {
     \ 'build_dir' : '',
     \ 'callback' : 1,
@@ -25,6 +24,9 @@ let g:vimtex_compiler_latexmk = {
     \   '-shell-escape',
     \ ],
     \}
+
+" compile subfiles as local main by default
+let g:vimtex_subfile_start_local=1
 
 " disable quickfix
 let g:vimtex_quickfix_mode=0
