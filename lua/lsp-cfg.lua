@@ -1,16 +1,3 @@
-function Format_range_operator()
-  local old_func = vim.go.operatorfunc
-  _G.op_func_formatting = function()
-    local start = vim.api.nvim_buf_get_mark(0, '[')
-    local finish = vim.api.nvim_buf_get_mark(0, ']')
-    vim.lsp.buf.range_formatting({}, start, finish)
-    vim.go.operatorfunc = old_func
-    _G.op_func_formatting = nil
-  end
-  vim.go.operatorfunc = 'v:lua.op_func_formatting'
-  vim.api.nvim_feedkeys('g@', 'n', false)
-end
-
 -- Default for all language servers.
 --
 -- Mostly copied from https://github.com/neovim/nvim-lspconfig README.md.
@@ -43,21 +30,11 @@ LSP_OnAttach = function(_, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ff', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>fm', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
 
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ww', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', ']w', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '[w', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-end
-
-local on_attach_formatting = function()
-  -- formatting
-  vim.api.nvim_set_keymap("", "=", "<cmd>lua Format_range_operator()<cr>", { noremap = true })
-  vim.api.nvim_create_autocmd({ "bufwritepre" }, {
-    callback = function()
-      vim.lsp.buf.formatting_seq_sync()
-    end,
-  })
 end
 
 --
@@ -82,7 +59,6 @@ mason_lspconfig.setup_handlers({
     lspconfig.clangd.setup({
       on_attach = function(client, bufnr)
         LSP_OnAttach(client, bufnr)
-        vim.api.nvim_set_keymap("", "=", "<cmd>lua Format_range_operator()<cr>", { noremap = true })
       end,
       filetypes = { "c", "cpp", "objc", "objcpp", "acm_cpp" },
       cmd = {
@@ -121,7 +97,6 @@ mason_lspconfig.setup_handlers({
     lspconfig.hls.setup({
       on_attach = function(client, bufnr)
         LSP_OnAttach(client, bufnr)
-        on_attach_formatting()
       end,
     })
   end,
