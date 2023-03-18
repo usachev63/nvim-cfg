@@ -11,19 +11,19 @@ let g:vimtex_view_method = 'zathura'
 let g:vimtex_compiler_method = 'latexmk'
 
 let g:vimtex_compiler_latexmk = {
-    \ 'build_dir' : '',
-    \ 'callback' : 1,
-    \ 'continuous' : 1,
-    \ 'executable' : 'latexmk',
-    \ 'hooks' : [],
-    \ 'options' : [
-    \   '-verbose',
-    \   '-file-line-error',
-    \   '-synctex=1',
-    \   '-interaction=nonstopmode',
-    \   '-shell-escape',
-    \ ],
-    \}
+            \ 'build_dir' : '',
+            \ 'callback' : 1,
+            \ 'continuous' : 1,
+            \ 'executable' : 'latexmk',
+            \ 'hooks' : [],
+            \ 'options' : [
+            \   '-verbose',
+            \   '-file-line-error',
+            \   '-synctex=1',
+            \   '-interaction=nonstopmode',
+            \   '-shell-escape',
+            \ ],
+            \}
 
 " compile subfiles as local main by default
 let g:vimtex_subfile_start_local=1
@@ -36,6 +36,14 @@ let g:vimtex_indent_on_ampersands=0
 " concealment
 set conceallevel=2
 let g:tex_conceal='abdgm'
+
+let g:vimtex_env_toggle_math_map = {
+            \ '$' : 'align*',
+            \ 'align*' : '$',
+            \ 'align' : '$',
+            \ '$$' : 'align*',
+            \ '\[' : 'align*',
+            \}
 
 function TEX_ShouldInsertTemplate()
     let l:filename = expand("%:t")
@@ -53,27 +61,9 @@ function TEX_OnNewFile()
     write
 endfunction
 
-" Expands inline math block to display math (align*)
-function TEX_InlineMathToDisplay()
-    normal yi$
-    let l:content = getreg("0")
-    execute(':substitute/\V$\(' . escape(l:content, '\') . '\)$/\r\\begin{align*}\r\1\r\\end{align*}\r')
-endfunction
-
-" Expands \begin{align*} ... \end{align*} block to inline math ($...$)
-function TEX_DisplayMathToInline()
-    normal dae
-    let l:content = getreg("+")
-    let l:content = substitute(l:content, '\\begin{align\*}', '$', '')
-    let l:content = substitute(l:content, '\\end{align\*}$', '$', '')
-    call append(line('.'), split(l:content, "\n"))
-    normal JJ
-endfunction
-
 " Wraps a TeX command around a visual selection
 function TEX_WrapCommand(command)
-    normal gvSB
-    execute('normal i\' . a:command)
+    call vimtex#cmd#create(a:command, 1)
 endfunction
 
 " Wraps \underbrace around a visual selection
@@ -96,8 +86,6 @@ endfunction
 function! TEX_Init()
     setlocal linebreak
 
-    nnoremap <buffer> <leader>i2d :call TEX_InlineMathToDisplay()<CR>
-    nnoremap <buffer> <leader>d2i :call TEX_DisplayMathToInline()<CR>
     xnoremap <buffer> <leader>bf :call TEX_WrapCommand("textbf")<CR>
     xnoremap <buffer> <leader>it :call TEX_WrapCommand("textit")<CR>
     xnoremap <buffer> <leader>u :call TEX_WrapUnderbrace()<CR>
