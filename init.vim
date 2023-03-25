@@ -24,3 +24,6 @@ lua require('lsp-cfg')
 
 " Language auto-switching for latex
 lua require('latex-xkb')
+
+" telescope.nvim
+lua require('telescope-cfg')

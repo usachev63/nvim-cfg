@@ -10,6 +10,9 @@ Plug 'SirVer/ultisnips'          " snippets
 Plug 'reconquest/vim-pythonx'    " for smarter snippets
 Plug 'lyokha/vim-xkbswitch'      " Language switching (xkg-switch)
 Plug 'tpope/vim-fugitive'        " Git
+" Fuzzy finder
+Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+Plug 'nvim-lua/plenary.nvim'     " dependency for above
 
 " Small misc plugins
 Plug 'nelstrom/vim-visual-star-search'
