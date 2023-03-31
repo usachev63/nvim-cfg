@@ -84,8 +84,6 @@ function TEX_WrapDelimiter(del_open, del_close)
 endfunction
 
 function! TEX_Init()
-    setlocal linebreak
-
     xnoremap <buffer> <leader>bf :call TEX_WrapCommand("textbf")<CR>
     xnoremap <buffer> <leader>it :call TEX_WrapCommand("textit")<CR>
     xnoremap <buffer> <leader>u :call TEX_WrapUnderbrace()<CR>

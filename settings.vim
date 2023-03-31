@@ -24,6 +24,7 @@ set splitright                 " vsplit splits the window to the right
 set termguicolors              " better colors
 let g:gruvbox_italic=1
 colorscheme gruvbox
+set linebreak
 
 " Indentation
 set tabstop=8
