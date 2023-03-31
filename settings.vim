@@ -2,6 +2,7 @@
 set hidden                     " buffers are not required to be written during buffer switch
 set mouse=a                    " enable mouse support
 set clipboard=unnamedplus      " register + is essentially equal to register "
+set gdefault                   " %s is by default /g
 
 " Default shell setup
 if executable("zsh")
