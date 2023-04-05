@@ -27,3 +27,6 @@ lua require('latex-xkb')
 
 " telescope.nvim
 lua require('telescope-cfg')
+
+" leap.nvim
+lua require('leap-cfg')

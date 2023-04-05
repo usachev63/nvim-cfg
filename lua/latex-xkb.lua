@@ -130,6 +130,7 @@ local init = function()
         [fn.hlID('texNewthmArgPrinted')] = 'ru',
         [fn.hlID('texTheoremEnvOpt')] = 'ru',
         [fn.hlID('texMathTextConcArg')] = 'ru',
+        [fn.hlID('texFootnoteArg')] = 'ru',
   }
 
   irrelevantSynIDs = {

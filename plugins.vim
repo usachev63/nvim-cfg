@@ -10,11 +10,7 @@ Plug 'SirVer/ultisnips'          " snippets
 Plug 'reconquest/vim-pythonx'    " for smarter snippets
 Plug 'lyokha/vim-xkbswitch'      " Language switching (xkg-switch)
 Plug 'tpope/vim-fugitive'        " Git
-" Fuzzy finder
-Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
-Plug 'nvim-lua/plenary.nvim'     " dependency for above
-
-" Small misc plugins
+Plug 'tpope/vim-repeat'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'lambdalisue/suda.vim'      " sudo write fix
 Plug 'joshdick/onedark.vim'      " color theme
@@ -25,10 +21,18 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'mhartington/formatter.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " coq_nvim: autocompletion
 Plug 'skylerberg/coq_nvim', {'branch': 'preview-enable-setting'}
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+
+" Fuzzy finder
+Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+Plug 'nvim-lua/plenary.nvim'     " dependency for above
+
+" Leap movement
+Plug 'ggandor/leap.nvim'
 
 "
 " TeX
