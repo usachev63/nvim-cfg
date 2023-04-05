@@ -16,7 +16,6 @@ vim.g.coq_settings = {
   },
   clients = {
     ['snippets.enabled'] = false,
-    ['lsp.resolve_timeout'] = 0.5,
   },
   ['limits.completion_auto_timeout'] = 0.5,
 }
