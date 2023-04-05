@@ -59,3 +59,8 @@ inoremap <C-Space> <Space>
 
 " <C-K> is LSP signature help
 inoremap <C-K> <Nop>
+
+" Fugitive git conflict resolution
+nnoremap <Leader>df :Gvdiffsplit!<CR>
+nnoremap <Leader>dh :diffget //2<CR>
+nnoremap <Leader>dl :diffget //3<CR>
