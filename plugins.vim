@@ -15,6 +15,8 @@ Plug 'nelstrom/vim-visual-star-search'
 Plug 'lambdalisue/suda.vim'      " sudo write fix
 Plug 'joshdick/onedark.vim'      " color theme
 Plug 'morhetz/gruvbox'           " color theme
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'nvim-tree/nvim-web-devicons'
 
 " LSP, linters, formatters support
 Plug 'neovim/nvim-lspconfig'    

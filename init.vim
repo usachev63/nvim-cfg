@@ -30,3 +30,6 @@ lua require('telescope-cfg')
 
 " leap.nvim
 lua require('leap-cfg')
+
+" lualine
+lua require('lualine-cfg')
