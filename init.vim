@@ -9,6 +9,7 @@ source ~/.config/nvim/maps.vim        " general maps
 source ~/.config/nvim/acm_cpp.vim     " custom filetype for acm cpp programs
 source ~/.config/nvim/latex.vim       " utilities for using latex
 source ~/.config/nvim/markdown.vim    " markdown settings
+source ~/.config/nvim/terminal.vim
 
 " Change directory scripts
 source ~/.config/nvim/chdir.vim
