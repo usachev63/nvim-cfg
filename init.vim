@@ -34,3 +34,6 @@ lua require('leap-cfg')
 
 " lualine
 lua require('lualine-cfg')
+
+" local .vimrc
+lua require('nvim-config-local-cfg')
