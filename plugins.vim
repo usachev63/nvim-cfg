@@ -18,6 +18,7 @@ Plug 'morhetz/gruvbox'           " color theme
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'klen/nvim-config-local'    " local .vimrc
+Plug 'nanozuki/tabby.nvim'
 
 " LSP, linters, formatters support
 Plug 'neovim/nvim-lspconfig'    

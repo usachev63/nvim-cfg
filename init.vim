@@ -37,3 +37,5 @@ lua require('lualine-cfg')
 
 " local .vimrc
 lua require('nvim-config-local-cfg')
+
+lua require('tabby-cfg')
