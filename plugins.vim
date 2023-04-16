@@ -31,7 +31,7 @@ Plug 'skylerberg/coq_nvim', {'branch': 'preview-enable-setting'}
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 
 " Fuzzy finder
-Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+Plug 'nvim-telescope/telescope.nvim', { 'branch': 'master' }
 Plug 'nvim-lua/plenary.nvim'     " dependency for above
 
 " Leap movement
