@@ -303,17 +303,16 @@ if snip.rv in {"cup", "sqcup", "cap", "sqcap"}:
 endsnippet
 
 context "math_context()"
-snippet limr "Limit of a sequence" wA
-\\lim_{${1:n} \to \infty} $0
+snippet '(lim|limsup|liminf)r' "Limit of a sequence" wrA
+\\`!p
+snip.rv = match.group(1)
+`_{${1:n} \\to \\infty} $0
 endsnippet
 context "math_context()"
-snippet limf "Limit of a function" wA
-\\lim_{${1:\\eps \\to 0}} $0
-endsnippet
-
-context "math_context()"
-snippet limsupr "Limit superior of a sequence" wA
-\\limsup\\limits_{${1:n} \to \infty} ${2:${3:x}_{$1}} $0
+snippet '(lim|limsup|liminf)f' "Limit of a function" wrA
+\\`!p
+snip.rv = match.group(1)
+`_{${1:\\eps \\to 0}} $0
 endsnippet
 
 context "inline_math_context()"

@@ -3,7 +3,9 @@ require('lualine').setup {
     theme = 'gruvbox',
   },
   sections = {
-    lualine_b = { 'diff', 'diagnostics' },
+    lualine_b = { 'diagnostics' },
+    lualine_x = { 'encoding', 'filetype' },
+    lualine_y = {},
   },
   inactive_sections = {
     lualine_x = {},

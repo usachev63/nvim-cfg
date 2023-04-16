@@ -34,7 +34,7 @@ let g:vimtex_quickfix_mode=0
 let g:vimtex_indent_on_ampersands=0
 
 " concealment
-set conceallevel=2
+set conceallevel=0
 let g:tex_conceal='abdgm'
 
 let g:vimtex_env_toggle_math_map = {
