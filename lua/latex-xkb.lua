@@ -67,6 +67,9 @@ api.nvim_set_keymap("v", "<F10>", "<cmd>lua TestLatexXkb()<cr>", {})
 
 local save = function()
   lastLayout = getXkbLayout()
+  if lastSynID == nil then
+    return
+  end
   savedLayouts[lastSynID] = lastLayout
 end
 
