@@ -28,7 +28,7 @@ Plug 'mhartington/formatter.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " coq_nvim: autocompletion
-Plug 'skylerberg/coq_nvim', {'branch': 'preview-enable-setting'}
+Plug 'sharkov63/coq_nvim', {'branch': 'coq'}
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 
 " Fuzzy finder
