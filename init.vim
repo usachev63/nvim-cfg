@@ -6,7 +6,7 @@ source ~/.config/nvim/settings.vim    " general settings
 source ~/.config/nvim/maps.vim        " general maps
 
 " Filetype-specific configuration
-source ~/.config/nvim/acm_cpp.vim     " custom filetype for acm cpp programs
+lua require('acm_cpp')
 source ~/.config/nvim/latex.vim       " utilities for using latex
 source ~/.config/nvim/markdown.vim    " markdown settings
 source ~/.config/nvim/terminal.vim
