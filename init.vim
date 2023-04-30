@@ -1,7 +1,7 @@
 " Entry point of my neovim configuration.
 
 " General configuration
-source ~/.config/nvim/plugins.vim     " plugins
+lua require('plugins')
 source ~/.config/nvim/settings.vim    " general settings
 source ~/.config/nvim/maps.vim        " general maps
 
@@ -24,7 +24,8 @@ lua require('coq-cfg')
 lua require('lsp-cfg')
 
 " Language auto-switching for latex
-lua require('latex-xkb')
+lua require('latex/language-switch')
+lua require('latex/vimtex-plug')
 
 " telescope.nvim
 lua require('telescope-cfg')
