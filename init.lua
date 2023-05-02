@@ -5,7 +5,6 @@ require 'shar.plugins'
 vim.cmd 'source ~/.config/nvim/settings.vim' -- general settings
 vim.cmd 'source ~/.config/nvim/maps.vim'     -- general maps
 
-require 'shar.acm_cpp'
 vim.cmd 'source ~/.config/nvim/markdown.vim'
 vim.cmd 'source ~/.config/nvim/terminal.vim'
 

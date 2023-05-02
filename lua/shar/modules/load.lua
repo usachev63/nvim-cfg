@@ -11,3 +11,7 @@ end
 if modules.latex then
   require 'shar.modules.latex.main'
 end
+
+if modules.acmcpp then
+  require 'shar.modules.acmcpp.main'
+end

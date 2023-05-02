@@ -1,3 +1,4 @@
 return {
   latex = {},
+  acmcpp = {},
 }

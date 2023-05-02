@@ -125,7 +125,7 @@ end
 -- LaTeX autocommands
 --
 
-local latex_augroup = vim.api.nvim_create_augroup('Latex', {})
+local augroup = vim.api.nvim_create_augroup('Latex', {})
 
 local on_new_file = function()
   vim.cmd '0:read ~/Templates/template.tex'
@@ -141,7 +141,7 @@ local on_open_file = function()
   vim.api.nvim_create_autocmd({ 'TextChanged', 'InsertLeave' }, {
     buffer = 0,
     command = 'silent update',
-    group = latex_augroup,
+    group = augroup,
   })
 
   init_keymaps()
@@ -153,12 +153,12 @@ vim.api.nvim_create_autocmd('BufNewFile', {
     on_new_file()
     on_open_file()
   end,
-  group = latex_augroup,
+  group = augroup,
 })
 vim.api.nvim_create_autocmd('BufRead', {
   pattern = '*.tex',
   callback = on_open_file,
-  group = latex_augroup,
+  group = augroup,
 })
 
 require 'shar.modules.latex.language-switch'
