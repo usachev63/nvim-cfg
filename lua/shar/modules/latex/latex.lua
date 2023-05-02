@@ -1,6 +1,6 @@
 local vim = vim
 
-local packer = require('packer')
+local packer = require 'packer'
 packer.use 'lervag/vimtex'
 packer.use 'lyokha/vim-xkbswitch'
 
@@ -162,4 +162,4 @@ vim.api.nvim_create_autocmd('BufRead', {
   group = latex_augroup,
 })
 
-require('modules/latex/language-switch')
+require 'shar.modules.latex.language-switch'
