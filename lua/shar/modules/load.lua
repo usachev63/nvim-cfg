@@ -9,5 +9,5 @@ if not status then
 end
 
 if modules.latex then
-  require 'shar.modules.latex.latex'
+  require 'shar.modules.latex.main'
 end

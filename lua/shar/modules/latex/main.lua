@@ -1,8 +1,8 @@
 local vim = vim
 
 local packer = require 'packer'
-packer.use 'lervag/vimtex'
-packer.use 'lyokha/vim-xkbswitch'
+packer.use { 'lervag/vimtex', ft = 'tex' }
+packer.use { 'lyokha/vim-xkbswitch', ft = 'tex' }
 
 vim.g.vimtex_view_method = 'zathura'
 
@@ -135,7 +135,6 @@ local on_new_file = function()
 end
 
 local on_open_file = function()
-  -- buffer-local vim options
   vim.api.nvim_set_option('conceallevel', 0)
 
   -- autowrite
