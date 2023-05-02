@@ -1,12 +1,10 @@
 --[[
-
-Initialize packer.nvim plugin manager.
-Declare common plugins.
-
-Plugins can also be declared in any other place with
-  require('packer').use 'username/reponame',
-but it must be done after this module is loaded.
-
+-- Initialize packer.nvim plugin manager.
+-- Declare common plugins.
+-- 
+-- Plugins can also be declared in any other place with
+--   require('packer').use 'username/reponame',
+-- but it must be done after this module is loaded.
 ]]
 local packer = require('packer')
 packer.init()
