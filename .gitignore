@@ -1,4 +1,4 @@
 .netrwhist
 spell/
 plugin/packer_compiled.lua
-lua/modules/config.lua
+lua/shar/modules/config.lua
