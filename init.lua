@@ -1,38 +1,28 @@
 --[[
 -- Entry point of my neovim configuration.
 --]]
-require 'shar.plugins'
+require 'shar.packer'
 vim.cmd 'source ~/.config/nvim/settings.vim' -- general settings
 vim.cmd 'source ~/.config/nvim/maps.vim'     -- general maps
-
-vim.cmd 'source ~/.config/nvim/markdown.vim'
-vim.cmd 'source ~/.config/nvim/terminal.vim'
 
 -- Change directory scripts
 vim.cmd 'source ~/.config/nvim/chdir.vim'
 
--- Configuration of nvim-autopairs plugin
-require 'shar.nvim-autopairs-cfg'
-
--- Configuration of coq_nvim autocompletion engine
-require 'shar.coq-cfg'
+-- Common plugins/utilities.
+require 'shar.common.autopairs'
+require 'shar.common.coq_nvim'
+require 'shar.common.leap'
+require 'shar.common.localcfg'
+require 'shar.common.lualine'
+require 'shar.common.tabby'
+require 'shar.common.telescope'
+require 'shar.common.terminal'
 
 -- Configuration of LSP, linters, formatters, etc.
-require 'shar.lsp-cfg'
+require 'shar.lsp.main'
 
--- telescope.nvim
-require 'shar.telescope-cfg'
-
--- leap.nvim
-require 'shar.leap-cfg'
-
--- lualine
-require 'shar.lualine-cfg'
-
--- local .vimrc
-require 'shar.nvim-config-local-cfg'
-
-require 'shar.tabby-cfg'
-
--- Load optional modules
+-- Optional modules.
+--
+-- The list of loaded modules and their parameters
+-- are configured in lua/shar/modules/config.lua.
 require 'shar.modules.load'

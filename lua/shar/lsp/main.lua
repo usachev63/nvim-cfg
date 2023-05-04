@@ -1,3 +1,22 @@
+--[[
+-- Configuration of various protocols:
+-- LSPs, formatters, linters, DAPs, treesitter, etc.
+--]]
+local vim = vim
+local packer = require 'packer'
+packer.use 'neovim/nvim-lspconfig'
+packer.use 'williamboman/mason.nvim'
+packer.use 'williamboman/mason-lspconfig.nvim'
+packer.use 'mhartington/formatter.nvim'
+packer.use {
+  'nvim-treesitter/nvim-treesitter',
+  run = function()
+    local ts_install = require 'nvim-treesitter.install'
+    local ts_update = ts_install.update({ with_sync = true })
+    ts_update()
+  end,
+}
+
 -- Default for all language servers.
 --
 -- Mostly copied from https://github.com/neovim/nvim-lspconfig README.md.
@@ -44,18 +63,16 @@ end
 local mason = require("mason")
 mason.setup()
 
-local coq = require("coq")
-
 local mason_lspconfig = require("mason-lspconfig")
 mason_lspconfig.setup()
 local lspconfig = require("lspconfig")
 mason_lspconfig.setup_handlers({
-  function(server_name)   -- default handler (optional)
+  function(server_name) -- default handler (optional)
     lspconfig[server_name].setup({
       on_attach = LSP_OnAttach
     })
   end,
-  ["clangd"] = function()
+      ["clangd"] = function()
     lspconfig.clangd.setup({
       on_attach = function(client, bufnr)
         LSP_OnAttach(client, bufnr)
@@ -73,7 +90,7 @@ mason_lspconfig.setup_handlers({
       }
     })
   end,
-  ["texlab"] = function()
+      ["texlab"] = function()
     lspconfig.texlab.setup({
       on_attach = function(client, bufnr)
         LSP_OnAttach(client, bufnr)
@@ -81,19 +98,28 @@ mason_lspconfig.setup_handlers({
       end,
     })
   end,
-  ["lua_ls"] = function()
+      ["lua_ls"] = function()
     lspconfig.lua_ls.setup({
       settings = {
         Lua = {
+          runtime = {
+            version = 'LuaJIT',
+          },
           diagnostics = {
             globals = { 'vim' }
-          }
+          },
+          workspace = {
+            library = vim.api.nvim_get_runtime_file("", true),
+          },
+          telemetry = {
+            enable = false,
+          },
         }
       },
       on_attach = LSP_OnAttach,
     })
   end,
-  ["hls"] = function()
+      ["hls"] = function()
     lspconfig.hls.setup({
       on_attach = function(client, bufnr)
         LSP_OnAttach(client, bufnr)
@@ -110,3 +136,5 @@ require("formatter").setup {
     }
   }
 }
+
+vim.api.nvim_set_keymap('i', '<C-K>', 'Nop', { noremap = true })

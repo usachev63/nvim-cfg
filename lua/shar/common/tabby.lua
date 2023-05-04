@@ -1,3 +1,6 @@
+local packer = require 'packer'
+packer.use 'nanozuki/tabby.nvim'
+
 local theme = {
   fill = 'TabLineFill',
   -- Also you can do this: fill = { fg='#f2e9de', bg='#907aa9', style='italic' }
@@ -21,4 +24,3 @@ require('tabby.tabline').set(function(line)
     end),
   }
 end)
-

@@ -1,13 +1,19 @@
+--[[
+-- nvim-autopairs: bracket autocompletion.
+--]]
+local packer = require 'packer'
+packer.use 'windwp/nvim-autopairs'
+
 local remap = vim.api.nvim_set_keymap
 local npairs = require('nvim-autopairs')
 
-npairs.setup{
+npairs.setup {
   map_bs = false,
   map_cr = true,
 }
 
 -- skip it, if you use another global object
-_G.MUtils= {}
+_G.MUtils = {}
 
 MUtils.CR = function()
   if vim.fn.pumvisible() ~= 0 then

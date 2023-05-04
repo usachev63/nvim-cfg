@@ -2,3 +2,4 @@
 spell/
 plugin/packer_compiled.lua
 lua/shar/modules/config.lua
+lua/.luarc.json

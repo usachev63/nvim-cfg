@@ -1,3 +1,12 @@
+local vim = vim
+
+vim.api.nvim_set_option('keymap', 'russian-jcukenwin')
+vim.api.nvim_set_option('iminsert', 0)
+vim.api.nvim_set_option('imsearch', 0)
+
+vim.g.XkbSwitchEnabled = 1
+vim.g.XkbSwitchAssistNKeymap = 1 -- for command 'r' and 'f', 'F', 't', 'T'
+
 local xkb_switch_lib
 
 local function get_xkb_layout()
@@ -15,7 +24,7 @@ local last_synid = nil
 local irrelevent_synids = {}
 
 local function get_position()
-  local row, col = unpack(api.nvim_win_get_cursor(0))
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   if vim.api.nvim_get_mode()["mode"]:sub(1, 1) ~= "i" then
     col = col + 1
   end

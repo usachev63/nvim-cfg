@@ -3,6 +3,9 @@ nnoremap <SPACE> <Nop>
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
 
+" Sometimes this works unexpected
+inoremap <C-Space> <Space>
+
 " UltiSnips keys
 nnoremap <C-j> <Nop>
 inoremap <C-j> <Nop>
@@ -47,18 +50,8 @@ nmap <Leader>e :e %%<CR>
 " Replace the contents of whole file from "+
 nnoremap <Leader>dp :%delete\|0put+<CR>gg
 
-" Escape from terminal buffer with Ctrl-[ and ESC
-tnoremap <C-[> <C-\><C-n>
-tnoremap <Esc> <C-\><C-n>
-
 " Switch with alternate file
 nnoremap <BS> <C-^>
-
-" Sometimes this works unexpected
-inoremap <C-Space> <Space>
-
-" <C-K> is LSP signature help
-inoremap <C-K> <Nop>
 
 " Fugitive git conflict resolution
 nnoremap <Leader>df :Gvdiffsplit!<CR>

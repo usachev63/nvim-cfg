@@ -13,5 +13,9 @@ if modules.latex then
 end
 
 if modules.acmcpp then
-  require 'shar.modules.acmcpp.main'
+  require 'shar.modules.acmcpp'
+end
+
+if modules.coq then
+  require 'shar.modules.coq'
 end
