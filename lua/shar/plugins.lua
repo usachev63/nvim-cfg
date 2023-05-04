@@ -1,12 +1,12 @@
 --[[
 -- Initialize packer.nvim plugin manager.
 -- Declare common plugins.
--- 
+--
 -- Plugins can also be declared in any other place with
 --   require('packer').use 'username/reponame',
 -- but it must be done after this module is loaded.
 ]]
-local packer = require('packer')
+local packer = require 'packer'
 packer.init()
 
 packer.use 'wbthomason/packer.nvim' -- plugin manager itself
@@ -35,7 +35,8 @@ packer.use 'mhartington/formatter.nvim'
 packer.use {
   'nvim-treesitter/nvim-treesitter',
   run = function()
-    local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+    local ts_install = require 'nvim-treesitter.install'
+    local ts_update = ts_install.update({ with_sync = true })
     ts_update()
   end,
 }

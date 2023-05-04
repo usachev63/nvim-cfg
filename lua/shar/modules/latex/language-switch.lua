@@ -1,26 +1,22 @@
-local api = vim.api
-local fn = vim.fn
-local g = vim.g
+local xkb_switch_lib
 
-local xkbSwitchLib
-
-local getXkbLayout = function()
-  return fn.libcall(xkbSwitchLib, 'Xkb_Switch_getXkbLayout', '')
+local function get_xkb_layout()
+  return vim.fn.libcall(xkb_switch_lib, 'Xkb_Switch_getXkbLayout', '')
 end
-local setXkbLayout = function(layout)
-  fn.libcall(xkbSwitchLib, 'Xkb_Switch_setXkbLayout', layout)
+local function set_xkb_layout(layout)
+  vim.fn.libcall(xkb_switch_lib, 'Xkb_Switch_setXkbLayout', layout)
 end
 
 -- At the moment these are global for all buffers
-local defaultLayout = 'us'
-local savedLayouts = {}
-local lastLayout
-local lastSynID = nil
-local irrelevantSynIDs = {}
+local default_layout = 'us'
+local saved_layouts = {}
+local last_layout
+local last_synid = nil
+local irrelevent_synids = {}
 
-local getPosition = function()
+local function get_position()
   local row, col = unpack(api.nvim_win_get_cursor(0))
-  if api.nvim_get_mode()["mode"]:sub(1, 1) ~= "i" then
+  if vim.api.nvim_get_mode()["mode"]:sub(1, 1) ~= "i" then
     col = col + 1
   end
   if col <= 0 then
@@ -29,131 +25,131 @@ local getPosition = function()
   return row, col
 end
 
-local getSynStack = function()
-  local row, col = getPosition()
-  return fn.synstack(row, col)
+local function get_synstack()
+  local row, col = get_position()
+  return vim.fn.synstack(row, col)
 end
 
-local getRelevantSynID = function()
-  local synStack = getSynStack()
-  local cursor = #synStack
-  while cursor > 0 and irrelevantSynIDs[synStack[cursor]] ~= nil do
+local function get_relevant_synid()
+  local synstack = get_synstack()
+  local cursor = #synstack
+  while cursor > 0 and irrelevent_synids[synstack[cursor]] ~= nil do
     cursor = cursor - 1
   end
   if cursor <= 0 then
     return 0
   end
-  return synStack[cursor]
+  return synstack[cursor]
 end
 
-TestLatexXkb = function()
-  print("mode:", api.nvim_get_mode()["mode"])
-  local row, col = getPosition()
+LatexXkb_test = function()
+  print("mode:", vim.api.nvim_get_mode()["mode"])
+  local row, col = get_position()
   print("position: (", row, ",", col, ")")
-  local synstack = getSynStack()
+  local synstack = get_synstack()
   print("synstack:")
   print(unpack(synstack))
   for k, v in pairs(synstack) do
-    synstack[k] = fn.synIDattr(v, 'name')
+    synstack[k] = vim.fn.synIDattr(v, 'name')
   end
   print(unpack(synstack))
-  local synID = getRelevantSynID()
-  print("relevant synID:", fn.synIDattr(synID, 'name'), "(", synID, ")")
-  print("layout: ", savedLayouts[synID])
+  local synID = get_relevant_synid()
+  print("relevant synID:", vim.fn.synIDattr(synID, 'name'), "(", synID, ")")
+  print("layout: ", saved_layouts[synID])
 end
-api.nvim_set_keymap("i", "<F10>", "<cmd>lua TestLatexXkb()<cr>", {})
-api.nvim_set_keymap("n", "<F10>", "<cmd>lua TestLatexXkb()<cr>", {})
-api.nvim_set_keymap("v", "<F10>", "<cmd>lua TestLatexXkb()<cr>", {})
+vim.api.nvim_set_keymap("i", "<F10>", "<cmd>lua LatexXkb_test()<cr>", {})
+vim.api.nvim_set_keymap("n", "<F10>", "<cmd>lua LatexXkb_test()<cr>", {})
+vim.api.nvim_set_keymap("v", "<F10>", "<cmd>lua LatexXkb_test()<cr>", {})
 
-local save = function()
-  lastLayout = getXkbLayout()
-  if lastSynID == nil then
+local function save()
+  last_layout = get_xkb_layout()
+  if last_synid == nil then
     return
   end
-  savedLayouts[lastSynID] = lastLayout
+  saved_layouts[last_synid] = last_layout
 end
 
-local enterNew = function()
-  local synID = getRelevantSynID()
-  if synID == lastSynID then
+local function enter_new()
+  local synid = get_relevant_synid()
+  if synid == last_synid then
     return
   end
-  local newLayout = savedLayouts[synID]
-  if newLayout == nil then
-    savedLayouts[synID] = defaultLayout
-    newLayout = defaultLayout
+  local new_layout = saved_layouts[synid]
+  if new_layout == nil then
+    saved_layouts[synid] = default_layout
+    new_layout = default_layout
   end
-  setXkbLayout(newLayout)
-  lastSynID = synID
-  lastLayout = newLayout
+  set_xkb_layout(new_layout)
+  last_synid = synid
+  last_layout = new_layout
 end
 
-local update = function()
+local function update()
   save()
-  enterNew()
+  enter_new()
 end
 
-LatexXkb_onInsertModeEnter = function()
-  lastSynID = nil
-  enterNew()
+LatexXkb_on_insert_mode_enter = function()
+  last_synid = nil
+  enter_new()
 end
 
-local latexXkbAuGroup = api.nvim_create_augroup("LatexXkb", {})
+local augroup = vim.api.nvim_create_augroup("LatexXkb", {})
 
 -- Initialize LatexXkb module upon entering a tex file.
 -- Called on "FileType tex" event.
-local init = function()
-  xkbSwitchLib = g.XkbSwitchLib
-  if not fn.filereadable(xkbSwitchLib) then
+local function init()
+  xkb_switch_lib = vim.g.XkbSwitchLib
+  if not vim.fn.filereadable(xkb_switch_lib) then
     error('Failed to find XkbSwitch library. \
            Please make sure it is installed in the system.')
   end
 
-  local currentBuffer = api.nvim_get_current_buf()
-  api.nvim_create_autocmd("CursorMovedI", {
-    buffer = currentBuffer,
+  local current_buffer = vim.api.nvim_get_current_buf()
+  vim.api.nvim_create_autocmd("CursorMovedI", {
+    buffer = current_buffer,
     callback = update,
-    group = latexXkbAuGroup,
+    group = augroup,
   })
 
-  api.nvim_create_autocmd("InsertLeavePre", {
-    buffer = currentBuffer,
+  vim.api.nvim_create_autocmd("InsertLeavePre", {
+    buffer = current_buffer,
     callback = save,
-    group = latexXkbAuGroup,
+    group = augroup,
   })
 
-  savedLayouts = {
-        [0] = 'ru',   -- empty syntax ID
-        [fn.hlID('texAuthorArg')] = 'ru',
-        [fn.hlID('texTitleArg')] = 'ru',
-        [fn.hlID('texStyleBold')] = 'ru',
-        [fn.hlID('texStyleItal')] = 'ru',
-        [fn.hlID('texStyleArgConc')] = 'ru',
-        [fn.hlID('texPartArgTitle')] = 'ru',
-        [fn.hlID('texNewthmArgPrinted')] = 'ru',
-        [fn.hlID('texTheoremEnvOpt')] = 'ru',
-        [fn.hlID('texEnvOpt')] = 'ru',
-        [fn.hlID('texMathTextConcArg')] = 'ru',
-        [fn.hlID('texFootnoteArg')] = 'ru',
+  saved_layouts = {
+        [0] = 'ru', -- empty syntax ID
+        [vim.fn.hlID('texAuthorArg')] = 'ru',
+        [vim.fn.hlID('texTitleArg')] = 'ru',
+        [vim.fn.hlID('texStyleBold')] = 'ru',
+        [vim.fn.hlID('texStyleItal')] = 'ru',
+        [vim.fn.hlID('texStyleArgConc')] = 'ru',
+        [vim.fn.hlID('texPartArgTitle')] = 'ru',
+        [vim.fn.hlID('texNewthmArgPrinted')] = 'ru',
+        [vim.fn.hlID('texTheoremEnvOpt')] = 'ru',
+        [vim.fn.hlID('texEnvOpt')] = 'ru',
+        [vim.fn.hlID('texMathTextConcArg')] = 'ru',
+        [vim.fn.hlID('texFootnoteArg')] = 'ru',
   }
 
-  irrelevantSynIDs = {
-        [fn.hlID('texDelim')] = true,
-        [fn.hlID('texMathDelimZoneTI')] = true,
-        [fn.hlID('texRefEqConcealedDelim')] = true,
+  irrelevent_synids = {
+        [vim.fn.hlID('texDelim')] = true,
+        [vim.fn.hlID('texMathDelimZoneTI')] = true,
+        [vim.fn.hlID('texRefEqConcealedDelim')] = true,
   }
 end
 
-api.nvim_create_autocmd("FileType", {
+vim.api.nvim_create_autocmd("FileType", {
   pattern = "tex",
   callback = init,
-  group = latexXkbAuGroup,
+  group = augroup,
 })
 
-g.XkbSwitchPostIEnterAuto = { {
+vim.g.XkbSwitchPostIEnterAuto = { {
   {
     ft = 'tex',
-    cmd = 'execute("lua LatexXkb_onInsertModeEnter()")'
+    cmd = 'execute("lua LatexXkb_on_insert_mode_enter()")'
   },
   1
 } }

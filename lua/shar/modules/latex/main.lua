@@ -65,7 +65,7 @@ function Latex_WrapDelimiter(del_open, del_close)
 endfunction
 ]], {})
 
-local init_keymaps = function()
+local function init_keymaps()
   vim.api.nvim_buf_set_keymap(0, 'x', '<leader>bf',
     ':call Latex_WrapCommand("textbf")<CR>', {
       noremap = true,
@@ -127,14 +127,14 @@ end
 
 local augroup = vim.api.nvim_create_augroup('Latex', {})
 
-local on_new_file = function()
+local function on_new_file()
   vim.cmd '0:read ~/Templates/template.tex'
   local line_count = vim.api.nvim_buf_line_count(0)
   vim.api.nvim_win_set_cursor(0, { line_count, 0 })
   vim.cmd 'write'
 end
 
-local on_open_file = function()
+local function on_open_file()
   vim.api.nvim_set_option('conceallevel', 0)
 
   -- autowrite
