@@ -19,7 +19,7 @@ local augroup = vim.api.nvim_create_augroup('Terminal', {})
 vim.api.nvim_create_autocmd('TermOpen', {
   pattern = '*',
   callback = function()
-    vim.api.nvim_buf_set_option(0, 'number', false)
+    vim.api.nvim_win_set_option(0, 'number', false)
   end,
   group = augroup,
 })
