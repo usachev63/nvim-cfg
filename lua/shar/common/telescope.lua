@@ -4,7 +4,7 @@
 local packer = require 'packer'
 packer.use {
   'nvim-telescope/telescope.nvim',
-  branch = 'master',
+  branch = '0.1.x',
   requires = {
     'nvim-lua/plenary.nvim',
   },
