@@ -18,6 +18,7 @@ require 'shar.common.lualine'
 require 'shar.common.tabby'
 require 'shar.common.telescope'
 require 'shar.common.terminal'
+require 'shar.common.ultisnips'
 
 -- Configuration of LSP, linters, formatters, etc.
 require 'shar.lsp.main'

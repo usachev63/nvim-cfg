@@ -6,13 +6,6 @@ let maplocalleader = "\<Space>"
 " Sometimes this works unexpected
 inoremap <C-Space> <Space>
 
-" UltiSnips keys
-nnoremap <C-j> <Nop>
-inoremap <C-j> <Nop>
-let g:UltiSnipsExpandTrigger = '<c-l>'
-let g:UltiSnipsJumpForwardTrigger = '<c-j>'
-let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
-
 " some bracket maps from vim-unimpaired
 nnoremap [a     :previous<CR>
 nnoremap ]a     :next<CR>
