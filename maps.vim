@@ -52,8 +52,3 @@ nnoremap <Leader>dp :%delete\|0put+<CR>gg
 
 " Switch with alternate file
 nnoremap <BS> <C-^>
-
-" Fugitive git conflict resolution
-nnoremap <Leader>df :Gvdiffsplit!<CR>
-nnoremap <Leader>dh :diffget //2<CR>
-nnoremap <Leader>dl :diffget //3<CR>

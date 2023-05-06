@@ -11,6 +11,7 @@ vim.cmd 'source ~/.config/nvim/chdir.vim'
 -- Common plugins/utilities.
 require 'shar.common.autopairs'
 require 'shar.common.coq_nvim'
+require 'shar.common.fugitive'
 require 'shar.common.leap'
 require 'shar.common.localcfg'
 require 'shar.common.lualine'

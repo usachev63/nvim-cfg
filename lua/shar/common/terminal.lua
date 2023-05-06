@@ -5,9 +5,9 @@ local vim = vim
 
 -- Set appropriate 'shell' option
 if vim.fn.executable('zsh') then
-  vim.api.nvim_set_option('shell', '/usr/bin/zsh -li')
+  vim.o.shell = '/usr/bin/zsh -li'
 elseif vim.fn.executable('bash') then
-  vim.api.nvim_set_option('shell', '/usr/bin/bash -li')
+  vim.o.shell = '/usr/bin/bash -li'
 end
 
 -- Escape from terminal buffer with Esc.
@@ -19,7 +19,7 @@ local augroup = vim.api.nvim_create_augroup('Terminal', {})
 vim.api.nvim_create_autocmd('TermOpen', {
   pattern = '*',
   callback = function()
-    vim.api.nvim_win_set_option(0, 'number', false)
+    vim.api.nvim_set_option_value('number', false, { scope = 'local', win = 0 })
   end,
   group = augroup,
 })

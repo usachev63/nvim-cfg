@@ -15,7 +15,6 @@ packer.use 'tpope/vim-surround'     -- surround text objects
 packer.use 'tpope/vim-commentary'   -- comments
 packer.use 'SirVer/ultisnips'       -- snippets
 packer.use 'reconquest/vim-pythonx' -- for smarter snippets
-packer.use 'tpope/vim-fugitive'     -- Git
 packer.use 'tpope/vim-repeat'
 packer.use 'nelstrom/vim-visual-star-search'
 packer.use 'lambdalisue/suda.vim' -- sudo write fix
