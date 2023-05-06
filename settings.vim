@@ -17,6 +17,7 @@ set termguicolors              " better colors
 let g:gruvbox_italic=1
 colorscheme gruvbox
 set linebreak
+highlight NonText guifg=bg
 
 " Indentation
 set tabstop=8
