@@ -2,7 +2,7 @@ local vim = vim
 
 local packer = require 'packer'
 packer.use { 'lervag/vimtex', ft = 'tex' }
-packer.use { 'lyokha/vim-xkbswitch', ft = 'tex' }
+packer.use { 'lyokha/vim-xkbswitch' }
 
 vim.g.vimtex_view_method = 'zathura'
 

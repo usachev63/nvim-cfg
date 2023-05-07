@@ -20,7 +20,7 @@ end
 local default_layout = 'us'
 local saved_layouts = {}
 local last_layout
-local last_synid = nil
+local last_synid
 local irrelevent_synids = {}
 
 local function get_position()
@@ -42,7 +42,7 @@ end
 local function get_relevant_synid()
   local synstack = get_synstack()
   local cursor = #synstack
-  while cursor > 0 and irrelevent_synids[synstack[cursor]] ~= nil do
+  while cursor > 0 and irrelevent_synids[synstack[cursor]] do
     cursor = cursor - 1
   end
   if cursor <= 0 then
@@ -72,7 +72,7 @@ vim.api.nvim_set_keymap("v", "<F10>", "<cmd>lua LatexXkb_test()<cr>", {})
 
 local function save()
   last_layout = get_xkb_layout()
-  if last_synid == nil then
+  if not last_synid then
     return
   end
   saved_layouts[last_synid] = last_layout
@@ -84,7 +84,7 @@ local function enter_new()
     return
   end
   local new_layout = saved_layouts[synid]
-  if new_layout == nil then
+  if not new_layout then
     saved_layouts[synid] = default_layout
     new_layout = default_layout
   end
