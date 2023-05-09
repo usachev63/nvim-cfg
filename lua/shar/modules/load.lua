@@ -19,3 +19,7 @@ end
 if modules.coq then
   require 'shar.modules.coq'
 end
+
+if modules.dafny then
+  require 'shar.modules.dafny'
+end
