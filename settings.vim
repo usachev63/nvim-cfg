@@ -51,3 +51,5 @@ set grepformat=%f:%l:%c:%m
 "  SQLComplete: the dbext plugin must be loaded for dynamic SQL completion
 " problem
 let g:omni_sql_default_compl_type = 'syntax'
+
+let g:python3_host_prog = '/usr/bin/python3'
