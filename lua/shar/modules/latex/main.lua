@@ -1,8 +1,7 @@
 local vim = vim
 
 local packer = require 'packer'
-packer.use { 'lervag/vimtex', ft = 'tex' }
-packer.use { 'lyokha/vim-xkbswitch' }
+packer.use { 'lervag/vimtex' }
 
 vim.g.vimtex_view_method = 'zathura'
 
@@ -135,7 +134,7 @@ local function on_new_file()
 end
 
 local function on_open_file()
-  vim.api.nvim_set_option('conceallevel', 0)
+  vim.api.nvim_win_set_option(0, 'conceallevel', 0)
 
   -- autowrite
   vim.api.nvim_create_autocmd({ 'TextChanged', 'InsertLeave' }, {
@@ -161,4 +160,4 @@ vim.api.nvim_create_autocmd('BufRead', {
   group = augroup,
 })
 
-require 'shar.modules.latex.language-switch'
+require 'shar.modules.latex.layoutswitch'

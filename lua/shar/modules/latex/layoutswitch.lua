@@ -1,12 +1,5 @@
 local vim = vim
 
-vim.api.nvim_set_option('keymap', 'russian-jcukenwin')
-vim.api.nvim_set_option('iminsert', 0)
-vim.api.nvim_set_option('imsearch', 0)
-
-vim.g.XkbSwitchEnabled = 1
-vim.g.XkbSwitchAssistNKeymap = 1 -- for command 'r' and 'f', 'F', 't', 'T'
-
 local xkb_switch_lib
 
 local function get_xkb_layout()
@@ -51,7 +44,7 @@ local function get_relevant_synid()
   return synstack[cursor]
 end
 
-LatexXkb_test = function()
+Shar_LatexXkb_test = function()
   print("mode:", vim.api.nvim_get_mode()["mode"])
   local row, col = get_position()
   print("position: (", row, ",", col, ")")
@@ -66,9 +59,9 @@ LatexXkb_test = function()
   print("relevant synID:", vim.fn.synIDattr(synID, 'name'), "(", synID, ")")
   print("layout: ", saved_layouts[synID])
 end
-vim.api.nvim_set_keymap("i", "<F10>", "<cmd>lua LatexXkb_test()<cr>", {})
-vim.api.nvim_set_keymap("n", "<F10>", "<cmd>lua LatexXkb_test()<cr>", {})
-vim.api.nvim_set_keymap("v", "<F10>", "<cmd>lua LatexXkb_test()<cr>", {})
+vim.api.nvim_set_keymap("i", "<F10>", "<cmd>lua Shar_LatexXkb_test()<cr>", {})
+vim.api.nvim_set_keymap("n", "<F10>", "<cmd>lua Shar_LatexXkb_test()<cr>", {})
+vim.api.nvim_set_keymap("v", "<F10>", "<cmd>lua Shar_LatexXkb_test()<cr>", {})
 
 local function save()
   last_layout = get_xkb_layout()
@@ -98,7 +91,7 @@ local function update()
   enter_new()
 end
 
-LatexXkb_on_insert_mode_enter = function()
+Shar_LatexXkb_on_insert_mode_enter = function()
   last_synid = nil
   enter_new()
 end
@@ -106,7 +99,6 @@ end
 local augroup = vim.api.nvim_create_augroup("LatexXkb", {})
 
 -- Initialize LatexXkb module upon entering a tex file.
--- Called on "FileType tex" event.
 local function init()
   xkb_switch_lib = vim.g.XkbSwitchLib
   if not vim.fn.filereadable(xkb_switch_lib) then
@@ -149,8 +141,8 @@ local function init()
   }
 end
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "tex",
+vim.api.nvim_create_autocmd("BufReadPost", {
+  pattern = "*.tex",
   callback = init,
   group = augroup,
 })
@@ -158,7 +150,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.g.XkbSwitchPostIEnterAuto = { {
   {
     ft = 'tex',
-    cmd = 'execute("lua LatexXkb_on_insert_mode_enter()")'
+    cmd = 'execute("lua Shar_LatexXkb_on_insert_mode_enter()")'
   },
   1
 } }

@@ -319,8 +319,15 @@ context "inline_math_context()"
 snippet intr "Integral over a range" wA
 \\int_{${1:1}}^{${2:+\infty}} $0
 endsnippet
+snippet inth "Integral over a range" wA
+\\int\\limits_{${1:1}}^{${2:+\infty}} $0
+endsnippet
 context "display_math_context()"
 snippet intr "Integral over a range" wA
+\\int_{${1:1}}^{${2:+\infty}} $0
+endsnippet
+context "display_math_context()"
+snippet inth "Integral over a range" wA
 \\int\\limits_{${1:1}}^{${2:+\infty}} $0
 endsnippet
 
@@ -330,12 +337,20 @@ snippet inti "Antiderivative (indefinite integral)" wA
 endsnippet
 
 context "inline_math_context()"
-snippet intl "Lebesgue integral" wA
+snippet intl "Integral over set" wA
+\\int_{${1:X}} $0 
+endsnippet
+context "inline_math_context()"
+snippet ints "Integral over set" wA
 \\int_{${1:X}} $0 
 endsnippet
 context "display_math_context()"
-snippet intl "Lebesgue integral" wA
+snippet intl "Integral of set with limits" wA
 \\int\\limits_{${1:X}} $0 
+endsnippet
+context "display_math_context()"
+snippet ints "Integral of set" wA
+\\int_{${1:X}} $0 
 endsnippet
 
 context "math_context()"
