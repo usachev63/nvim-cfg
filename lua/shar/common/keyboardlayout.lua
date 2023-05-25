@@ -4,7 +4,7 @@
 local vim = vim
 
 vim.api.nvim_set_option_value('imsearch', false, {})
-vim.api.nvim_set_option_value('keymap', 'russian-jcukenwin', {})
+--vim.api.nvim_set_option_value('keymap', 'russian-jcukenwin', {})
 
 --- vim-xkbswitch plugin
 
