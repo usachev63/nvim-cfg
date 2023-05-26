@@ -21,6 +21,33 @@ snippet \ "TeX command" A
 \\${0:item}
 endsnippet
 
+context "non_math_context()"
+snippet ХХ "Curly brackets when in RU" iA
+{$0}
+endsnippet
+context "non_math_context()"
+snippet ЪЪ "Curly brackets when in RU" iA
+}
+endsnippet
+
+context "non_math_context()"
+snippet хх "Square brackets when in RU" iA
+[$0]
+endsnippet
+context "non_math_context()"
+snippet ъъ "Square brackets when in RU" iA
+]
+endsnippet
+
+context "non_math_context()"
+snippet ББ "Angle brackets when in RU" iA
+<$0>
+endsnippet
+context "non_math_context()"
+snippet ЮЮ "Angle brackets when in RU" iA
+>
+endsnippet
+
 snippet	e "General TeX environment"
 \\begin{${1:align*}}
  $0
