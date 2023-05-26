@@ -4,7 +4,6 @@
 local vim = vim
 
 vim.api.nvim_set_option_value('imsearch', false, {})
---vim.api.nvim_set_option_value('keymap', 'russian-jcukenwin', {})
 
 --- vim-xkbswitch plugin
 
@@ -30,5 +29,5 @@ function Shar_KeyboardLayout_toggle_iminsert()
   lualine.refresh()
 end
 
-vim.api.nvim_set_keymap('n', '<C-^>',
-  '<cmd>lua Shar_KeyboardLayout_toggle_iminsert()<cr>', { noremap = true })
+--vim.api.nvim_set_keymap('n', '<C-^>',
+--  '<cmd>lua Shar_KeyboardLayout_toggle_iminsert()<cr>', { noremap = true })

@@ -107,6 +107,9 @@ local function init()
   end
 
   local current_buffer = vim.api.nvim_get_current_buf()
+
+  vim.api.nvim_set_option_value('keymap', 'russian-jcukenwin', { scope = 'local' })
+
   vim.api.nvim_create_autocmd("CursorMovedI", {
     buffer = current_buffer,
     callback = update,
@@ -120,24 +123,24 @@ local function init()
   })
 
   saved_layouts = {
-        [0] = 'ru', -- empty syntax ID
-        [vim.fn.hlID('texAuthorArg')] = 'ru',
-        [vim.fn.hlID('texTitleArg')] = 'ru',
-        [vim.fn.hlID('texStyleBold')] = 'ru',
-        [vim.fn.hlID('texStyleItal')] = 'ru',
-        [vim.fn.hlID('texStyleArgConc')] = 'ru',
-        [vim.fn.hlID('texPartArgTitle')] = 'ru',
-        [vim.fn.hlID('texNewthmArgPrinted')] = 'ru',
-        [vim.fn.hlID('texTheoremEnvOpt')] = 'ru',
-        [vim.fn.hlID('texEnvOpt')] = 'ru',
-        [vim.fn.hlID('texMathTextConcArg')] = 'ru',
-        [vim.fn.hlID('texFootnoteArg')] = 'ru',
+    [0] = 'ru', -- empty syntax ID
+    [vim.fn.hlID('texAuthorArg')] = 'ru',
+    [vim.fn.hlID('texTitleArg')] = 'ru',
+    [vim.fn.hlID('texStyleBold')] = 'ru',
+    [vim.fn.hlID('texStyleItal')] = 'ru',
+    [vim.fn.hlID('texStyleArgConc')] = 'ru',
+    [vim.fn.hlID('texPartArgTitle')] = 'ru',
+    [vim.fn.hlID('texNewthmArgPrinted')] = 'ru',
+    [vim.fn.hlID('texTheoremEnvOpt')] = 'ru',
+    [vim.fn.hlID('texEnvOpt')] = 'ru',
+    [vim.fn.hlID('texMathTextConcArg')] = 'ru',
+    [vim.fn.hlID('texFootnoteArg')] = 'ru',
   }
 
   irrelevent_synids = {
-        [vim.fn.hlID('texDelim')] = true,
-        [vim.fn.hlID('texMathDelimZoneTI')] = true,
-        [vim.fn.hlID('texRefEqConcealedDelim')] = true,
+    [vim.fn.hlID('texDelim')] = true,
+    [vim.fn.hlID('texMathDelimZoneTI')] = true,
+    [vim.fn.hlID('texRefEqConcealedDelim')] = true,
   }
 end
 
