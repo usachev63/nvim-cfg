@@ -10,7 +10,7 @@ vim.cmd 'source ~/.config/nvim/chdir.vim'
 
 -- Common plugins/utilities.
 require 'shar.common.autopairs'
-require 'shar.common.coq_nvim'
+require 'shar.common.cmp'
 require 'shar.common.fugitive'
 require 'shar.common.keyboardlayout'
 require 'shar.common.leap'

@@ -66,13 +66,15 @@ mason.setup()
 local mason_lspconfig = require("mason-lspconfig")
 mason_lspconfig.setup()
 local lspconfig = require("lspconfig")
+local cmp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 mason_lspconfig.setup_handlers({
   function(server_name) -- default handler (optional)
-    lspconfig[server_name].setup({
-      on_attach = LSP_OnAttach
-    })
+    lspconfig[server_name].setup {
+      on_attach = LSP_OnAttach,
+      capabilities = cmp_capabilities,
+    }
   end,
-      ["clangd"] = function()
+  ["clangd"] = function()
     lspconfig.clangd.setup({
       on_attach = function(client, bufnr)
         LSP_OnAttach(client, bufnr)
@@ -87,18 +89,20 @@ mason_lspconfig.setup_handlers({
         "--malloc-trim",
         "--background-index",
         "--pch-storage=memory",
-      }
+      },
+      capabilities = cmp_capabilities,
     })
   end,
-      ["texlab"] = function()
+  ["texlab"] = function()
     lspconfig.texlab.setup({
       on_attach = function(client, bufnr)
         LSP_OnAttach(client, bufnr)
         client.server_capabilities.document_formatting = false
       end,
+      capabilities = cmp_capabilities,
     })
   end,
-      ["lua_ls"] = function()
+  ["lua_ls"] = function()
     lspconfig.lua_ls.setup({
       settings = {
         Lua = {
@@ -117,13 +121,15 @@ mason_lspconfig.setup_handlers({
         }
       },
       on_attach = LSP_OnAttach,
+      capabilities = cmp_capabilities,
     })
   end,
-      ["hls"] = function()
+  ["hls"] = function()
     lspconfig.hls.setup({
       on_attach = function(client, bufnr)
         LSP_OnAttach(client, bufnr)
       end,
+      capabilities = cmp_capabilities,
     })
   end,
 })
