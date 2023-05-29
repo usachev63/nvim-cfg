@@ -52,8 +52,35 @@ LSP_OnAttach = function(_, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>fm', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
 
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ww', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', ']w', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '[w', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+
+  vim.api.nvim_buf_set_keymap(
+    bufnr,
+    'n',
+    ']w',
+    '<cmd>lua vim.diagnostic.goto_next { wrap = false }<CR>',
+    opts
+  )
+  vim.api.nvim_buf_set_keymap(
+    bufnr,
+    'n',
+    '[w',
+    '<cmd>lua vim.diagnostic.goto_prev { wrap = false }<CR>',
+    opts
+  )
+  vim.api.nvim_buf_set_keymap(
+    bufnr,
+    'n',
+    ']e',
+    '<cmd>lua vim.diagnostic.goto_next { wrap = false, severity = vim.diagnostic.severity.ERROR }<CR>',
+    opts
+  )
+  vim.api.nvim_buf_set_keymap(
+    bufnr,
+    'n',
+    '[e',
+    '<cmd>lua vim.diagnostic.goto_prev { wrap = false, severity = vim.diagnostic.severity.ERROR }<CR>',
+    opts
+  )
 end
 
 --
