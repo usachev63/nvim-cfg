@@ -3,7 +3,7 @@
 --]]
 local vim = vim
 
-vim.api.nvim_set_option_value('imsearch', false, {})
+vim.api.nvim_set_option_value('imsearch', 0, {})
 
 --- vim-xkbswitch plugin
 
