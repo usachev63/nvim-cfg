@@ -8,6 +8,10 @@ if not status then
   do return end
 end
 
+if modules.lsp then
+  require 'shar.modules.lsp.main'
+end
+
 if modules.latex then
   require 'shar.modules.latex.main'
 end
