@@ -141,6 +141,7 @@ local function init()
     [vim.fn.hlID('texDelim')] = true,
     [vim.fn.hlID('texMathDelimZoneTI')] = true,
     [vim.fn.hlID('texRefEqConcealedDelim')] = true,
+    [vim.fn.hlID('texGroup')] = true,
   }
 end
 
