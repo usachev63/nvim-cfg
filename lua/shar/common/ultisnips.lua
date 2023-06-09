@@ -2,6 +2,9 @@
 -- UltiSnips: snippet engine
 --]]
 local vim = vim
+local keymap = vim.keymap
+local g = vim.g
+
 local packer = require 'packer'
 packer.use {
   'SirVer/ultisnips',
@@ -11,8 +14,7 @@ packer.use {
   }
 }
 
-vim.api.nvim_set_keymap('n', '<C-j>', '<Nop>', { noremap = true })
-vim.api.nvim_set_keymap('i', '<C-j>', '<Nop>', { noremap = true })
-vim.g.UltiSnipsExpandTrigger = '<C-l>'
-vim.g.UltiSnipsJumpForwardTrigger = '<C-j>'
-vim.g.UltiSnipsJumpBackwardTrigger = '<C-k>'
+keymap.set({ 'n', 'i' }, '<C-J>', '<Nop>')
+g.UltiSnipsExpandTrigger = '<C-l>'
+g.UltiSnipsJumpForwardTrigger = '<C-j>'
+g.UltiSnipsJumpBackwardTrigger = '<C-k>'

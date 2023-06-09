@@ -2,37 +2,41 @@
 -- vim-fugitive: Git integration
 --]]
 local vim = vim
-local packer = require 'packer'
-packer.use 'tpope/vim-fugitive'
+local keymap = vim.keymap
+local api = vim.api
+local fn = vim.fn
+local o = vim.o
+
+require('packer').use 'tpope/vim-fugitive'
+
+local augroup = api.nvim_create_augroup('Fugitive', {})
 
 -- Merge conflict resolution keymaps
-vim.api.nvim_set_keymap('n', '<Leader>df', ':Gvdiffsplit!<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<Leader>dh', ':diffget //2<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<Leader>dl', ':diffget //3<CR>', { noremap = true })
-
-local augroup = vim.api.nvim_create_augroup('Fugitive', {})
+keymap.set('n', '<Leader>df', ':Gvdiffsplit!<CR>')
+keymap.set('n', '<Leader>dh', ':diffget //2<CR>')
+keymap.set('n', '<Leader>dl', ':diffget //3<CR>')
 
 -- Disable line numbers in fugitive window
-vim.api.nvim_create_autocmd('FileType', {
+api.nvim_create_autocmd('FileType', {
   pattern = 'fugitive',
   callback = function()
-    vim.api.nvim_set_option_value('number', false, { scope = 'local', win = 0 })
+    api.nvim_set_option_value('number', false, { scope = 'local', win = 0 })
   end,
   group = augroup,
 })
 
 -- Abbreviate :w to :Gwrite in tracked files
-vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufReadPost' }, {
+api.nvim_create_autocmd({ 'BufNewFile', 'BufReadPost' }, {
   callback = function()
-    if not vim.api.nvim_buf_is_valid(0) or vim.o.buftype ~= '' then
+    if not api.nvim_buf_is_valid(0) or o.buftype ~= '' then
       return
     end
-    local git_dir = vim.fn.FugitiveGitDir()
+    local git_dir = fn.FugitiveGitDir()
     if not git_dir or git_dir == '' then
       return
     end
-    local file_path = vim.api.nvim_buf_get_name(0)
-    local ls_files = vim.fn.FugitiveExecute {
+    local file_path = api.nvim_buf_get_name(0)
+    local ls_files = fn.FugitiveExecute {
       "ls-files", "--", file_path
     }
     if #ls_files.stdout <= 1 then

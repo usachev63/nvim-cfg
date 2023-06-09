@@ -1,12 +1,16 @@
 local vim = vim
+local fn = vim.fn
+local api = vim.api
+local g = vim.g
+local keymap = vim.keymap
 
 local xkb_switch_lib
 
 local function get_xkb_layout()
-  return vim.fn.libcall(xkb_switch_lib, 'Xkb_Switch_getXkbLayout', '')
+  return fn.libcall(xkb_switch_lib, 'Xkb_Switch_getXkbLayout', '')
 end
 local function set_xkb_layout(layout)
-  vim.fn.libcall(xkb_switch_lib, 'Xkb_Switch_setXkbLayout', layout)
+  fn.libcall(xkb_switch_lib, 'Xkb_Switch_setXkbLayout', layout)
 end
 
 -- At the moment these are global for all buffers
@@ -17,8 +21,8 @@ local last_synid
 local irrelevent_synids = {}
 
 local function get_position()
-  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-  if vim.api.nvim_get_mode()["mode"]:sub(1, 1) ~= "i" then
+  local row, col = unpack(api.nvim_win_get_cursor(0))
+  if api.nvim_get_mode()["mode"]:sub(1, 1) ~= "i" then
     col = col + 1
   end
   if col <= 0 then
@@ -29,7 +33,7 @@ end
 
 local function get_synstack()
   local row, col = get_position()
-  return vim.fn.synstack(row, col)
+  return fn.synstack(row, col)
 end
 
 local function get_relevant_synid()
@@ -44,24 +48,22 @@ local function get_relevant_synid()
   return synstack[cursor]
 end
 
-Shar_LatexXkb_test = function()
-  print("mode:", vim.api.nvim_get_mode()["mode"])
+local function test_print()
+  print("mode:", api.nvim_get_mode()["mode"])
   local row, col = get_position()
   print("position: (", row, ",", col, ")")
   local synstack = get_synstack()
   print("synstack:")
   print(unpack(synstack))
   for k, v in pairs(synstack) do
-    synstack[k] = vim.fn.synIDattr(v, 'name')
+    synstack[k] = fn.synIDattr(v, 'name')
   end
   print(unpack(synstack))
   local synID = get_relevant_synid()
-  print("relevant synID:", vim.fn.synIDattr(synID, 'name'), "(", synID, ")")
+  print("relevant synID:", fn.synIDattr(synID, 'name'), "(", synID, ")")
   print("layout: ", saved_layouts[synID])
 end
-vim.api.nvim_set_keymap("i", "<F10>", "<cmd>lua Shar_LatexXkb_test()<cr>", {})
-vim.api.nvim_set_keymap("n", "<F10>", "<cmd>lua Shar_LatexXkb_test()<cr>", {})
-vim.api.nvim_set_keymap("v", "<F10>", "<cmd>lua Shar_LatexXkb_test()<cr>", {})
+keymap.set({ 'i', 'n', 'v' }, '<F10>', test_print)
 
 local function save()
   last_layout = get_xkb_layout()
@@ -96,27 +98,27 @@ Shar_LatexXkb_on_insert_mode_enter = function()
   enter_new()
 end
 
-local augroup = vim.api.nvim_create_augroup("LatexXkb", {})
+local augroup = api.nvim_create_augroup("LatexXkb", {})
 
 -- Initialize LatexXkb module upon entering a tex file.
 local function init()
   xkb_switch_lib = vim.g.XkbSwitchLib
-  if not vim.fn.filereadable(xkb_switch_lib) then
+  if not fn.filereadable(xkb_switch_lib) then
     error('Failed to find XkbSwitch library. \
            Please make sure it is installed in the system.')
   end
 
-  local current_buffer = vim.api.nvim_get_current_buf()
+  local current_buffer = api.nvim_get_current_buf()
 
-  vim.api.nvim_set_option_value('keymap', 'russian-jcukenwin', { scope = 'local' })
+  api.nvim_set_option_value('keymap', 'russian-jcukenwin', { scope = 'local' })
 
-  vim.api.nvim_create_autocmd("CursorMovedI", {
+  api.nvim_create_autocmd("CursorMovedI", {
     buffer = current_buffer,
     callback = update,
     group = augroup,
   })
 
-  vim.api.nvim_create_autocmd("InsertLeavePre", {
+  api.nvim_create_autocmd("InsertLeavePre", {
     buffer = current_buffer,
     callback = save,
     group = augroup,
@@ -124,34 +126,34 @@ local function init()
 
   saved_layouts = {
     [0] = 'ru', -- empty syntax ID
-    [vim.fn.hlID('texAuthorArg')] = 'ru',
-    [vim.fn.hlID('texTitleArg')] = 'ru',
-    [vim.fn.hlID('texStyleBold')] = 'ru',
-    [vim.fn.hlID('texStyleItal')] = 'ru',
-    [vim.fn.hlID('texStyleArgConc')] = 'ru',
-    [vim.fn.hlID('texPartArgTitle')] = 'ru',
-    [vim.fn.hlID('texNewthmArgPrinted')] = 'ru',
-    [vim.fn.hlID('texTheoremEnvOpt')] = 'ru',
-    [vim.fn.hlID('texEnvOpt')] = 'ru',
-    [vim.fn.hlID('texMathTextConcArg')] = 'ru',
-    [vim.fn.hlID('texFootnoteArg')] = 'ru',
+    [fn.hlID('texAuthorArg')] = 'ru',
+    [fn.hlID('texTitleArg')] = 'ru',
+    [fn.hlID('texStyleBold')] = 'ru',
+    [fn.hlID('texStyleItal')] = 'ru',
+    [fn.hlID('texStyleArgConc')] = 'ru',
+    [fn.hlID('texPartArgTitle')] = 'ru',
+    [fn.hlID('texNewthmArgPrinted')] = 'ru',
+    [fn.hlID('texTheoremEnvOpt')] = 'ru',
+    [fn.hlID('texEnvOpt')] = 'ru',
+    [fn.hlID('texMathTextConcArg')] = 'ru',
+    [fn.hlID('texFootnoteArg')] = 'ru',
   }
 
   irrelevent_synids = {
-    [vim.fn.hlID('texDelim')] = true,
-    [vim.fn.hlID('texMathDelimZoneTI')] = true,
-    [vim.fn.hlID('texRefEqConcealedDelim')] = true,
-    [vim.fn.hlID('texGroup')] = true,
+    [fn.hlID('texDelim')] = true,
+    [fn.hlID('texMathDelimZoneTI')] = true,
+    [fn.hlID('texRefEqConcealedDelim')] = true,
+    [fn.hlID('texGroup')] = true,
   }
 end
 
-vim.api.nvim_create_autocmd("BufReadPost", {
+api.nvim_create_autocmd("BufReadPost", {
   pattern = "*.tex",
   callback = init,
   group = augroup,
 })
 
-vim.g.XkbSwitchPostIEnterAuto = { {
+g.XkbSwitchPostIEnterAuto = { {
   {
     ft = 'tex',
     cmd = 'execute("lua Shar_LatexXkb_on_insert_mode_enter()")'

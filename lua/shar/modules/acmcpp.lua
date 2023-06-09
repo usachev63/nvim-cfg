@@ -1,3 +1,9 @@
+--[[
+-- Utilities for ACM-style programming in C++.
+--]]
+local vim = vim
+local keymap = vim.keymap
+
 local load_template = function()
   local template_file = assert(io.open("/home/danila/ACM/lib/Template.cpp", "r"))
   local lines = {}
@@ -9,14 +15,14 @@ end
 
 local set_build_keymaps = function()
   -- Build & Run mapping
-  vim.api.nvim_buf_set_keymap(0, "n", "<F10>",
+  keymap.set('n', '<F10>',
     ":write | terminal acm % && ./%:r < in<CR>", {
-      noremap = true
+      buffer = true
     })
   -- Only Run mapping
-  vim.api.nvim_buf_set_keymap(0, "n", "<F9>",
+  keymap.set('n', '<F9>',
     ":write | terminal ./%:r < in<CR>", {
-      noremap = true
+      buffer = true
     })
 end
 

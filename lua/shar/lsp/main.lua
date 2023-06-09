@@ -3,6 +3,11 @@
 -- LSPs, formatters, linters, DAPs, treesitter, etc.
 --]]
 local vim = vim
+local keymap = vim.keymap
+local lsp = vim.lsp
+local lsp_buf = lsp.buf
+local diagnostic = vim.diagnostic
+
 local packer = require 'packer'
 packer.use 'neovim/nvim-lspconfig'
 packer.use 'williamboman/mason.nvim'
@@ -17,70 +22,54 @@ packer.use {
   end,
 }
 
+local function setup_buf_keymaps(buffer)
+  local set = function(binding, action)
+    keymap.set('n', binding, action, { buffer = buffer })
+  end
+
+  -- Go to declaration
+  set('gD', lsp_buf.declaration)
+  -- Go to definition
+  set('gd', lsp_buf.definition)
+  -- Hover floating window
+  set('K', lsp_buf.hover)
+  -- Signature help floating window
+  set('<C-K>', lsp_buf.signature_help)
+  -- Go to type definition
+  set('<Leader>td', lsp_buf.type_definition)
+  -- Rename symbol
+  set('<Leader>rn', lsp_buf.rename)
+  -- Load all references of the symbol into quickfix list
+  set('gr', lsp_buf.references)
+  -- Format the whole document
+  set('<Leader>fm', lsp_buf.format)
+  -- Open diagnostics window
+  set('<Leader>ww', diagnostic.open_float)
+  -- Move between diagnostic messages
+  set(']w', diagnostic.goto_next)
+  set('[w', diagnostic.goto_prev)
+  -- Move between errors
+  set(']e', function()
+    diagnostic.goto_next {
+      severity = diagnostic.severity.ERROR
+    }
+  end)
+  set(']e', function()
+    diagnostic.goto_prev {
+      severity = diagnostic.severity.ERROR
+    }
+  end)
+end
+
 -- Default for all language servers.
 --
 -- Mostly copied from https://github.com/neovim/nvim-lspconfig README.md.
-LSP_OnAttach = function(_, bufnr)
-  local opts = { noremap = true, silent = true }
-
+LSP_OnAttach = function(_, buffer)
   vim.diagnostic.config({
     signs = false
   })
 
-  -- Enable completion triggered by <c-x><c-o>
-  -- if vim.api.nvim_buf_get_option(bufnr, 'filetype') ~= 'tex' then
-  --     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-  -- end
-
-  -- Mappings.
-  -- compare
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  -- Function "on_attach" sets up buffer-local keymaps, etc.
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Leader>wl',
-  --     '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Leader>fm', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
-
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Leader>ww', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-
-  vim.api.nvim_buf_set_keymap(
-    bufnr,
-    'n',
-    ']w',
-    '<cmd>lua vim.diagnostic.goto_next()<CR>',
-    opts
-  )
-  vim.api.nvim_buf_set_keymap(
-    bufnr,
-    'n',
-    '[w',
-    '<cmd>lua vim.diagnostic.goto_prev()<CR>',
-    opts
-  )
-  vim.api.nvim_buf_set_keymap(
-    bufnr,
-    'n',
-    ']e',
-    '<cmd>lua vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }<CR>',
-    opts
-  )
-  vim.api.nvim_buf_set_keymap(
-    bufnr,
-    'n',
-    '[e',
-    '<cmd>lua vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }<CR>',
-    opts
-  )
+  setup_buf_keymaps(buffer)
 end
 
 --
@@ -170,4 +159,4 @@ require("formatter").setup {
   }
 }
 
-vim.api.nvim_set_keymap('i', '<C-K>', 'Nop', { noremap = true })
+keymap.set('i', '<C-K>', '<Nop>')
