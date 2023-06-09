@@ -1,5 +1,5 @@
 --[[
--- nvim-cmp: autocompletion
+-- nvim-cmp: autocompletion engine.
 --]]
 require('packer').use {
   'hrsh7th/nvim-cmp',

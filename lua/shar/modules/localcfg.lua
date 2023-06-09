@@ -1,5 +1,5 @@
 --[[
--- nvim-config-local: support for local .vimrc files in NeoVim.
+-- nvim-config-local: support for local .vimrc files in Neovim.
 --]]
 local packer = require 'packer'
 packer.use 'klen/nvim-config-local'

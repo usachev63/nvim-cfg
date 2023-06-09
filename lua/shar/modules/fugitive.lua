@@ -1,5 +1,5 @@
 --[[
--- vim-fugitive: Git integration
+-- vim-fugitive: integration with Git.
 --]]
 local vim = vim
 local keymap = vim.keymap
