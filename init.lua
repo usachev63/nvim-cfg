@@ -1,12 +1,16 @@
 --[[
 -- Entry point of my neovim configuration.
 --]]
+
 require 'shar.packer'
+
+require 'shar.keymap'
+
 vim.cmd 'source ~/.config/nvim/settings.vim' -- general settings
-vim.cmd 'source ~/.config/nvim/maps.vim'     -- general maps
 
 -- Change directory scripts
 vim.cmd 'source ~/.config/nvim/chdir.vim'
+
 
 -- Common plugins/utilities.
 require 'shar.common.autopairs'
