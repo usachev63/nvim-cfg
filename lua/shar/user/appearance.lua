@@ -3,11 +3,15 @@
 --]]
 local vim = vim
 local o = vim.o
+local opt = vim.opt
 local g = vim.g
 
 o.number = true
 o.hlsearch = false
-o.listchars = 'tab:..,nbsp:+'
+opt.listchars = {
+  tab = '..',
+  nbsp = '+',
+}
 o.list = true
 o.splitright = true
 o.termguicolors = true

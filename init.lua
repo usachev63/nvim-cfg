@@ -9,8 +9,7 @@ require 'shar.user.keymap'
 require 'shar.user.indent'
 require 'shar.user.terminal'
 require 'shar.user.netrw'
-
-vim.cmd 'source ~/.config/nvim/settings.vim' -- general settings
+require 'shar.user.settings'
 
 -- Change directory scripts
 vim.cmd 'source ~/.config/nvim/chdir.vim'
