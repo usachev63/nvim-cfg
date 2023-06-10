@@ -7,18 +7,6 @@ set gdefault                   " %s is by default /g
 " path: for use in :find, gf, etc.
 set path+=**                   " add all subdirectories of current working directory
 
-" Appearance
-set number                     " line numbers
-set nohlsearch                 " don't highlight search
-set listchars=tab:..,nbsp:+
-set list
-set splitright                 " vsplit splits the window to the right
-set termguicolors              " better colors
-let g:gruvbox_italic=1
-colorscheme gruvbox
-highlight NonText guifg=bg
-set noshowmode
-
 " zsh-like auto-completion in ex-mode
 set wildmenu
 set wildmode=full

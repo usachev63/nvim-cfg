@@ -4,6 +4,7 @@
 
 require 'shar.packer'
 
+require 'shar.user.appearance'
 require 'shar.user.keymap'
 require 'shar.user.indent'
 require 'shar.user.terminal'
