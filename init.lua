@@ -5,7 +5,9 @@
 require 'shar.packer'
 
 require 'shar.user.keymap'
+require 'shar.user.indent'
 require 'shar.user.terminal'
+require 'shar.user.netrw'
 
 vim.cmd 'source ~/.config/nvim/settings.vim' -- general settings
 
