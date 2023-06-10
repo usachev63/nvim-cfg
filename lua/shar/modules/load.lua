@@ -52,6 +52,10 @@ if modules.keyboardlayout then
   require 'shar.modules.keyboardlayout'
 end
 
+if modules.chdir then
+  require 'shar.modules.chdir'
+end
+
 if modules.latex then
   assert(modules.ultisnips)
   assert(modules.keyboardlayout)

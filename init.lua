@@ -11,9 +11,6 @@ require 'shar.user.terminal'
 require 'shar.user.netrw'
 require 'shar.user.settings'
 
--- Change directory scripts
-vim.cmd 'source ~/.config/nvim/chdir.vim'
-
 -- Optional modules.
 --
 -- The list of loaded modules and their parameters
