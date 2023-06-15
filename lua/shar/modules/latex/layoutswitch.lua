@@ -1,3 +1,6 @@
+--[[
+-- Syntax-sensitive keyboard layout switching.
+--]]
 local vim = vim
 local fn = vim.fn
 local api = vim.api
