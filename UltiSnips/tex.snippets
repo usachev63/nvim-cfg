@@ -17,7 +17,7 @@ def non_math_context():
 endglobal
 
 context "non_math_context()"
-snippet \ "TeX command" A
+snippet \ "TeX command" iA
 \\${0:item}
 endsnippet
 
@@ -46,6 +46,11 @@ endsnippet
 context "non_math_context()"
 snippet ЮЮ "Angle brackets when in RU" iA
 >
+endsnippet
+
+context "non_math_context()"
+snippet Ё "Tilde when in RU" iA
+~
 endsnippet
 
 snippet	e "General TeX environment"
@@ -121,6 +126,14 @@ else:
     snip.rv = ''
 `$0
 endsnippet
+snippet mл "Inline math: $...$" wA
+$ $1 $`!p
+if t[2] and t[2][0] not in [',', '.', '?', '-', ' ', ':']:
+    snip.rv = ' '
+else:
+    snip.rv = ''
+`$0
+endsnippet
 context "non_math_context()"
 snippet ьл "[ru] Inline math: $...$" wA
 $ $1 $`!p
@@ -153,12 +166,12 @@ endsnippet
 
 context "non_math_context()"
 snippet i "Italic text" w
-\\textit{$1}$0
+\\emph{$1}$0
 endsnippet
 
 context "non_math_context()"
 snippet ш "[ru] Italic text" w
-\\textit{$1}$0
+\\emph{$1}$0
 endsnippet
 
 context "non_math_context()"

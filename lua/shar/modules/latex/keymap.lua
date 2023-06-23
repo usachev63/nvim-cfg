@@ -6,6 +6,8 @@ local api = vim.api
 local keymap = vim.keymap
 local fn = vim.fn
 
+local latex_keymap = {}
+
 local namespace = api.nvim_create_namespace('LatexKeymap')
 
 local function increment_col(line, col)
@@ -42,7 +44,7 @@ local function wrap(prefix, suffix)
 end
 
 local function wrap_command(command)
-  return wrap('\\' .. command .. '{', '}')
+  return wrap(string.format('\\%s{', command), '}')
 end
 
 local function wrap_underbrace()
@@ -52,7 +54,10 @@ local function wrap_underbrace()
 end
 
 local function wrap_delimiter(open, close)
-  return wrap('\\left' .. open .. ' ', ' \\right' .. close)
+  return wrap(
+    string.format('\\left%s ', open),
+    string.format(' \\right%s', close)
+  )
 end
 
 local function setup_wrap_keymaps()
@@ -62,11 +67,11 @@ local function setup_wrap_keymaps()
     buffer = true,
     desc = 'Wrap a \\textbf command around a visual selection'
   })
-  keymap.set('x', '<Leader>it', function()
-    wrap_command('textit')
+  keymap.set('x', '<Leader>em', function()
+    wrap_command('emph')
   end, {
     buffer = true,
-    desc = 'Wrap a \\textit command around a visual selection',
+    desc = 'Wrap a \\emph command around a visual selection',
   })
   keymap.set('x', '<Leader>u', wrap_underbrace, {
     buffer = true,
@@ -110,11 +115,20 @@ local function setup_wrap_keymaps()
   })
 end
 
-local function setup_keymaps()
-  setup_wrap_keymaps()
+-- Integration with inkscape-figures CLI tool (by Gilles Castel)
+local function setup_inkscape_figures_keymaps()
+  local os = os
+  local fn = vim.fn
+  local inkscape_figures_tool = latex_keymap.inkscape_figures
 
-  -- Integration with inkscape-figures CLI tool
+  local function watch()
+    os.execute(string.format('%s watch', inkscape_figures_tool))
+  end
+
   keymap.set('i', '<C-f>',
+  -- function()
+  --   watch()
+  -- end,
     "<Esc>: silent exec '.!~/.local/bin/inkscape-figures create \"'.getline('.').'\" \"'.b:vimtex.root.'/figures/\"'<CR><CR>:w<CR>",
     { buffer = true }
   )
@@ -124,10 +138,26 @@ local function setup_keymaps()
   )
 end
 
-local augroup = api.nvim_create_augroup("LatexKeymap", {})
+local function setup_keymaps()
+  setup_wrap_keymaps()
 
-api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
-  pattern = '*.tex',
-  callback = setup_keymaps,
-  group = augroup,
-})
+  if latex_keymap.inkscape_figures then
+    setup_inkscape_figures_keymaps()
+  end
+end
+
+function latex_keymap.init(options)
+  if type(options.inkscape_figures) == 'string' then
+    latex_keymap.inkscape_figures = options.inkscape_figures
+  end
+
+  local augroup = api.nvim_create_augroup("LatexKeymap", {})
+
+  api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
+    pattern = '*.tex',
+    callback = setup_keymaps,
+    group = augroup,
+  })
+end
+
+return latex_keymap

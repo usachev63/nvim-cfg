@@ -14,3 +14,7 @@ o.shiftwidth = 4
 
 o.expandtab = true
 o.linebreak = true
+
+o.breakindent = true
+o.breakindentopt = 'sbr'
+o.showbreak = '↳'
