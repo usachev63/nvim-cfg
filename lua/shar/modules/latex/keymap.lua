@@ -5,6 +5,8 @@ local vim = vim
 local api = vim.api
 local keymap = vim.keymap
 local fn = vim.fn
+local ui = vim.ui
+local b = vim.b
 
 local latex_keymap = {}
 
@@ -116,25 +118,84 @@ local function setup_wrap_keymaps()
 end
 
 -- Integration with inkscape-figures CLI tool (by Gilles Castel)
-local function setup_inkscape_figures_keymaps()
-  local os = os
-  local fn = vim.fn
-  local inkscape_figures_tool = latex_keymap.inkscape_figures
 
-  local function watch()
-    os.execute(string.format('%s watch', inkscape_figures_tool))
+local function get_figures_dir()
+  return b.vimtex.root .. '/figures/'
+end
+
+local function inkscape_figures_watch()
+  vim.system {
+    latex_keymap.inkscape_figures,
+    'watch',
+  }
+end
+
+local function prune_figure_name(figure_name)
+  return figure_name:lower():gsub(' ', '_')
+end
+
+local function ask_new_figure_name()
+  local figure_name
+  ui.input({ prompt = 'Create New Figure: ' }, function(input)
+    figure_name = input
+  end)
+  if not figure_name then
+    return
   end
+  return prune_figure_name(figure_name)
+end
 
-  keymap.set('i', '<C-f>',
-  -- function()
-  --   watch()
-  -- end,
-    "<Esc>: silent exec '.!~/.local/bin/inkscape-figures create \"'.getline('.').'\" \"'.b:vimtex.root.'/figures/\"'<CR><CR>:w<CR>",
-    { buffer = true }
+local function paste_include_figure_snippet(figure_name)
+  local line = api.nvim_win_get_cursor(0)[1]
+  api.nvim_buf_set_lines(0, line, line, false, {
+    '\\begin{figure}[ht]',
+    ' \\centering',
+    ' \\incfig[1.0]{' .. figure_name .. '}',
+    ' \\caption{' .. figure_name .. '}',
+    ' \\label{fig:' .. figure_name .. '}',
+    '\\end{figure}',
+  })
+end
+
+local function inkscape_figures_create()
+  inkscape_figures_watch()
+  local figure_name = ask_new_figure_name()
+  if not figure_name then
+    return
+  end
+  print('New Figure:', figure_name)
+  paste_include_figure_snippet(figure_name)
+  vim.system {
+    latex_keymap.inkscape_figures,
+    'create',
+    figure_name,
+    get_figures_dir(),
+  }
+end
+
+local function inkscape_figures_open()
+  inkscape_figures_watch()
+  vim.system {
+    latex_keymap.inkscape_figures,
+    'edit',
+    get_figures_dir(),
+  }
+end
+
+local function setup_inkscape_figures_keymaps()
+  keymap.set('n', '<Leader>lfn',
+    inkscape_figures_create,
+    {
+      buffer = true,
+      desc = 'Create a new figure with inkscape_figures tool',
+    }
   )
-  keymap.set('n', '<C-f>',
-    ": silent exec '!~/.local/bin/inkscape-figures edit \"'.b:vimtex.root.'/figures/\" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>",
-    { buffer = true }
+  keymap.set('n', '<Leader>lfo',
+    inkscape_figures_open,
+    {
+      buffer = true,
+      desc = 'Open a GUI window with current figures'
+    }
   )
 end
 

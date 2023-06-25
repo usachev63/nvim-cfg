@@ -8,7 +8,6 @@ local g = vim.g
 local packer = require 'packer'
 packer.use {
   'SirVer/ultisnips',
-  ft = { 'tex', 'cpp', 'c' },
   requires = {
     'reconquest/vim-pythonx',
   }
