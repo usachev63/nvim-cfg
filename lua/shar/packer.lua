@@ -18,3 +18,9 @@ packer.use 'nelstrom/vim-visual-star-search'
 packer.use 'lambdalisue/suda.vim' -- sudo write fix
 packer.use 'joshdick/onedark.vim' -- color theme
 packer.use 'morhetz/gruvbox'      -- color theme
+packer.use {
+  'stonelasley/flare.nvim',
+  config = function()
+    require('flare').setup()
+  end
+}
