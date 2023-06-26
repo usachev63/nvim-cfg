@@ -13,6 +13,10 @@ g.mapleader = ' '
 g.maplocalleader = ' '
 keymap.set('i', '<C-Space>', '<Space>') -- prevent unexpected insert mode leave
 
+-- ',' is another leader key
+keymap.set('n', ',', '<Nop>')
+keymap.set('x', ',', '<Nop>')
+
 -- Open netrw at the directory of the file.
 -- Instead of :E (now getting E464 error)
 keymap.set('n', '<Leader>e', ':e %%<CR>', { remap = true })

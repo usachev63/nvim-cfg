@@ -25,7 +25,7 @@ local irrelevent_synids = {}
 
 local function get_position()
   local row, col = unpack(api.nvim_win_get_cursor(0))
-  if api.nvim_get_mode()["mode"]:sub(1, 1) ~= "i" then
+  if api.nvim_get_mode().mode:sub(1, 1) ~= "i" then
     col = col + 1
   end
   if col <= 0 then
@@ -52,7 +52,7 @@ local function get_relevant_synid()
 end
 
 local function test_print()
-  print("mode:", api.nvim_get_mode()["mode"])
+  print("mode:", api.nvim_get_mode().mode)
   local row, col = get_position()
   print("position: (", row, ",", col, ")")
   local synstack = get_synstack()
