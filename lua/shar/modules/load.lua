@@ -12,6 +12,10 @@ if modules.cmp then
   require 'shar.modules.cmp'
 end
 
+if modules.nvim_tree then
+  require 'shar.modules.nvim-tree'
+end
+
 if modules.lsp then
   require 'shar.modules.lsp.main'
 end
