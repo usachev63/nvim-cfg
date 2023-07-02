@@ -1,6 +1,7 @@
 global !p
 
 import px.snippets
+import datetime
 
 def math_context():
     return vim.eval('vimtex#syntax#in_mathzone()') == '1'
@@ -14,7 +15,25 @@ def display_math_context():
 def non_math_context():
     return not math_context()
 
+template = vim.eval("g:shar_latex_template")
+
 endglobal
+
+context "non_math_context()"
+snippet template "template" b
+`!p snip.rv = template`
+endsnippet
+
+context "non_math_context()"
+snippet subfile "subfile" b
+% `!p snip.rv = datetime.date.today().strftime("%Y.%m.%d")`$1
+\\documentclass[${2:../main.tex}]{subfiles}
+\\begin{document}
+
+$0
+
+\\end{document}
+endsnippet
 
 context "non_math_context()"
 snippet \ "TeX command" iA

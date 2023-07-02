@@ -91,8 +91,4 @@ nvim_tree.setup {
 
 -- Open nvim-tree at the directory of the current buffer.
 -- Used instead of :E (now getting E464 error)
-vim.keymap.set('n', '<Leader>e', function()
-  tree.open {
-    current_window = true
-  }
-end)
+vim.keymap.set('n', '<Leader>e', nvim_tree.open_replacing_current_buffer)

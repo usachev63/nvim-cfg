@@ -1,14 +1,15 @@
 --[[
 -- LaTeX module: efficient and cozy workflow for
--- working with LaTeX documents.
+-- working with LaTeX documents in Neovim.
 --]]
 local vim = vim
+local api = vim.api
+local g = vim.g
 
+--- The module to be exported
 local latex = {}
 
 local function init_globals()
-  local g = vim.g
-
   g.vimtex_view_method = 'zathura'
 
   g.vimtex_compiler_method = 'latexmk'
@@ -42,40 +43,34 @@ local function init_globals()
   }
 end
 
-local function init_autocmds()
-  local api = vim.api
-
-  local augroup = api.nvim_create_augroup('Latex', {})
-
-  local function on_new_file()
-    vim.cmd '0:read ~/Templates/template.tex'
-    local line_count = api.nvim_buf_line_count(0)
-    api.nvim_win_set_cursor(0, { line_count, 0 })
-    vim.cmd 'write'
+local function init_template(template_path)
+  g.shar_latex_template = ''
+  local template_file = io.open(template_path, 'r')
+  if not template_file then
+    return
   end
+  g.shar_latex_template = template_file:read('a')
+end
 
-  local function on_open_file()
-    api.nvim_win_set_option(0, 'conceallevel', 0)
+local function on_open_file(augroup)
+  api.nvim_win_set_option(0, 'conceallevel', 0)
 
-    -- autowrite
-    api.nvim_create_autocmd({ 'TextChanged', 'InsertLeave' }, {
-      buffer = 0,
-      command = 'silent update',
-      group = augroup,
-    })
-  end
-
-  api.nvim_create_autocmd('BufNewFile', {
-    pattern = '*.tex',
-    callback = function()
-      on_new_file()
-      on_open_file()
-    end,
+  -- autowrite
+  api.nvim_create_autocmd({ 'TextChanged', 'InsertLeave' }, {
+    buffer = 0,
+    command = 'silent update',
     group = augroup,
   })
-  api.nvim_create_autocmd('BufRead', {
+end
+
+local function init_autocmds()
+  local augroup = api.nvim_create_augroup('Latex', {})
+
+  api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
     pattern = '*.tex',
-    callback = on_open_file,
+    callback = function()
+      on_open_file(augroup)
+    end,
     group = augroup,
   })
 end
@@ -85,6 +80,7 @@ function latex.init(options)
   packer.use { 'lervag/vimtex' }
 
   init_globals()
+  init_template(options.template_file)
   init_autocmds()
 
   require 'shar.modules.latex.layoutswitch'
