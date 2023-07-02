@@ -8,15 +8,13 @@ require('packer').use {
   },
 }
 local nvim_tree = require 'nvim-tree'
+local api = require 'nvim-tree.api'
+local tree = api.tree
 
 local function my_on_attach(bufnr)
-  local api = require 'nvim-tree.api'
-
   local function opts(desc)
     return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
   end
-
-  print("fuck me")
 
   -- BEGIN_DEFAULT_ON_ATTACH
   vim.keymap.set('n', '<C-]>', api.tree.change_root_to_node, opts('CD'))
@@ -73,18 +71,28 @@ local function my_on_attach(bufnr)
   -- vim.keymap.set('n', '<2-LeftMouse>', api.node.open.edit, opts('Open'))
   -- vim.keymap.set('n', '<2-RightMouse>', api.tree.change_root_to_node, opts('CD'))
   -- END_DEFAULT_ON_ATTACH
-  --
+
   vim.keymap.set('n', '<CR>', api.node.open.replace_tree_buffer, opts('Open: In Place'))
 end
 
 nvim_tree.setup {
   disable_netrw = true,
-  -- hijack_directories = {
-  --   enable = true,
-  -- },
   on_attach = my_on_attach,
+  actions = {
+    change_dir = {
+      enable = true,
+    },
+    open_file = {
+      quit_on_open = true,
+      resize_window = false,
+    },
+  },
 }
 
 -- Open nvim-tree at the directory of the current buffer.
 -- Used instead of :E (now getting E464 error)
-vim.keymap.set('n', '<Leader>e', nvim_tree.open_replacing_current_buffer)
+vim.keymap.set('n', '<Leader>e', function()
+  tree.open {
+    current_window = true
+  }
+end)
