@@ -6,6 +6,7 @@ local keymap = vim.keymap
 local g = vim.g
 local api = vim.api
 local v = vim.v
+local fn = vim.fn
 
 -- Space is the leader key.
 keymap.set('n', '<Space>', '<Nop>')

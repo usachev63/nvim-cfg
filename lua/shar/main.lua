@@ -1,12 +1,12 @@
 --- The main module of my Neovim config
 
+local M = {}
+
 local vim = vim
 local g = vim.g
 local packer = require 'packer'
 
-local M = {}
-
---- Initialize my Neovim config.
+---Initialize my Neovim config.
 function M.init()
   -- Hijack netrw loading for nvim-tree plugin
   g.loaded_netrw = 1
@@ -16,7 +16,9 @@ function M.init()
   packer.init()
   packer.use 'wbthomason/packer.nvim' -- plugin manager itself
 
-  require 'shar.packer'
+  require('shar.langmapper').init()
+
+  require 'shar.common_plugins'
 
   require 'shar.user.appearance'
   require 'shar.user.keymap'
