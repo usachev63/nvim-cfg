@@ -1,5 +1,5 @@
----langmapper.nvim
--- Automatic translation of keymaps in different keyboard layouts.
+--- langmapper.nvim:
+-- automatic translation of keymaps in different keyboard layouts.
 
 local M = {}
 
@@ -7,8 +7,9 @@ local vim = vim
 local fn = vim.fn
 local opt = vim.opt
 local keymap = vim.keymap
+
 local packer = require 'packer'
-local layout_api = require 'shar.os_layout_api'
+local layout_api = require 'shar.key.layout_api'
 local langmapper = require 'langmapper'
 
 local function escape(str)
@@ -64,7 +65,7 @@ local function setup_extra_keymaps()
   end, { expr = true })
 end
 
----Setup langmapper.nvim plugin
+--- Setup langmapper.nvim plugin.
 function M.init()
   packer.use 'sharkov63/langmapper.nvim'
   setup_langmap()
