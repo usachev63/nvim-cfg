@@ -4,7 +4,6 @@
 local vim = vim
 local fn = vim.fn
 local api = vim.api
-local g = vim.g
 local keymap = vim.keymap
 
 local xkb_switch_lib
@@ -96,16 +95,11 @@ local function update()
   enter_new()
 end
 
-Shar_LatexXkb_on_insert_mode_enter = function()
-  last_synid = nil
-  enter_new()
-end
-
 local augroup = api.nvim_create_augroup("LatexXkb", {})
 
 -- Initialize LatexXkb module upon entering a tex file.
 local function init()
-  xkb_switch_lib = vim.g.XkbSwitchLib
+  xkb_switch_lib = '/usr/local/lib/libxkbswitch.so'
   if not fn.filereadable(xkb_switch_lib) then
     error('Failed to find XkbSwitch library. \
            Please make sure it is installed in the system.')
@@ -113,11 +107,18 @@ local function init()
 
   local current_buffer = api.nvim_get_current_buf()
 
-  api.nvim_set_option_value('keymap', 'russian-jcukenwin', { scope = 'local' })
-
   api.nvim_create_autocmd("CursorMovedI", {
     buffer = current_buffer,
     callback = update,
+    group = augroup,
+  })
+
+  api.nvim_create_autocmd("InsertEnter", {
+    buffer = current_buffer,
+    callback = function()
+      last_synid = nil
+      enter_new()
+    end,
     group = augroup,
   })
 
@@ -147,6 +148,7 @@ local function init()
     [fn.hlID('texMathDelimZoneTI')] = true,
     [fn.hlID('texRefEqConcealedDelim')] = true,
     [fn.hlID('texGroup')] = true,
+    [fn.hlID('texSpecialChar')] = true,
   }
 end
 
@@ -155,11 +157,3 @@ api.nvim_create_autocmd("BufReadPost", {
   callback = init,
   group = augroup,
 })
-
-g.XkbSwitchPostIEnterAuto = { {
-  {
-    ft = 'tex',
-    cmd = 'execute("lua Shar_LatexXkb_on_insert_mode_enter()")'
-  },
-  1
-} }

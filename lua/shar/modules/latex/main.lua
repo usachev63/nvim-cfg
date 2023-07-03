@@ -44,12 +44,15 @@ local function init_globals()
 end
 
 local function init_template(template_path)
-  g.shar_latex_template = ''
+  g.Shar_latex_template = ''
+  if type(template_path) ~= 'string' then
+    return
+  end
   local template_file = io.open(template_path, 'r')
   if not template_file then
     return
   end
-  g.shar_latex_template = template_file:read('a')
+  g.Shar_latex_template = template_file:read('a')
 end
 
 local function on_open_file(augroup)

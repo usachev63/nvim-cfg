@@ -29,7 +29,7 @@ if modules.localcfg then
 end
 
 if modules.leap then
-  require 'shar.modules.leap'
+  require('shar.modules.leap').init()
 end
 
 if modules.telescope then
@@ -52,17 +52,12 @@ if modules.lualine then
   require 'shar.modules.lualine'
 end
 
-if modules.keyboardlayout then
-  require 'shar.modules.keyboardlayout'
-end
-
 if modules.chdir then
   require 'shar.modules.chdir'
 end
 
 if modules.latex then
   assert(modules.ultisnips)
-  assert(modules.keyboardlayout)
   local latex = require 'shar.modules.latex.main'
   latex.init(modules.latex)
 end
