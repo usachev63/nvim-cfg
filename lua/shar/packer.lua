@@ -1,5 +1,4 @@
 --[[
--- Initialize packer.nvim plugin manager.
 -- Declare common plugins.
 --
 -- Plugins can also be declared in any other place with
@@ -7,10 +6,6 @@
 -- but it must be done after this module is loaded.
 ]]
 local packer = require 'packer'
-packer.init()
-
-packer.use 'wbthomason/packer.nvim' -- plugin manager itself
-
 packer.use 'tpope/vim-surround'     -- surround text objects
 packer.use 'tpope/vim-commentary'   -- comments
 packer.use 'tpope/vim-repeat'
