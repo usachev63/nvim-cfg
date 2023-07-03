@@ -1,5 +1,5 @@
---- key module:
--- keymaps, keyboard layouts support.
+--- Keymaps, keyboard layouts support.
+-- @module key
 
 local M = {}
 
@@ -7,6 +7,7 @@ local vim = vim
 local keymap = vim.keymap
 local g = vim.g
 
+local layout_api = require 'shar.key.layout_api'
 local langmapper = require 'shar.key.langmapper'
 local user_maps = require 'shar.key.user_maps'
 
@@ -19,9 +20,17 @@ local function set_leader()
   keymap.set('i', '<C-Space>', '<Space>')
 end
 
-function M.init()
+--- Initialize key module.
+function M.init(options)
+  options = options or {}
+  layout_api.init(options.layout_api)
   set_leader()
-  langmapper.init()
+  if options.enable_langmapper then
+    langmapper.init()
+    if not layout_api.get_layout then
+      error('[shar.key] Cannot use langmapper.nvim without layout_api backend!', 3)
+    end
+  end
   user_maps.setup_maps()
 end
 
