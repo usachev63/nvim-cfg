@@ -1,4 +1,4 @@
----Entry point of my neovim configuration.
+--- Entry point of my Neovim config.
 
 -- Delegate to shar.main.init()
 local main = require 'shar.main'

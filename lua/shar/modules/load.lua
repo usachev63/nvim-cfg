@@ -40,16 +40,8 @@ if modules.ultisnips then
   require 'shar.modules.ultisnips'
 end
 
-if modules.tabby then
-  require 'shar.modules.tabby'
-end
-
 if modules.autopairs then
   require 'shar.modules.autopairs'
-end
-
-if modules.lualine then
-  require 'shar.modules.lualine'
 end
 
 if modules.chdir then

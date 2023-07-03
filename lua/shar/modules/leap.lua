@@ -5,7 +5,7 @@ local M = {}
 
 local packer = require 'packer'
 local leap = require 'leap'
-local layout_api = require 'shar.os_layout_api'
+local layout_api = require 'shar.key.layout_api'
 local do_leap = leap.leap
 local keymap = vim.keymap
 
