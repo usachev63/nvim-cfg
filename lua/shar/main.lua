@@ -1,4 +1,5 @@
 --- The main module of my Neovim config.
+-- @module main
 
 local M = {}
 
@@ -66,14 +67,27 @@ local function set_common_options()
   g.python3_host_prog = '/usr/bin/python3'
 end
 
---- Initialize the Neovim config.
-function M.init()
+M.default_options = {}
+
+--- Initialize my Neovim config.
+--
+-- A good place to call shar.main.init is in init.lua.
+-- The same Neovim config can be used on different setups,
+-- each having a different init.lua, in which shar.main.init
+-- is called with a different options argument, adjusting the config
+-- for this particular setup. For this reason,
+-- init.lua is a part of .gitignore.
+--
+-- @param options table options for my Neovim config TODO show example format
+function M.init(options)
+  options = options or {}
+
   -- Early hijack netrw for nvim-tree
   g.loaded_netrw = 1
   g.loaded_netrwPlugin = 1
 
   init_packer()
-  key.init()
+  key.init(options.key)
   require_common_plugins()
   set_common_options()
   ui.init()

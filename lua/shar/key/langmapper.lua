@@ -1,5 +1,7 @@
---- langmapper.nvim:
--- automatic translation of keymaps in different keyboard layouts.
+--- langmapper.nvim: automatic translation of keymaps
+--  in different keyboard layouts.
+--
+-- @module key.langmapper
 
 local M = {}
 
@@ -10,7 +12,6 @@ local keymap = vim.keymap
 
 local packer = require 'packer'
 local layout_api = require 'shar.key.layout_api'
-local langmapper = require 'langmapper'
 
 local function escape(str)
   local escape_chars = [[;,."|\]]
@@ -33,6 +34,7 @@ local en_full = [[`qwertyuiop[]asdfghjkl;'zxcvbnm,./~@$^&QWERTYUIOP{}|ASDFGHJKL:
 local ru_full = [[ёйцукенгшщзхъфывапролджэячсмитьбю.Ё";:?ЙЦУКЕНГШЩЗХЪ/ФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,]]
 
 local function setup_langmapper()
+  local langmapper = require 'langmapper'
   langmapper.setup {
     map_all_ctrl = false,
     default_layout = en_full,
