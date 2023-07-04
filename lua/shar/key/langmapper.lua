@@ -12,6 +12,7 @@ local keymap = vim.keymap
 
 local packer = require 'packer'
 local layout_api = require 'shar.key.layout_api'
+local langmapper
 
 local function escape(str)
   local escape_chars = [[;,."|\]]
@@ -34,7 +35,7 @@ local en_full = [[`qwertyuiop[]asdfghjkl;'zxcvbnm,./~@$^&QWERTYUIOP{}|ASDFGHJKL:
 local ru_full = [[ёйцукенгшщзхъфывапролджэячсмитьбю.Ё";:?ЙЦУКЕНГШЩЗХЪ/ФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,]]
 
 local function setup_langmapper()
-  local langmapper = require 'langmapper'
+  langmapper = require 'langmapper'
   langmapper.setup {
     map_all_ctrl = false,
     default_layout = en_full,
@@ -73,6 +74,16 @@ function M.init()
   setup_langmap()
   setup_langmapper()
   setup_extra_keymaps()
+end
+
+--- Translate builtin and vimscript mappings.
+--
+-- Should be called at the very end of the config setup.
+function M.do_automapping()
+  langmapper.automapping {
+    global = true,
+    buffer = false,
+  }
 end
 
 return M

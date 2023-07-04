@@ -7,6 +7,7 @@ local keymap = vim.keymap
 local fn = vim.fn
 local ui = vim.ui
 local b = vim.b
+local g = vim.g
 
 local latex_keymap = {}
 
@@ -199,12 +200,133 @@ local function setup_inkscape_figures_keymaps()
   )
 end
 
+-- Copied from vimtex
+local function setup_vimtex_keymaps()
+  local function set(mode, lhs, rhs)
+    keymap.set(mode, lhs, rhs, { buffer = true })
+  end
+
+  set('n', '<Leader>li', '<Plug>(vimtex-info)')
+  set('n', '<Leader>lI', '<Plug>(vimtex-info-full)')
+  set('n', '<Leader>lx', '<Plug>(vimtex-reload)')
+  set('n', '<Leader>lX', '<Plug>(vimtex-reload-state)')
+  set('n', '<Leader>ls', '<Plug>(vimtex-toggle-main)')
+  set('n', '<Leader>lq', '<Plug>(vimtex-log)')
+  set('n', '<Leader>la', '<Plug>(vimtex-context-menu)')
+
+  set('n', 'ds$', '<Plug>(vimtex-env-delete-math)')
+  set('n', 'cs$', '<Plug>(vimtex-env-change-math)')
+  set('n', 'dse', '<Plug>(vimtex-env-delete)')
+  set('n', 'cse', '<Plug>(vimtex-env-change)')
+  set('n', 'tse', '<Plug>(vimtex-env-toggle-star)')
+  set('n', 'ts$', '<Plug>(vimtex-env-toggle-math)')
+  set('n', '<F6>', '<Plug>(vimtex-env-surround-line)')
+  set('x', '<F6>', '<Plug>(vimtex-env-surround-visual)')
+
+  set('n', 'dsc', '<Plug>(vimtex-cmd-delete)')
+  set('n', 'csc', '<Plug>(vimtex-cmd-change)')
+  set('n', 'tsc', '<Plug>(vimtex-cmd-toggle-star)')
+  set({ 'n', 'x' }, 'tsf', '<Plug>(vimtex-cmd-toggle-frac)')
+  set({ 'i', 'n', 'x' }, '<F7>', '<Plug>(vimtex-cmd-create)')
+
+  set('n', 'dsd', '<Plug>(vimtex-delim-delete)')
+  set('n', 'csd', '<Plug>(vimtex-delim-change-math)')
+  set({ 'n', 'x' }, 'tsd', '<Plug>(vimtex-delim-toggle-modifier)')
+  set({ 'n', 'x' }, 'tsD', '<Plug>(vimtex-delim-toggle-modifier-reverse)')
+  set('i', ']]', '<Plug>(vimtex-delim-close)')
+  set('n', '<F8>', '<Plug>(vimtex-delim-add-modifiers)')
+
+  if g.vimtex_compiler_enabled then
+    set('n', '<Leader>ll', '<Plug>(vimtex-compile)')
+    set('n', '<Leader>lo', '<Plug>(vimtex-compile-output)')
+    set({ 'n', 'x' }, '<Leader>lL', '<Plug>(vimtex-compile-selected)')
+    set('n', '<Leader>lk', '<Plug>(vimtex-stop)')
+    set('n', '<Leader>lK', '<Plug>(vimtex-stop-all)')
+    set('n', '<Leader>le', '<Plug>(vimtex-errors)')
+    set('n', '<Leader>lc', '<Plug>(vimtex-clean)')
+    set('n', '<Leader>lC', '<Plug>(vimtex-clean-full)')
+    set('n', '<Leader>lg', '<Plug>(vimtex-status)')
+    set('n', '<Leader>lG', '<Plug>(vimtex-status-all)')
+  end
+
+  if g.vimtex_motion_enabled then
+    set({ 'n', 'x', 'o' }, '%', '<Plug>(vimtex-%)')
+
+    set({ 'n', 'x', 'o' }, ']]', '<Plug>(vimtex-]])')
+    set({ 'n', 'x', 'o' }, '][', '<Plug>(vimtex-][)')
+    set({ 'n', 'x', 'o' }, '[]', '<Plug>(vimtex-[])')
+    set({ 'n', 'x', 'o' }, '[[', '<Plug>(vimtex-[[)')
+
+    set({ 'n', 'x', 'o' }, ']M', '<Plug>(vimtex-]M)')
+    set({ 'n', 'x', 'o' }, ']m', '<Plug>(vimtex-]m)')
+    set({ 'n', 'x', 'o' }, '[M', '<Plug>(vimtex-[M)')
+    set({ 'n', 'x', 'o' }, '[m', '<Plug>(vimtex-[m)')
+
+    set({ 'n', 'x', 'o' }, ']N', '<Plug>(vimtex-]N)')
+    set({ 'n', 'x', 'o' }, ']n', '<Plug>(vimtex-]n)')
+    set({ 'n', 'x', 'o' }, '[N', '<Plug>(vimtex-[N)')
+    set({ 'n', 'x', 'o' }, '[n', '<Plug>(vimtex-[n)')
+
+    set({ 'n', 'x', 'o' }, ']R', '<Plug>(vimtex-]R)')
+    set({ 'n', 'x', 'o' }, ']r', '<Plug>(vimtex-]r)')
+    set({ 'n', 'x', 'o' }, '[R', '<Plug>(vimtex-[R)')
+    set({ 'n', 'x', 'o' }, '[r', '<Plug>(vimtex-[r)')
+
+    set({ 'n', 'x', 'o' }, ']/', '<Plug>(vimtex-]/)')
+    set({ 'n', 'x', 'o' }, ']*', '<Plug>(vimtex-]*)')
+    set({ 'n', 'x', 'o' }, '[/', '<Plug>(vimtex-[/)')
+    set({ 'n', 'x', 'o' }, '[*', '<Plug>(vimtex-[*)')
+  end
+
+  if g.vimtex_text_obj_enabled then
+    set({ 'x', 'o' }, 'id', '<Plug>(vimtex-id)')
+    set({ 'x', 'o' }, 'ad', '<Plug>(vimtex-ad)')
+    set({ 'x', 'o' }, 'i$', '<Plug>(vimtex-i$)')
+    set({ 'x', 'o' }, 'a$', '<Plug>(vimtex-a$)')
+    set({ 'x', 'o' }, 'iP', '<Plug>(vimtex-iP)')
+    set({ 'x', 'o' }, 'aP', '<Plug>(vimtex-aP)')
+    set({ 'x', 'o' }, 'im', '<Plug>(vimtex-im)')
+    set({ 'x', 'o' }, 'am', '<Plug>(vimtex-am)')
+
+    -- we assume vimtex#text_obj#targets#enabled() is false
+
+    g.vimtex_text_obj_variant = 'vimtex'
+
+    set({ 'x', 'o' }, 'ie', '<Plug>(vimtex-ie)')
+    set({ 'x', 'o' }, 'ae', '<Plug>(vimtex-ae)')
+    set({ 'x', 'o' }, 'ic', '<Plug>(vimtex-ic)')
+    set({ 'x', 'o' }, 'ac', '<Plug>(vimtex-ac)')
+  end
+
+  if g.vimtex_toc_enabled then
+    set('n', '<Leader>lt', '<Plug>(vimtex-toc-open)')
+    set('n', '<Leader>lT', '<Plug>(vimtex-toc-toggle)')
+  end
+
+  if b.vimtex and b.vimtex.viewer then
+    set('n', '<Leader>lv', '<Plug>(vimtex-view)')
+    if not fn.empty(fn.maparg('<Plug>(vimtex-reverse-search)', 'n')) then
+      set('n', '<Leader>lr', '<Plug>(vimtex-reverse-search)')
+    end
+  end
+
+  if g.vimtex_imaps_enabled then
+    set('n', '<Leader>lm', '<Plug>(vimtex-imaps-list)')
+  end
+
+  if g.vimtex_doc_enabled then
+    set('n', '<Leader>lK', '<Plug>(vimtex-doc-package)')
+  end
+end
+
 local function setup_keymaps()
   setup_wrap_keymaps()
 
   if latex_keymap.inkscape_figures then
     setup_inkscape_figures_keymaps()
   end
+
+  setup_vimtex_keymaps()
 end
 
 function latex_keymap.init(options)

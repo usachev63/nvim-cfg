@@ -2,6 +2,7 @@
 -- LaTeX module: efficient and cozy workflow for
 -- working with LaTeX documents in Neovim.
 --]]
+
 local vim = vim
 local api = vim.api
 local g = vim.g
@@ -41,6 +42,8 @@ local function init_globals()
     ['$$'] = 'align*',
     ['\\['] = 'align*',
   }
+
+  g.vimtex_mappings_enabled = false
 end
 
 local function init_template(template_path)
@@ -87,8 +90,8 @@ function latex.init(options)
   init_autocmds()
 
   require 'shar.modules.latex.layoutswitch'
-  local keymap = require 'shar.modules.latex.keymap'
-  keymap.init(options)
+  local latex_keymap = require 'shar.modules.latex.keymap'
+  latex_keymap.init(options)
 end
 
 return latex
