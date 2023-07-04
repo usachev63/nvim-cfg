@@ -6,17 +6,22 @@ local M = {}
 local default_options = {
   key = {
     enable_langmapper = false,
-    layout_api = nil,
+    layout_api = nil
   },
   protocol = {
     treesitter = nil,
     lsp = nil,
-    formatter = nil,
+    formatter = nil
   },
   editor = {
     enable_autopairs = true,
-    cmp = nil,
+    cmp = nil
   },
+  navigation = {
+    nvim_tree = {
+      enabled = false
+    }
+  }
 }
 
 function M.init(opts)
