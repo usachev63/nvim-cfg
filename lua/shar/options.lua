@@ -4,6 +4,7 @@
 local M = {}
 
 local default_options = {
+  localvimrc = false,
   key = {
     enable_langmapper = false,
     layout_api = nil

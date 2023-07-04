@@ -8,12 +8,7 @@ if not status then
   do return end
 end
 
-if modules.localcfg then
-  require 'shar.modules.localcfg'
-end
-
 if modules.latex then
-  assert(modules.ultisnips)
   local latex = require 'shar.modules.latex.main'
   latex.init(modules.latex)
 end

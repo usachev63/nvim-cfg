@@ -7,6 +7,7 @@ local vim = vim
 local g = vim.g
 local o = vim.o
 local opt = vim.opt
+local fn = vim.fn
 
 local packer = require 'packer'
 local options = require 'shar.options'
@@ -74,6 +75,18 @@ local function set_common_options()
   g.python3_host_prog = '/usr/bin/python3'
 end
 
+local function setup_localvimrc()
+  packer.use 'klen/nvim-config-local'
+  require('config-local').setup {
+    config_files = { ".vimrc.lua", ".vimrc" },
+    hashfile = fn.stdpath("data") .. "/config-local",
+    autocommands_create = true,
+    commands_create = true,
+    silent = false,
+    lookup_parents = false,
+  }
+end
+
 --- Initialize my Neovim config.
 --
 -- A good place to call shar.main.init is in init.lua.
@@ -101,6 +114,9 @@ function M.init(_opts)
   git.setup()
   navigation.setup()
   motion.setup()
+  if options.localvimrc then
+    setup_localvimrc()
+  end
 
   -- Optional modules.
   --
