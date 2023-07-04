@@ -12,10 +12,6 @@ if modules.localcfg then
   require 'shar.modules.localcfg'
 end
 
-if modules.leap then
-  require('shar.modules.leap').init()
-end
-
 if modules.ultisnips then
   require 'shar.modules.ultisnips'
 end
