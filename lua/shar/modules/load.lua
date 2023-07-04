@@ -12,10 +12,6 @@ if modules.localcfg then
   require 'shar.modules.localcfg'
 end
 
-if modules.ultisnips then
-  require 'shar.modules.ultisnips'
-end
-
 if modules.latex then
   assert(modules.ultisnips)
   local latex = require 'shar.modules.latex.main'

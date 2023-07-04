@@ -1,5 +1,5 @@
 --- nvim-autopairs: bracket autocompletion engine.
--- @module editor.autopairs
+-- @module editing.autopairs
 
 local M = {}
 

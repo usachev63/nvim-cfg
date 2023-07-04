@@ -60,7 +60,7 @@ end
 -- @table M.capabilities
 
 function M.setup_capabilities()
-  if options.editor.cmp then
+  if options.editing.cmp then
     M.capabilities = require('cmp_nvim_lsp').default_capabilities()
   else
     M.capabilities = vim.lsp.protocol.make_client_capabilities()
