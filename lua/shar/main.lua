@@ -11,6 +11,7 @@ local opt = vim.opt
 local packer = require 'packer'
 local options = require 'shar.options'
 local key = require 'shar.key'
+local langmapper = require 'shar.key.langmapper'
 local ui = require 'shar.ui'
 local terminal = require 'shar.terminal'
 local protocol = require 'shar.protocol'
@@ -115,6 +116,10 @@ function M.init(_opts)
   -- The list of loaded modules and their parameters
   -- are configured in lua/shar/modules/config.lua.
   require 'shar.modules.load'
+
+  if options.key.enable_langmapper then
+    langmapper.do_automapping()
+  end
 end
 
 return M
