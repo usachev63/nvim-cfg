@@ -94,7 +94,7 @@ function M.setup()
     on_attach = on_attach,
     actions = {
       change_dir = {
-        enable = true
+        enable = false
       },
       open_file = {
         quit_on_open = true,
