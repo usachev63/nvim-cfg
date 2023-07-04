@@ -18,6 +18,7 @@ local protocol = require 'shar.protocol'
 local editor_cmp = require 'shar.editor.cmp'
 local editor_autopairs = require 'shar.editor.autopairs'
 local git = require 'shar.git'
+local navigation = require 'shar.navigation'
 
 --- Initialize packer.nvim plugin manager.
 local function init_packer()
@@ -95,12 +96,11 @@ end
 function M.init(_opts)
   options.init(_opts)
 
-  -- Early hijack netrw for nvim-tree
-  g.loaded_netrw = 1
-  g.loaded_netrwPlugin = 1
+  navigation.pre_netrw()
 
   init_packer()
   key.init(options.key)
+
   require_common_plugins()
   set_common_options()
   ui.init()
@@ -112,6 +112,7 @@ function M.init(_opts)
     init_editor(options.editor)
   end
   git.setup()
+  navigation.setup()
 
   -- Optional modules.
   --

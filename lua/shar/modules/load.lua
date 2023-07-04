@@ -8,22 +8,6 @@ if not status then
   do return end
 end
 
-if modules.cmp then
-  require 'shar.modules.cmp'
-end
-
-if modules.nvim_tree then
-  require 'shar.modules.nvim-tree'
-end
-
-if modules.lsp then
-  require 'shar.modules.lsp.main'
-end
-
-if modules.fugitive then
-  require 'shar.modules.fugitive'
-end
-
 if modules.localcfg then
   require 'shar.modules.localcfg'
 end
@@ -32,20 +16,8 @@ if modules.leap then
   require('shar.modules.leap').init()
 end
 
-if modules.telescope then
-  require 'shar.modules.telescope'
-end
-
 if modules.ultisnips then
   require 'shar.modules.ultisnips'
-end
-
-if modules.autopairs then
-  require 'shar.modules.autopairs'
-end
-
-if modules.chdir then
-  require 'shar.modules.chdir'
 end
 
 if modules.latex then
