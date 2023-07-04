@@ -6,14 +6,7 @@ local fn = vim.fn
 local api = vim.api
 local keymap = vim.keymap
 
-local xkb_switch_lib
-
-local function get_xkb_layout()
-  return fn.libcall(xkb_switch_lib, 'Xkb_Switch_getXkbLayout', '')
-end
-local function set_xkb_layout(layout)
-  fn.libcall(xkb_switch_lib, 'Xkb_Switch_setXkbLayout', layout)
-end
+local layout_api = require 'shar.key.layout_api'
 
 -- At the moment these are global for all buffers
 local default_layout = 'us'
@@ -68,7 +61,7 @@ end
 keymap.set({ 'i', 'n', 'v' }, '<F10>', test_print)
 
 local function save()
-  last_layout = get_xkb_layout()
+  last_layout = layout_api.get_layout()
   if not last_synid then
     return
   end
@@ -85,7 +78,7 @@ local function enter_new()
     saved_layouts[synid] = default_layout
     new_layout = default_layout
   end
-  set_xkb_layout(new_layout)
+  layout_api.set_layout(new_layout)
   last_synid = synid
   last_layout = new_layout
 end
@@ -99,15 +92,13 @@ local augroup = api.nvim_create_augroup("LatexXkb", {})
 
 -- Initialize LatexXkb module upon entering a tex file.
 local function init()
-  xkb_switch_lib = '/usr/local/lib/libxkbswitch.so'
-  if not fn.filereadable(xkb_switch_lib) then
-    error('Failed to find XkbSwitch library. \
-           Please make sure it is installed in the system.')
+  if not layout_api.get_layout then
+    return -- no layout API
   end
 
   local current_buffer = api.nvim_get_current_buf()
 
-  api.nvim_create_autocmd("CursorMovedI", {
+  api.nvim_create_autocmd({ "CursorMovedI", "TextChangedI" }, {
     buffer = current_buffer,
     callback = update,
     group = augroup,
