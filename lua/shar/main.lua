@@ -9,9 +9,13 @@ local o = vim.o
 local opt = vim.opt
 
 local packer = require 'packer'
+local options = require 'shar.options'
 local key = require 'shar.key'
 local ui = require 'shar.ui'
 local terminal = require 'shar.terminal'
+local protocol = require 'shar.protocol'
+local editor_cmp = require 'shar.editor.cmp'
+local editor_autopairs = require 'shar.editor.autopairs'
 
 --- Initialize packer.nvim plugin manager.
 local function init_packer()
@@ -39,7 +43,7 @@ local function setup_indent()
   o.expandtab = true
 end
 
---- Initialize common vim options.
+--- Initialize common vim options and globals.
 local function set_common_options()
   -- Buffers are not required to be written during buffer switch
   o.hidden = true
@@ -67,7 +71,14 @@ local function set_common_options()
   g.python3_host_prog = '/usr/bin/python3'
 end
 
-M.default_options = {}
+local function init_editor(opts)
+  if opts.cmp then
+    editor_cmp.init()
+  end
+  if opts.enable_autopairs then
+    editor_autopairs.init()
+  end
+end
 
 --- Initialize my Neovim config.
 --
@@ -78,9 +89,9 @@ M.default_options = {}
 -- for this particular setup. For this reason,
 -- init.lua is a part of .gitignore.
 --
--- @param options table options for my Neovim config TODO show example format
-function M.init(options)
-  options = options or {}
+-- @param _opts options for my Neovim config TODO show example format
+function M.init(_opts)
+  options.init(_opts)
 
   -- Early hijack netrw for nvim-tree
   g.loaded_netrw = 1
@@ -92,6 +103,12 @@ function M.init(options)
   set_common_options()
   ui.init()
   terminal.setup()
+  if options.protocol then
+    protocol.init(options.protocol)
+  end
+  if options.editor then
+    init_editor(options.editor)
+  end
 
   -- Optional modules.
   --
