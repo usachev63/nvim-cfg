@@ -1,13 +1,15 @@
----leap.nvim
--- Fast and fancy navigation in Neovim.
+--- leap.nvim: fast and fancy motions in Neovim.
+-- @module motion.leap
 
 local M = {}
 
+local vim = vim
+local keymap = vim.keymap
+
 local packer = require 'packer'
 local leap = require 'leap'
+
 local layout_api = require 'shar.key.layout_api'
-local do_leap = leap.leap
-local keymap = vim.keymap
 
 local safe_labels = {
   "f", "s", "n", "u", "t", "/",
@@ -35,21 +37,27 @@ local ru_labels = {
 }
 
 local function map_leap(mode, key, leap_opts)
-  keymap.set(mode, key, function()
-    layout_api.set_layout('us')
-    do_leap(leap_opts)
-  end)
-  keymap.set(mode, ',' .. key, function()
-    layout_api.set_layout('ru')
-    local ru_opts = {
-      opts = {
-        safe_labels = ru_safe_labels,
-        ru_labels = ru_labels
+  if layout_api.get_layout then
+    keymap.set(mode, key, function()
+      layout_api.set_layout('us')
+      leap.leap(leap_opts)
+    end)
+    keymap.set(mode, ',' .. key, function()
+      layout_api.set_layout('ru')
+      local ru_opts = {
+        opts = {
+          safe_labels = ru_safe_labels,
+          ru_labels = ru_labels
+        }
       }
-    }
-    setmetatable(ru_opts, { __index = leap_opts })
-    do_leap(ru_opts)
-  end)
+      setmetatable(ru_opts, { __index = leap_opts })
+      leap.leap(ru_opts)
+    end)
+  else
+    keymap.set(mode, key, function()
+      leap.leap(leap_opts)
+    end)
+  end
 end
 
 local function setup_keymaps()
@@ -60,7 +68,7 @@ local function setup_keymaps()
   map_leap({ 'x', 'o' }, 'X', { backward = true, offset = 2, })
 end
 
----Setup leap.nvim plugin
+--- Setup leap.nvim plugin.
 function M.init()
   packer.use 'ggandor/leap.nvim'
   leap.opts.safe_labels = safe_labels
