@@ -1,5 +1,5 @@
 --- nvim-cmp: autocompletion engine
--- @module editor.cmp
+-- @module editing.cmp
 
 local M = {}
 

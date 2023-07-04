@@ -15,8 +15,7 @@ local langmapper = require 'shar.key.langmapper'
 local ui = require 'shar.ui'
 local terminal = require 'shar.terminal'
 local protocol = require 'shar.protocol'
-local editor_cmp = require 'shar.editor.cmp'
-local editor_autopairs = require 'shar.editor.autopairs'
+local editing = require 'shar.editing'
 local git = require 'shar.git'
 local navigation = require 'shar.navigation'
 local motion = require 'shar.motion'
@@ -75,15 +74,6 @@ local function set_common_options()
   g.python3_host_prog = '/usr/bin/python3'
 end
 
-local function init_editor(opts)
-  if opts.cmp then
-    editor_cmp.init()
-  end
-  if opts.enable_autopairs then
-    editor_autopairs.init()
-  end
-end
-
 --- Initialize my Neovim config.
 --
 -- A good place to call shar.main.init is in init.lua.
@@ -106,12 +96,8 @@ function M.init(_opts)
   set_common_options()
   ui.init()
   terminal.setup()
-  if options.protocol then
-    protocol.init(options.protocol)
-  end
-  if options.editor then
-    init_editor(options.editor)
-  end
+  protocol.init(options.protocol)
+  editing.setup()
   git.setup()
   navigation.setup()
   motion.setup()

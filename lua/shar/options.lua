@@ -13,7 +13,7 @@ local default_options = {
     lsp = nil,
     formatter = nil
   },
-  editor = {
+  editing = {
     enable_autopairs = true,
     cmp = nil
   },
