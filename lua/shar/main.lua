@@ -17,6 +17,7 @@ local terminal = require 'shar.terminal'
 local protocol = require 'shar.protocol'
 local editor_cmp = require 'shar.editor.cmp'
 local editor_autopairs = require 'shar.editor.autopairs'
+local git = require 'shar.git'
 
 --- Initialize packer.nvim plugin manager.
 local function init_packer()
@@ -110,6 +111,7 @@ function M.init(_opts)
   if options.editor then
     init_editor(options.editor)
   end
+  git.setup()
 
   -- Optional modules.
   --
