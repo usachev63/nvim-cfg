@@ -1,5 +1,4 @@
---- nvim-autopairs: bracket autocompletion engine.
--- @module editing.autopairs
+---nvim-autopairs: bracket autocompletion engine.
 
 local M = {}
 
@@ -9,6 +8,7 @@ local keymap = vim.keymap
 local packer = require 'packer'
 local npairs
 
+---Callback invoked upon pressing Enter (<CR>).
 local function on_enter()
   if vim.fn.pumvisible() ~= 0 then
     if vim.fn.complete_info({ 'selected' }).selected ~= -1 then
@@ -21,6 +21,7 @@ local function on_enter()
   end
 end
 
+---Callback invoked upon pressing Backspace (<BS>).
 local function on_backspace()
   if vim.fn.pumvisible() ~= 0 and vim.fn.complete_info({ 'mode' }).mode == 'eval' then
     return npairs.esc('<C-e>') .. npairs.autopairs_bs()
@@ -29,6 +30,7 @@ local function on_backspace()
   end
 end
 
+---Set up integration with nvim-autopairs.
 function M.init()
   packer.use 'windwp/nvim-autopairs'
   npairs = require 'nvim-autopairs'

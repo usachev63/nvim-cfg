@@ -1,5 +1,4 @@
---- leap.nvim: fast and fancy motions in Neovim.
--- @module motion.leap
+---leap.nvim plugin: fast and fancy motions in Neovim.
 
 local M = {}
 
@@ -36,6 +35,14 @@ local ru_labels = {
   'Г', 'Н', 'М', 'К', 'П', 'Е', 'С', 'Ч', ',', 'Я',
 }
 
+---Create a leap keymap.
+---
+---If layout API is available, an additional keymap prefixed with ','
+---is added, which allows to leap onto russian text.
+---
+---@param mode string|string[] Vim mode/modes influenced by the mapping.
+---@param key string Left-hand side of the keymap.
+---@param leap_opts table Leap 'opts' table (see leap docs).
 local function map_leap(mode, key, leap_opts)
   if layout_api.get_layout then
     keymap.set(mode, key, function()
@@ -60,6 +67,7 @@ local function map_leap(mode, key, leap_opts)
   end
 end
 
+---Set up leap keymaps (which differ from defaults).
 local function setup_keymaps()
   map_leap('n', 'f', {})
   map_leap({ 'n', 'x', 'o' }, 'F', { backward = true })
@@ -68,7 +76,7 @@ local function setup_keymaps()
   map_leap({ 'x', 'o' }, 'X', { backward = true, offset = 2, })
 end
 
---- Setup leap.nvim plugin.
+---Set up integration leap.nvim.
 function M.init()
   packer.use 'ggandor/leap.nvim'
   leap.opts.safe_labels = safe_labels

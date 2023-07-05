@@ -1,16 +1,20 @@
---- Keyboard layout switching API.
---
--- An interface providing getting and setting system keyboard layout.
--- This interface is agnostic of the underlying backend library which
--- handles layout switching. Currently, only xkb-switch is supported.
---
--- This module should first be initialized with @{init} function;
--- after that @{get_layout} and @{set_layout} can be used to 
--- query/modify keyboard layout. In case of any error upon initialization,
--- the get/set functions are set to nil.
---
--- @module key.layout_api
+---@class LayoutApi
+---
+---Keyboard layout switching API: an interface providing
+---getting and setting system keyboard layout.
+---
+---This interface is agnostic of the underlying backend library, which actually
+---handles layout switching. Currently, only xkb-switch is supported.
+---
+---This module should first be initialized with init function;
+---after that get_layout and set_layout can be used to query/modify
+---system keyboard layout. In case of any error upon initialization,
+---the get_layout and set_layout functions are set to nil.
+---
+---@field get_layout (fun(): string)? Get current system keyboard layout.
+---@field set_layout (fun(string))? Set current system keyboard layout.
 
+---@type LayoutApi
 local M = {}
 
 local vim = vim
@@ -18,18 +22,12 @@ local fn = vim.fn
 local libcall = fn.libcall
 local filereadable = fn.filereadable
 
---- Get current system keyboard layout
--- @return string identifier of the layout
--- function M.get_layout()
-
---- Set current system keyboard layout
--- @param layout identifier of the layout
--- function M.set_layout(layout)
-
---- Initialize module with xkb-switch backend.
-local function init_xkb_switch(options)
-  local lib_path = options.xkb_switch_lib_path
-  if type(lib_path) ~= 'string' or not filereadable(lib_path) then
+---Initialize Layout API with xkb-switch backend.
+---
+---@param lib XkbSwitchLayoutLib Configuration of xkb-switch library.
+local function init_xkb_switch(lib)
+  local lib_path = lib.xkb_switch_lib_path
+  if not filereadable(lib_path) then
     return
   end
   M.get_layout = function()
@@ -40,21 +38,20 @@ local function init_xkb_switch(options)
   end
 end
 
---- Initialize layout_api module.
---
--- If the @{options} define a valid layout switching backend,
--- then @{get_layout} and @{set_layout} are initialized with
--- correct functions. Otherwise, those remain nil.
---
--- @param options options which specify
---   the backend library for keyboard layout switching
-function M.init(options)
-  if type(options) ~= 'table' or #options ~= 1 then
+---Initialize Layout API.
+---
+---If the lib parameter defines a valid layout switching backend,
+---then M.get_layout and M.set_layout are initialized with
+---correct implementations. Otherwise, they will remain nil.
+---
+---@param lib LayoutLib? The backend layout switching library.
+function M.init(lib)
+  if not lib then
     return
   end
-  local backend_id = options[1]
+  local backend_id = lib[1]
   if backend_id == 'xkb-switch' then
-    return init_xkb_switch(options)
+    return init_xkb_switch(lib)
   end
 end
 

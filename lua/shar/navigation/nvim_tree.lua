@@ -1,5 +1,4 @@
---- nvim-tree: a file explorer tree (instead of netrw)
--- @module navigation.nvim_tree
+---nvim-tree: a file explorer tree (instead of netrw)
 
 local M = {}
 
@@ -9,6 +8,9 @@ local keymap = vim.keymap
 local packer = require 'packer'
 local api
 
+---Custom nvim-tree on_attach function.
+---
+---@param bufnr integer Buffer ID.
 local function on_attach(bufnr)
   local function map(lhs, rhs, desc)
     keymap.set('n', lhs, rhs, {
@@ -79,6 +81,7 @@ local function on_attach(bufnr)
   map('<CR>', api.node.open.replace_tree_buffer, 'Open: In Place')
 end
 
+---Set up integration with nvim-tree.
 function M.setup()
   packer.use {
     'nvim-tree/nvim-tree.lua',

@@ -1,4 +1,4 @@
---- UI related settings: color themes, status line, tab line, etc.
+---UI related settings: color themes, status line, tab line, etc.
 
 local M = {}
 
@@ -10,7 +10,7 @@ local g = vim.g
 local packer = require 'packer'
 local lualine = require 'lualine'
 
---- Set some UI-related vim options.
+---Set some UI-related vim options.
 local function set_options()
   o.number = true
   o.hlsearch = false
@@ -28,13 +28,14 @@ local function set_options()
   o.breakindentopt = 'sbr'
 end
 
---- Set up Gruvbox color scheme.
+---Set up Gruvbox color scheme.
 local function set_theme()
   packer.use 'morhetz/gruvbox'
   g.gruvbox_italic = 1
   vim.cmd 'colorscheme gruvbox'
 end
 
+---Set up integration with lualine.nvim status line plugin.
 local function setup_lualine()
   packer.use {
     'nvim-lualine/lualine.nvim',
@@ -57,6 +58,7 @@ local function setup_lualine()
   }
 end
 
+---Set up integration with tabby.nvim tab line plugin.
 local function setup_tabby()
   packer.use 'nanozuki/tabby.nvim'
   local theme = {
@@ -84,6 +86,7 @@ local function setup_tabby()
   end)
 end
 
+---Initialize UI-related setup.
 function M.init()
   set_options()
   set_theme()

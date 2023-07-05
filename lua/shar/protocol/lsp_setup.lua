@@ -1,5 +1,4 @@
---- Setup Utilities for LSP.
--- @module protocol.lsp_setup
+---Setup utilities for LSP support.
 
 local M = {}
 
@@ -9,9 +8,12 @@ local lsp_buf = vim.lsp.buf
 local diagnostic = vim.diagnostic
 
 local lspconfig = require 'lspconfig'
+
 local options = require 'shar.options'
 
---- Setup common user buffer keymaps upon attaching a LSP server.
+---Set up common user buffer keymaps upon attaching a LSP server.
+---
+---@param bufnr integer Buffer ID.
 local function setup_buf_keymaps(bufnr)
   local function set(binding, action)
     keymap.set('n', binding, action, { buffer = bufnr })
@@ -51,14 +53,17 @@ local function setup_buf_keymaps(bufnr)
   end)
 end
 
---- Default on_attach LSP function.
-function M.on_attach(_, bufnr)
+---Default LSP on_attach function.
+---
+---@param client any
+---@param bufnr integer Buffer ID.
+---
+---@diagnostic disable-next-line: unused-local
+function M.on_attach(client, bufnr)
   setup_buf_keymaps(bufnr)
 end
 
---- Default client capabilities.
--- @table M.capabilities
-
+---Set up M.capabilities depending on shar-nvim-cfg options.
 function M.setup_capabilities()
   if options.editing.cmp then
     M.capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -67,6 +72,9 @@ function M.setup_capabilities()
   end
 end
 
+---Default mason-lspconfig handler function.
+---
+---@param server_name string Server identifier.
 function M.default_handler(server_name)
   lspconfig[server_name].setup {
     on_attach = M.on_attach,

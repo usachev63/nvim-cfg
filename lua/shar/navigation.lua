@@ -1,5 +1,4 @@
---- Navigation between files (or other entities) in Neovim.
--- @module navigation
+---Navigation between files (or other entities) in Neovim.
 
 local M = {}
 
@@ -15,6 +14,7 @@ local telescope = require 'shar.navigation.telescope'
 local nvim_tree = require 'shar.navigation.nvim_tree'
 local options = require 'shar.options'
 
+---'%%' in command-line mode maps to the current buffer directory path.
 local function setup_cur_dir_abbrev()
   keymap.set('c', '%%', function()
     if fn.getcmdtype() == ':' then
@@ -27,14 +27,15 @@ local function setup_cur_dir_abbrev()
   })
 end
 
+---Change current tab directory to current buffer directory.
 local function tab_change_to_current_buf_dir()
   local dir = M.get_current_buf_dir()
   vim.cmd('tchdir ' .. dir)
   print("Changed tab directory to '" .. dir .. "'")
 end
 
+---Set up some useful navigation keymaps.
 local function setup_keymaps()
-  -- %% in command-line mode maps to the path of directory of current buffer
   setup_cur_dir_abbrev()
 
   -- <Leader>tc: change tab cwd to directory of current buffer
@@ -48,8 +49,8 @@ local function setup_keymaps()
   end
 end
 
---- Get the path to the directory
---  corresponding to the current buffer.
+---Get the path to the current buffer directory.
+---@return string
 function M.get_current_buf_dir()
   if o.filetype == 'netrw' and b.netrw_curdir then
     return b.netrw_curdir .. "/"
@@ -60,6 +61,10 @@ function M.get_current_buf_dir()
   return api.nvim_buf_get_name(0):match("(.*/)")
 end
 
+---A callback, which is called before netrw is loaded.
+---
+---If nvim-tree is activated, this function prevents
+---netrw from loading.
 function M.pre_netrw()
   g.netrw_banner = false
   if options.navigation.nvim_tree.enabled then
@@ -69,6 +74,7 @@ function M.pre_netrw()
   end
 end
 
+---Set up navigation module.
 function M.setup()
   telescope.setup()
   if options.navigation.nvim_tree.enabled then

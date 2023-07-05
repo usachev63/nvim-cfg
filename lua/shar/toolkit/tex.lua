@@ -1,5 +1,4 @@
---- Efficient and cozy workflow for working with TeX documents in Neovim.
--- @module toolkit.tex
+---Efficient and cozy workflow for working with TeX documents in Neovim.
 
 local M = {}
 
@@ -12,6 +11,7 @@ local options = require 'shar.options'
 local tex_keymap = require 'shar.toolkit.tex.keymap'
 local tex_layoutswitch = require 'shar.toolkit.tex.layoutswitch'
 
+---Initialize related Vim global variables.
 local function init_globals()
   g.vimtex_view_method = 'zathura'
 
@@ -48,6 +48,11 @@ local function init_globals()
   g.vimtex_mappings_enabled = false
 end
 
+---Initialize g:Shar_latex_template vim global variable
+---with the path to TeX template file. The contents of this template file
+---can then be inserted with "template" snippet.
+---
+---@param template_path string
 local function init_template(template_path)
   g.Shar_latex_template = ''
   if type(template_path) ~= 'string' then
@@ -60,6 +65,9 @@ local function init_template(template_path)
   g.Shar_latex_template = template_file:read('a')
 end
 
+---Callback, invoked on opening a TeX document.
+---
+---@param augroup any TeX autocommand group.
 local function on_open_file(augroup)
   api.nvim_win_set_option(0, 'conceallevel', 0)
 
@@ -71,6 +79,7 @@ local function on_open_file(augroup)
   })
 end
 
+---Initialize common TeX-related autocommands.
 local function init_autocmds()
   local augroup = api.nvim_create_augroup('Latex', {})
 
@@ -83,6 +92,7 @@ local function init_autocmds()
   })
 end
 
+---Set up TeX support.
 function M.setup()
   local opts = options.toolkit.tex
 

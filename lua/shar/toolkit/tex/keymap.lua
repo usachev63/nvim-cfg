@@ -1,5 +1,4 @@
---- Handy keymaps for editing TeX documents.
--- @module toolkit.tex.keymap
+---Handy keymaps for editing TeX documents.
 
 local M = {}
 
@@ -13,14 +12,32 @@ local g = vim.g
 
 local options = require 'shar.options'
 
+---Local extmark namespace.
 local namespace = api.nvim_create_namespace('LatexKeymap')
 
+---Move given cursor one character to the right.
+---
+---Since we must support Unicode it does not necessarily mean
+---"one byte to the right".
+---
+---@param line integer Line number.
+---@param col integer Column number.
+---@return integer # New column number (line remains the same).
 local function increment_col(line, col)
   local text_after = unpack(api.nvim_buf_get_text(0, line, col, line, col + 4, {}))
   local bytes_in_char = vim.str_byteindex(text_after, 1)
   return col + bytes_in_char
 end
 
+---Get the (0,0)-based (row, column)-like, end-exclusive range
+---of the current visual selection.
+---
+---@return integer begin_line Line number of the beginning.
+---@return integer begin_col Column number of the beginning.
+---@return integer end_line Line number of the end.
+---@return integer end_col Column number of the end.
+---
+---The returned beginning coordinates are less than the end coordinates.
 local function get_visual_selection()
   local begin_line, begin_col = unpack(fn.getpos("v"), 2)
   local end_line, end_col = unpack(fn.getpos("."), 2)
@@ -34,6 +51,13 @@ local function get_visual_selection()
   return begin_line, begin_col, end_line, end_col
 end
 
+---Wrap the current visual selection with given text.
+---
+---@param prefix string Text to insert before.
+---@param suffix string Text to insert after.
+---@return integer end_line Line number of the end of wrapped selection
+---(including wrapping text).
+---@return integer end_col Column number of the end of wrapped selection.
 local function wrap(prefix, suffix)
   local begin_line, begin_col, end_line, end_col = get_visual_selection()
   local end_mark = api.nvim_buf_set_extmark(0, namespace, end_line, end_col, {})
@@ -48,23 +72,34 @@ local function wrap(prefix, suffix)
   return end_line, end_col
 end
 
+---Wrap the current visual selection with a TeX command.
+---
+---@param command string Name of the TeX command.
 local function wrap_command(command)
-  return wrap(string.format('\\%s{', command), '}')
+  wrap(string.format('\\%s{', command), '}')
 end
 
+---Wrap the current visual selection with \underbrace command,
+---insert a lower index after the command, and place the
+---user in insert mode into this index.
 local function wrap_underbrace()
   local line, col = wrap('\\underbrace{', '}_{}')
   api.nvim_win_set_cursor(0, { line + 1, col - 1 })
   vim.cmd 'startinsert'
 end
 
+---Wrap the current visual selection with a \left..\right delimiter.
+---
+---@param open string The opening delimiter (excluding \left).
+---@param close string The closing delimiter (excluding \right).
 local function wrap_delimiter(open, close)
-  return wrap(
+  wrap(
     string.format('\\left%s ', open),
     string.format(' \\right%s', close)
   )
 end
 
+---Set up keymaps for wrapping a selection with a command.
 local function setup_wrap_keymaps()
   keymap.set('x', '<Leader>bf', function()
     wrap_command('textbf')
@@ -120,14 +155,16 @@ local function setup_wrap_keymaps()
   })
 end
 
--- Integration with inkscape-figures CLI tool (by Gilles Castel)
-
 local inkscape_figures_tool_path
 
+---Get figures directory of the current TeX project.
+---
+---@return string
 local function get_figures_dir()
   return b.vimtex.root .. '/figures/'
 end
 
+---Ensure that an inkscape-figures watchdog is active.
 local function inkscape_figures_watch()
   vim.system {
     inkscape_figures_tool_path,
@@ -135,10 +172,20 @@ local function inkscape_figures_watch()
   }
 end
 
+---Get rid of characters in the figure name
+---that inkscape-figures does not support.
+---
+---@param figure_name string
+---@return string
+---@return ...
 local function prune_figure_name(figure_name)
   return figure_name:lower():gsub(' ', '_')
 end
 
+---Ask user for a name of the new figure.
+---
+---@return string? figure_name Name of the new figure or nil
+---(if user changed their mind).
 local function ask_new_figure_name()
   local figure_name
   ui.input({ prompt = 'Create New Figure: ' }, function(input)
@@ -150,6 +197,9 @@ local function ask_new_figure_name()
   return prune_figure_name(figure_name)
 end
 
+---Paste a code snippet into the buffer which includes the specified figure.
+---
+---@param figure_name string
 local function paste_include_figure_snippet(figure_name)
   local line = api.nvim_win_get_cursor(0)[1]
   api.nvim_buf_set_lines(0, line, line, false, {
@@ -162,6 +212,7 @@ local function paste_include_figure_snippet(figure_name)
   })
 end
 
+---Create a new figure with inkscape-figures.
 local function inkscape_figures_create()
   inkscape_figures_watch()
   local figure_name = ask_new_figure_name()
@@ -178,6 +229,7 @@ local function inkscape_figures_create()
   }
 end
 
+---Open inkscape-figures GUI menu.
 local function inkscape_figures_open()
   inkscape_figures_watch()
   vim.system {
@@ -187,6 +239,7 @@ local function inkscape_figures_open()
   }
 end
 
+---Set up keymaps for integration with inkscape-figures tool.
 local function setup_inkscape_figures_keymaps()
   keymap.set('n', '<Leader>lfn',
     inkscape_figures_create,
@@ -204,7 +257,7 @@ local function setup_inkscape_figures_keymaps()
   )
 end
 
--- Copied from vimtex
+---Set up vimtex keymaps in current buffer.
 local function setup_vimtex_keymaps()
   local function set(mode, lhs, rhs)
     keymap.set(mode, lhs, rhs, { buffer = true })
@@ -323,6 +376,7 @@ local function setup_vimtex_keymaps()
   end
 end
 
+---Set up TeX-related keymaps in current buffer.
 local function setup_keymaps()
   setup_wrap_keymaps()
 
@@ -333,6 +387,7 @@ local function setup_keymaps()
   setup_vimtex_keymaps()
 end
 
+---Initialize TeX-related keymaps setup.
 function M.init()
   local opts = options.toolkit.tex
   if type(opts.inkscape_figures) == 'string' then

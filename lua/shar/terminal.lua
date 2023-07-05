@@ -1,4 +1,4 @@
---- Shell and terminal buffer settings.
+---Shell and terminal buffer settings.
 
 local M = {}
 
@@ -8,9 +8,10 @@ local fn = vim.fn
 local o = vim.o
 local keymap = vim.keymap
 
-local augroup -- autocommand group
+---Related autocommand group.
+local augroup
 
---- Set appropriate 'shell' option.
+---Set appropriate 'shell' option.
 local function set_shell()
   if fn.executable('zsh') then
     o.shell = '/usr/bin/zsh -li'
@@ -19,12 +20,13 @@ local function set_shell()
   end
 end
 
---- Escape from terminal buffer with Esc.
+---Escape from terminal buffer with <Esc> key.
 local function fix_escape()
   keymap.set('t', '<Esc>', '<C-\\><C-n>')
   keymap.set('t', '<C-[>', '<C-\\><C-n>')
 end
 
+---No line numbers in terminal buffer.
 local function set_no_number()
   api.nvim_create_autocmd('TermOpen', {
     pattern = '*',

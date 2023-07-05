@@ -1,10 +1,10 @@
---- treesitter support.
--- @module protocol.treesitter
+---treesitter support.
 
 local M = {}
 
 local packer = require 'packer'
 
+---Setup tresitter support.
 function M.init()
   packer.use {
     'nvim-treesitter/nvim-treesitter',
