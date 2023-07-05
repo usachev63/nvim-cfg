@@ -8,11 +8,6 @@ if not status then
   do return end
 end
 
-if modules.latex then
-  local latex = require 'shar.modules.latex.main'
-  latex.init(modules.latex)
-end
-
 if modules.acmcpp then
   require 'shar.modules.acmcpp'
 end

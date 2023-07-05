@@ -1,6 +1,8 @@
---[[
--- Handy keymaps for editing LaTeX documents.
---]]
+--- Handy keymaps for editing TeX documents.
+-- @module toolkit.tex.keymap
+
+local M = {}
+
 local vim = vim
 local api = vim.api
 local keymap = vim.keymap
@@ -9,7 +11,7 @@ local ui = vim.ui
 local b = vim.b
 local g = vim.g
 
-local latex_keymap = {}
+local options = require 'shar.options'
 
 local namespace = api.nvim_create_namespace('LatexKeymap')
 
@@ -120,13 +122,15 @@ end
 
 -- Integration with inkscape-figures CLI tool (by Gilles Castel)
 
+local inkscape_figures_tool_path
+
 local function get_figures_dir()
   return b.vimtex.root .. '/figures/'
 end
 
 local function inkscape_figures_watch()
   vim.system {
-    latex_keymap.inkscape_figures,
+    inkscape_figures_tool_path,
     'watch',
   }
 end
@@ -167,7 +171,7 @@ local function inkscape_figures_create()
   print('New Figure:', figure_name)
   paste_include_figure_snippet(figure_name)
   vim.system {
-    latex_keymap.inkscape_figures,
+    inkscape_figures_tool_path,
     'create',
     figure_name,
     get_figures_dir(),
@@ -177,7 +181,7 @@ end
 local function inkscape_figures_open()
   inkscape_figures_watch()
   vim.system {
-    latex_keymap.inkscape_figures,
+    inkscape_figures_tool_path,
     'edit',
     get_figures_dir(),
   }
@@ -322,16 +326,17 @@ end
 local function setup_keymaps()
   setup_wrap_keymaps()
 
-  if latex_keymap.inkscape_figures then
+  if inkscape_figures_tool_path then
     setup_inkscape_figures_keymaps()
   end
 
   setup_vimtex_keymaps()
 end
 
-function latex_keymap.init(options)
-  if type(options.inkscape_figures) == 'string' then
-    latex_keymap.inkscape_figures = options.inkscape_figures
+function M.init()
+  local opts = options.toolkit.tex
+  if type(opts.inkscape_figures) == 'string' then
+    inkscape_figures_tool_path = opts.inkscape_figures
   end
 
   local augroup = api.nvim_create_augroup("LatexKeymap", {})
@@ -343,4 +348,4 @@ function latex_keymap.init(options)
   })
 end
 
-return latex_keymap
+return M

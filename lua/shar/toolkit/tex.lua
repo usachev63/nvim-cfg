@@ -1,14 +1,16 @@
---[[
--- LaTeX module: efficient and cozy workflow for
--- working with LaTeX documents in Neovim.
---]]
+--- Efficient and cozy workflow for working with TeX documents in Neovim.
+-- @module toolkit.tex
+
+local M = {}
 
 local vim = vim
 local api = vim.api
 local g = vim.g
 
---- The module to be exported
-local latex = {}
+local options = require 'shar.options'
+
+local tex_keymap = require 'shar.toolkit.tex.keymap'
+local tex_layoutswitch = require 'shar.toolkit.tex.layoutswitch'
 
 local function init_globals()
   g.vimtex_view_method = 'zathura'
@@ -81,17 +83,18 @@ local function init_autocmds()
   })
 end
 
-function latex.init(options)
+function M.init()
+  local opts = options.toolkit.tex
+
   local packer = require 'packer'
-  packer.use { 'lervag/vimtex' }
+  packer.use 'lervag/vimtex'
 
   init_globals()
-  init_template(options.template_file)
+  init_template(opts.template_file)
   init_autocmds()
 
-  require 'shar.modules.latex.layoutswitch'
-  local latex_keymap = require 'shar.modules.latex.keymap'
-  latex_keymap.init(options)
+  tex_layoutswitch.init()
+  tex_keymap.init()
 end
 
-return latex
+return M
