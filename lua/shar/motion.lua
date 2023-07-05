@@ -1,5 +1,4 @@
---- Vim motions support.
--- @module motion
+---Vim motion settings.
 
 local M = {}
 

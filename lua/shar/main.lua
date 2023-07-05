@@ -1,5 +1,4 @@
---- The main module of my Neovim config.
--- @module main
+---The main module of shar-nvim-cfg.
 
 local M = {}
 
@@ -10,6 +9,7 @@ local opt = vim.opt
 local fn = vim.fn
 
 local packer = require 'packer'
+
 local options = require 'shar.options'
 local key = require 'shar.key'
 local langmapper = require 'shar.key.langmapper'
@@ -21,13 +21,13 @@ local navigation = require 'shar.navigation'
 local motion = require 'shar.motion'
 local toolkit = require 'shar.toolkit'
 
---- Initialize packer.nvim plugin manager.
+---Initialize packer.nvim plugin manager.
 local function init_packer()
   packer.init()
-  packer.use 'wbthomason/packer.nvim' -- plugin manager itself
+  packer.use 'wbthomason/packer.nvim' -- declare plugin manager itself
 end
 
---- Initialize common plugins.
+---Declare common plugins.
 local function require_common_plugins()
   packer.use 'tpope/vim-surround'   -- surround text objects
   packer.use 'tpope/vim-commentary' -- comments
@@ -36,18 +36,11 @@ local function require_common_plugins()
   packer.use 'lambdalisue/suda.vim' -- sudo write fix
 end
 
-local function setup_indent()
+---Set common vim options and globals.
+local function set_common_options()
   -- Enable full builtin filetype support
   vim.cmd 'filetype plugin indent on'
 
-  -- Default indent
-  o.softtabstop = 4
-  o.shiftwidth = 4
-  o.expandtab = true
-end
-
---- Initialize common vim options and globals.
-local function set_common_options()
   -- Buffers are not required to be written during buffer switch
   o.hidden = true
   -- Register "+ is essentially equal to register ""
@@ -68,12 +61,17 @@ local function set_common_options()
   o.smartcase = true
   o.infercase = true
 
-  setup_indent()
+  -- Default indent options
+  o.softtabstop = 4
+  o.shiftwidth = 4
+  o.expandtab = true
 
-  -- Fix python3 provider
+  -- Fix python3 provider,
+  -- useful when working under a python venv
   g.python3_host_prog = '/usr/bin/python3'
 end
 
+---Set up nvim-config-local plugin for support of project-local .vimrc files.
 local function setup_localvimrc()
   packer.use 'klen/nvim-config-local'
   require('config-local').setup {
@@ -86,29 +84,32 @@ local function setup_localvimrc()
   }
 end
 
---- Initialize my Neovim config.
---
--- A good place to call shar.main.init is in init.lua.
--- The same Neovim config can be used on different setups,
--- each having a different init.lua, in which shar.main.init
--- is called with a different options argument, adjusting the config
--- for this particular setup. For this reason,
--- init.lua is a part of .gitignore.
---
--- @param _opts options for my Neovim config TODO show example format
-function M.init(_opts)
-  options.init(_opts)
+---Initialize shar-nvim-cfg.
+---
+---It is pretty much the entry point of shar-nvim-cfg.
+---A good place to call it is directly in init.lua.
+---
+---Same version of shar-nvim-cfg can be used on many setups simultaneously.
+---Each setup will have a different init.lua, in which init is called with
+---different options, adjusting the config for this particular setup.
+---For this exact reason init.lua is a part of .gitignore.
+---
+---@param opts any Raw, user-provided options for shar-nvim-cfg.
+---@see Options class for all available options
+---and their default values (`default_options` local variable)
+function M.init(opts)
+  options.init(opts)
 
   navigation.pre_netrw()
 
   init_packer()
-  key.init(options.key)
+  key.init()
 
   require_common_plugins()
   set_common_options()
   ui.init()
   terminal.setup()
-  protocol.init(options.protocol)
+  protocol.init()
   editing.setup()
   navigation.setup()
   motion.setup()

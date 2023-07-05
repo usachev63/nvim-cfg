@@ -1,5 +1,4 @@
---- toolkit-specific configurations.
--- @module toolkit
+---toolkit-specific configurations.
 
 local M = {}
 

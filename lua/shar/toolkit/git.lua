@@ -1,5 +1,4 @@
---- Integration with Git version control system.
--- @module git
+---Integration with Git version control system.
 
 local M = {}
 
@@ -11,6 +10,7 @@ local o = vim.o
 
 local packer = require 'packer'
 
+---Set up useful autocommands.
 local function setup_autocmds()
   local augroup = api.nvim_create_augroup('Fugitive', {})
 
@@ -53,6 +53,7 @@ local function setup_autocmds()
   })
 end
 
+---Set up integration with Git.
 function M.setup()
   packer.use 'tpope/vim-fugitive'
 

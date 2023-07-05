@@ -1,5 +1,4 @@
---- Syntax-Senstive Keyboard Layout Switching.
--- @module toolkit.tex.layoutswitch
+---Syntax-Senstive Keyboard Layout Switching.
 
 local M = {}
 
@@ -91,7 +90,7 @@ end
 
 local augroup
 
---- Initialize LatexXkb module upon entering a tex file.
+---Initialize LatexXkb module upon entering a tex file.
 local function buf_init()
   if not layout_api.get_layout then
     return -- no layout API

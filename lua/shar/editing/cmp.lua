@@ -1,11 +1,13 @@
---- nvim-cmp: autocompletion engine
--- @module editing.cmp
+---nvim-cmp: autocompletion engine
 
 local M = {}
 
 local packer = require 'packer'
 local options = require 'shar.options'
 
+---Compile a list of source for nvim-cmp from shar-nvim-cfg options.
+---
+---@return table[] # The list of sources for nvim-cmp.
 local function get_sources()
   local sources = {}
   if type(options.protocol.lsp) == 'table' then
@@ -22,6 +24,7 @@ local function get_sources()
   return sources
 end
 
+---Set up integration with nvim-cmp.
 function M.init()
   packer.use {
     'hrsh7th/nvim-cmp',

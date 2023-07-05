@@ -1,10 +1,10 @@
---- Formatters support.
--- @module protocol.formatter
+---Formatters support.
 
 local M = {}
 
 local packer = require 'packer'
 
+---Set up formatters support.
 function M.init()
   packer.use 'mhartington/formatter.nvim'
   -- formatter.nvim

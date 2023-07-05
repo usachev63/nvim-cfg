@@ -1,5 +1,4 @@
---- Utilities for ACM-style programming in C++.
--- @module toolkit.acmcpp
+---Utilities for ACM-style programming in C++.
 
 local M = {}
 
@@ -10,6 +9,7 @@ local options = require 'shar.options'
 
 local template_path
 
+---Load C++ template into current buffer.
 local function load_template()
   local template_file = assert(io.open(template_path, "r"))
   local lines = {}
@@ -19,6 +19,7 @@ local function load_template()
   vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
 end
 
+---Set up build & run keymaps.
 local function set_build_keymaps()
   -- Build & Run mapping
   keymap.set('n', '<F10>',
@@ -32,6 +33,7 @@ local function set_build_keymaps()
     })
 end
 
+---Set up support for ACM C++.
 function M.setup()
   local opts = options.toolkit.acmcpp
   if type(opts.template_path) == 'string' then

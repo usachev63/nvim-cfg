@@ -1,5 +1,4 @@
---- Support for snippets via UltiSnips snippet engine.
--- @module editing.ultisnips
+---Support for snippets via UltiSnips snippet engine.
 
 local M = {}
 
@@ -9,6 +8,7 @@ local g = vim.g
 
 local packer = require 'packer'
 
+---Set up UltiSnips support.
 function M.setup()
   packer.use {
     'SirVer/ultisnips',

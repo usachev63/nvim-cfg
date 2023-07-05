@@ -1,5 +1,4 @@
---- telescope.nvim: fuzzy finder over lists (mainly files).
--- @module navigation.telescope
+---telescope.nvim: fuzzy finder over lists (mainly files).
 
 local M = {}
 
@@ -7,6 +6,7 @@ local vim = vim
 
 local packer = require 'packer'
 
+---Set up telescope-related keymaps.
 local function setup_keymaps()
   local builtin = require 'telescope.builtin'
   vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
@@ -19,6 +19,7 @@ local function setup_keymaps()
   vim.keymap.set('n', '<leader>fr', builtin.resume, {})
 end
 
+---Set up integration with telescope.nvim.
 function M.setup()
   packer.use {
     'nvim-telescope/telescope.nvim',

@@ -1,7 +1,5 @@
---- langmapper.nvim: automatic translation of keymaps
---  in different keyboard layouts.
---
--- @module key.langmapper
+---langmapper.nvim plugin: automatic translation of keymaps
+---to different keyboard layouts.
 
 local M = {}
 
@@ -14,6 +12,7 @@ local packer = require 'packer'
 local layout_api = require 'shar.key.layout_api'
 local langmapper
 
+---Escape a sequence in 'langmap' option.
 local function escape(str)
   local escape_chars = [[;,."|\]]
   return fn.escape(str, escape_chars)
@@ -24,6 +23,8 @@ local ru_lower = [[ёйцукенгшщзхъфывапролджэячсмит�
 local en_upper = [[~QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>]]
 local ru_upper = [[ËЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ]]
 
+---Set up 'langmap' vim option, which allows translating
+---russian keycodes into english in Normal mode.
 local function setup_langmap()
   opt.langmap = fn.join({
     escape(ru_lower) .. ';' .. escape(en_lower),
@@ -34,6 +35,7 @@ end
 local en_full = [[`qwertyuiop[]asdfghjkl;'zxcvbnm,./~@$^&QWERTYUIOP{}|ASDFGHJKL:"ZXCVBNM<>?]]
 local ru_full = [[ёйцукенгшщзхъфывапролджэячсмитьбю.Ё";:?ЙЦУКЕНГШЩЗХЪ/ФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,]]
 
+---Set up langmapper.nvim itself.
 local function setup_langmapper()
   langmapper = require 'langmapper'
   langmapper.setup {
@@ -54,6 +56,7 @@ local function setup_langmapper()
   }
 end
 
+---Set some langmapper-related keymaps.
 local function setup_extra_keymaps()
   -- Handle this manually because
   -- adding it in langmapper layout
@@ -68,7 +71,7 @@ local function setup_extra_keymaps()
   end, { expr = true })
 end
 
---- Setup langmapper.nvim plugin.
+---Set up integration with langmapper.nvim.
 function M.init()
   packer.use 'sharkov63/langmapper.nvim'
   setup_langmap()
@@ -76,9 +79,10 @@ function M.init()
   setup_extra_keymaps()
 end
 
---- Translate builtin and vimscript mappings.
---
--- Should be called at the very end of the config setup.
+---Translate all builtin and all Vimscript mappings
+---by means of langmapper.
+---
+---Should be called at the very end of the shar-nvim-cfg setup.
 function M.do_automapping()
   langmapper.automapping {
     global = true,

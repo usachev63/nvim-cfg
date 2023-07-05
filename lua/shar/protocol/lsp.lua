@@ -1,5 +1,4 @@
---- Language Server Protocol (LSP) Support.
--- @module protocol.lsp
+---Language Server Protocol (LSP) support.
 
 local M = {}
 
@@ -9,6 +8,7 @@ local keymap = vim.keymap
 local packer = require 'packer'
 local lsp_setup = require 'shar.protocol.lsp_setup'
 
+---A list of language server handlers for mason-lspconfig.
 local handlers = {
   lsp_setup.default_handler,
   clangd = require 'shar.protocol.servers.clangd',
@@ -16,7 +16,7 @@ local handlers = {
   lua_ls = require 'shar.protocol.servers.lua_ls',
 }
 
---- Setup LSP support.
+---Set up LSP support.
 function M.init()
   packer.use 'neovim/nvim-lspconfig'
   packer.use 'williamboman/mason-lspconfig.nvim'
