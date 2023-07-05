@@ -1,6 +1,8 @@
---[[
--- Syntax-sensitive keyboard layout switching.
---]]
+--- Syntax-Senstive Keyboard Layout Switching.
+-- @module toolkit.tex.layoutswitch
+
+local M = {}
+
 local vim = vim
 local fn = vim.fn
 local api = vim.api
@@ -58,7 +60,6 @@ local function test_print()
   print("relevant synID:", fn.synIDattr(synID, 'name'), "(", synID, ")")
   print("layout: ", saved_layouts[synID])
 end
-keymap.set({ 'i', 'n', 'v' }, '<F10>', test_print)
 
 local function save()
   last_layout = layout_api.get_layout()
@@ -88,10 +89,10 @@ local function update()
   enter_new()
 end
 
-local augroup = api.nvim_create_augroup("LatexXkb", {})
+local augroup
 
--- Initialize LatexXkb module upon entering a tex file.
-local function init()
+--- Initialize LatexXkb module upon entering a tex file.
+local function buf_init()
   if not layout_api.get_layout then
     return -- no layout API
   end
@@ -143,8 +144,15 @@ local function init()
   }
 end
 
-api.nvim_create_autocmd("BufReadPost", {
-  pattern = "*.tex",
-  callback = init,
-  group = augroup,
-})
+function M.init()
+  augroup = api.nvim_create_augroup("LatexXkb", {})
+  api.nvim_create_autocmd("BufReadPost", {
+    pattern = "*.tex",
+    callback = buf_init,
+    group = augroup,
+  })
+
+  keymap.set({ 'i', 'n', 'v' }, '<F10>', test_print)
+end
+
+return M

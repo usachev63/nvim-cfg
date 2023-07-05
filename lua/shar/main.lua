@@ -20,6 +20,7 @@ local editing = require 'shar.editing'
 local git = require 'shar.git'
 local navigation = require 'shar.navigation'
 local motion = require 'shar.motion'
+local toolkit = require 'shar.toolkit'
 
 --- Initialize packer.nvim plugin manager.
 local function init_packer()
@@ -117,6 +118,7 @@ function M.init(_opts)
   if options.localvimrc then
     setup_localvimrc()
   end
+  toolkit.setup()
 
   -- Optional modules.
   --

@@ -22,6 +22,13 @@ local default_options = {
     nvim_tree = {
       enabled = false
     }
+  },
+  toolkit = {
+    tex = {
+      enabled = false,
+      template_file = nil,
+      inkscape_figures = nil
+    }
   }
 }
 
