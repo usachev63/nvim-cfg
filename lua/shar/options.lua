@@ -28,6 +28,21 @@ local default_options = {
       enabled = false,
       template_file = nil,
       inkscape_figures = nil
+    },
+    rust = {
+      enabled = false
+    },
+    dafny = {
+      enabled = false
+    },
+    coq = {
+      enabled = false
+    },
+    acmcpp = {
+      enabled = false
+    },
+    git = {
+      enabled = true
     }
   }
 }

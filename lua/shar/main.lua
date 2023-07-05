@@ -17,7 +17,6 @@ local ui = require 'shar.ui'
 local terminal = require 'shar.terminal'
 local protocol = require 'shar.protocol'
 local editing = require 'shar.editing'
-local git = require 'shar.git'
 local navigation = require 'shar.navigation'
 local motion = require 'shar.motion'
 local toolkit = require 'shar.toolkit'
@@ -112,19 +111,12 @@ function M.init(_opts)
   terminal.setup()
   protocol.init(options.protocol)
   editing.setup()
-  git.setup()
   navigation.setup()
   motion.setup()
   if options.localvimrc then
     setup_localvimrc()
   end
   toolkit.setup()
-
-  -- Optional modules.
-  --
-  -- The list of loaded modules and their parameters
-  -- are configured in lua/shar/modules/config.lua.
-  require 'shar.modules.load'
 
   if options.key.enable_langmapper then
     langmapper.do_automapping()

@@ -83,7 +83,7 @@ local function init_autocmds()
   })
 end
 
-function M.init()
+function M.setup()
   local opts = options.toolkit.tex
 
   local packer = require 'packer'
