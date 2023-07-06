@@ -2,6 +2,9 @@
 
 local M = {}
 
+local vim = vim
+local keymap = vim.keymap
+
 local packer = require 'packer'
 
 ---Set up formatters support.
@@ -14,9 +17,21 @@ function M.init()
     filetype = {
       json = {
         require('formatter.filetypes.json').fixjson,
-      }
+      },
+      lua = {
+        require('formatter.filetypes.lua').stylua,
+      },
     }
   }
+  --- Setup format keymap
+  local augroup = vim.api.nvim_create_augroup("SharFormatter", {})
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "json", "lua" },
+    callback = function()
+      keymap.set('n', '<Leader>fm', ':Format<CR>', { buffer = true })
+    end,
+    group = augroup,
+  })
 end
 
 return M

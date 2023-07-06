@@ -9,6 +9,7 @@ local options = require 'shar.options'
 local treesitter = require 'shar.protocol.treesitter'
 local lsp = require 'shar.protocol.lsp'
 local formatter = require 'shar.protocol.formatter'
+local linter = require 'shar.protocol.linter'
 
 ---Initialize protocol module.
 function M.init()
@@ -23,6 +24,9 @@ function M.init()
   end
   if options.protocol.formatter then
     formatter.init()
+  end
+  if options.protocol.linter then
+    linter.init()
   end
 end
 
