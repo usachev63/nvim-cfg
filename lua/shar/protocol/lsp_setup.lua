@@ -33,8 +33,6 @@ local function setup_buf_keymaps(bufnr)
   set('<Leader>rn', lsp_buf.rename)
   -- Load all references of the symbol into quickfix list
   set('gr', lsp_buf.references)
-  -- Format the whole document
-  set('<Leader>fm', lsp_buf.format)
   -- Open diagnostics window
   set('<Leader>ww', diagnostic.open_float)
   -- Move between diagnostic messages
@@ -60,6 +58,18 @@ end
 ---
 ---@diagnostic disable-next-line: unused-local
 function M.on_attach(client, bufnr)
+  setup_buf_keymaps(bufnr)
+  -- Format the whole document with LSP formatter
+  keymap.set('n', '<Leader>fm', lsp_buf.format, { buffer = bufnr })
+end
+
+---Same as default on_attach, but without formatting keymap.
+---
+---@param client any
+---@param bufnr integer Buffer ID.
+---
+---@diagnostic disable-next-line: unused-local
+function M.on_attach_no_formatting(client, bufnr)
   setup_buf_keymaps(bufnr)
 end
 

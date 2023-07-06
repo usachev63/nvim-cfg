@@ -59,6 +59,7 @@ local M = {}
 ---@field formatter {}? Enable support of formatters.
 ---@field lsp {}? Enable support of LSP.
 ---@field treesitter {}? Enable treesitter support.
+---@field linter {}? Enable linters support.
 
 ---@class Options_Toolkit
 ---
@@ -108,7 +109,8 @@ local default_options = {
   protocol = {
     formatter = nil,
     lsp = nil,
-    treesitter = nil
+    treesitter = nil,
+    linter = nil
   },
   toolkit = {
     acmcpp = {

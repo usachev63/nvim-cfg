@@ -4,4 +4,4 @@ vim.wo.spell = true
 vim.bo.softtabstop = 1
 vim.bo.shiftwidth = 1
 
-vim.bo.number = false
+vim.wo.number = false
