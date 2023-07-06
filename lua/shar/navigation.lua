@@ -10,9 +10,12 @@ local api = vim.api
 local fn = vim.fn
 local keymap = vim.keymap
 
-local telescope = require 'shar.navigation.telescope'
-local nvim_tree = require 'shar.navigation.nvim_tree'
+local nvim_tree
+local nvim_tree_api
+
 local options = require 'shar.options'
+local telescope = require 'shar.navigation.telescope'
+local shar_nvim_tree = require 'shar.navigation.nvim_tree'
 
 ---'%%' in command-line mode maps to the current buffer directory path.
 local function setup_cur_dir_abbrev()
@@ -42,8 +45,8 @@ local function setup_keymaps()
   keymap.set('n', '<Leader>tc', tab_change_to_current_buf_dir)
 
   -- <Leader>e: open directory of current buffer
-  if options.navigation.nvim_tree.enabled then
-    keymap.set('n', '<Leader>e', require('nvim-tree').open_replacing_current_buffer)
+  if nvim_tree then
+    keymap.set('n', '<Leader>e', nvim_tree.open_replacing_current_buffer)
   else
     keymap.set('n', '<Leader>e', ':e %%<CR>', { remap = true })
   end
@@ -52,6 +55,9 @@ end
 ---Get the path to the current buffer directory.
 ---@return string
 function M.get_current_buf_dir()
+  if nvim_tree and nvim_tree_api.tree.is_tree_buf(0) then
+    return nvim_tree_api.tree.get_nodes().absolute_path
+  end
   if o.filetype == 'netrw' and b.netrw_curdir then
     return b.netrw_curdir .. "/"
   end
@@ -67,7 +73,7 @@ end
 ---netrw from loading.
 function M.pre_netrw()
   g.netrw_banner = false
-  if options.navigation.nvim_tree.enabled then
+  if nvim_tree then
     -- Early hijack netrw for nvim-tree
     g.loaded_netrw = 1
     g.loaded_netrwPlugin = 1
@@ -78,7 +84,9 @@ end
 function M.setup()
   telescope.setup()
   if options.navigation.nvim_tree.enabled then
-    nvim_tree.setup()
+    nvim_tree = require 'nvim-tree'
+    nvim_tree_api = require 'nvim-tree.api'
+    shar_nvim_tree.setup()
   end
   setup_keymaps()
 end
