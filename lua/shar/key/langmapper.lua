@@ -19,9 +19,11 @@ local function escape(str)
 end
 
 local en_lower = [[`qwertyuiop[]asdfghjkl;'zxcvbnm]]
-local ru_lower = [[ёйцукенгшщзхъфывапролджэячсмить]]
+local ru_lower =
+  [[ёйцукенгшщзхъфывапролджэячсмить]]
 local en_upper = [[~QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>]]
-local ru_upper = [[ËЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ]]
+local ru_upper =
+  [[ËЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ]]
 
 ---Set up 'langmap' vim option, which allows translating
 ---russian keycodes into english in Normal mode.
@@ -32,8 +34,10 @@ local function setup_langmap()
   }, ',')
 end
 
-local en_full = [[`qwertyuiop[]asdfghjkl;'zxcvbnm,./~@$^&QWERTYUIOP{}|ASDFGHJKL:"ZXCVBNM<>?]]
-local ru_full = [[ёйцукенгшщзхъфывапролджэячсмитьбю.Ё";:?ЙЦУКЕНГШЩЗХЪ/ФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,]]
+local en_full =
+  [[`qwertyuiop[]asdfghjkl;'zxcvbnm,./~@$^&QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>?]]
+local ru_full =
+  [[ёйцукенгшщзхъфывапролджэячсмитьбю.Ё";:?ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,]]
 
 ---Set up langmapper.nvim itself.
 local function setup_langmapper()
@@ -46,7 +50,7 @@ local function setup_langmapper()
       ru = {
         id = 'ru',
         layout = ru_full,
-      }
+      },
     },
     os = {
       Linux = {
@@ -66,7 +70,7 @@ local function setup_extra_keymaps()
 
   -- Switch to 'us' layout upon entering command-line mode
   keymap.set('n', ':', function()
-    layout_api.set_layout('us')
+    layout_api.set_layout 'us'
     return ':'
   end, { expr = true })
 end
