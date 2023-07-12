@@ -3,7 +3,7 @@ vim.bo.shiftwidth = 2
 
 vim.wo.spell = true
 
-vim.keymap.set('n', '<LocalLeader>th', ':ClangdSwitchSourceHeader')
+vim.keymap.set('n', '<LocalLeader>th', ':ClangdSwitchSourceHeader<CR>')
 
 -- Fix comment string for vim-commentary
 vim.bo.commentstring = '// %s'
