@@ -26,12 +26,13 @@ local function fix_escape()
   keymap.set('t', '<C-[>', '<C-\\><C-n>')
 end
 
----No line numbers in terminal buffer.
-local function set_no_number()
+---Autocommand setting local options in terminal buffer.
+local function set_options()
   api.nvim_create_autocmd('TermOpen', {
     pattern = '*',
     callback = function()
       api.nvim_set_option_value('number', false, { scope = 'local', win = 0 })
+      api.nvim_set_option_value('spell', false, { scope = 'local', win = 0 })
     end,
     group = augroup,
   })
@@ -41,7 +42,7 @@ function M.setup()
   set_shell()
   fix_escape()
   augroup = api.nvim_create_augroup('Terminal', {})
-  set_no_number()
+  set_options()
 end
 
 return M
