@@ -71,6 +71,7 @@ local M = {}
 ---@field git { enabled: boolean } Git version control system.
 ---@field rust { enabled: boolean } Rust programming language.
 ---@field tex TexOptions
+---@field markdown { enabled: boolean } Markdown preview editing support.
 
 ---@class AcmCppOptions
 ---
@@ -94,47 +95,50 @@ local M = {}
 local default_options = {
   editing = {
     cmp = nil,
-    enable_autopairs = true
+    enable_autopairs = true,
   },
   key = {
     enable_langmapper = false,
-    layout_lib = nil
+    layout_lib = nil,
   },
   localvimrc = false,
   navigation = {
     nvim_tree = {
-      enabled = false
-    }
+      enabled = false,
+    },
   },
   protocol = {
     formatter = nil,
     lsp = nil,
     treesitter = nil,
-    linter = nil
+    linter = nil,
   },
   toolkit = {
     acmcpp = {
       enabled = false,
-      template_path = nil
+      template_path = nil,
     },
     coq = {
-      enabled = false
+      enabled = false,
     },
     dafny = {
-      enabled = false
+      enabled = false,
     },
     git = {
-      enabled = true
+      enabled = true,
     },
     rust = {
-      enabled = false
+      enabled = false,
     },
     tex = {
       enabled = false,
       template_file = nil,
-      inkscape_figures = nil
-    }
-  }
+      inkscape_figures = nil,
+    },
+    markdown = {
+      enabled = false,
+    },
+  },
 }
 
 ---Handle shar-nvim-cfg options provided by the user.
