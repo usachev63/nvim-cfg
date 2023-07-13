@@ -21,12 +21,15 @@ function M.init()
       lua = {
         require('formatter.filetypes.lua').stylua,
       },
-    }
+      cmake = {
+        require('formatter.filetypes.cmake').cmakeformat,
+      },
+    },
   }
   --- Setup format keymap
-  local augroup = vim.api.nvim_create_augroup("SharFormatter", {})
-  vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "json", "lua" },
+  local augroup = vim.api.nvim_create_augroup('SharFormatter', {})
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = { 'json', 'lua', 'cmake' },
     callback = function()
       keymap.set('n', '<Leader>fm', ':Format<CR>', { buffer = true })
     end,
