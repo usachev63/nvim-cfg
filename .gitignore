@@ -2,5 +2,5 @@
 spell/
 plugin/packer_compiled.lua
 lua/shar/modules/config.lua
-init.lua
+/init.lua
 lua/.luarc.json
