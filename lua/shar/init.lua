@@ -53,6 +53,8 @@ local function set_common_options()
   -- Fix python3 provider,
   -- useful when working under a python venv
   g.python3_host_prog = '/usr/bin/python3'
+
+  o.spelloptions = 'camel'
 end
 
 ---Set up nvim-config-local plugin for support of project-local .vimrc files.
