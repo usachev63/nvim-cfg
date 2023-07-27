@@ -59,12 +59,12 @@ function M.get_current_buf_dir()
     return nvim_tree_api.tree.get_nodes().absolute_path
   end
   if o.filetype == 'netrw' and b.netrw_curdir then
-    return b.netrw_curdir .. "/"
+    return b.netrw_curdir .. '/'
   end
   if o.buftype == 'terminal' and b.term_title then
-    return b.term_title:match(":(.*)") .. "/"
+    return b.term_title:match ':(.*)' .. '/'
   end
-  return api.nvim_buf_get_name(0):match("(.*/)")
+  return api.nvim_buf_get_name(0):match '(.*/)'
 end
 
 ---A callback, which is called before netrw is loaded.
@@ -73,10 +73,17 @@ end
 ---netrw from loading.
 function M.pre_netrw()
   g.netrw_banner = false
-  if nvim_tree then
+  if options.navigation.nvim_tree.enabled then
     -- Early hijack netrw for nvim-tree
     g.loaded_netrw = 1
     g.loaded_netrwPlugin = 1
+  end
+end
+
+function M.pack()
+  telescope.pack()
+  if options.navigation.nvim_tree.enabled then
+    shar_nvim_tree.pack()
   end
 end
 

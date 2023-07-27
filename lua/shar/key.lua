@@ -20,6 +20,12 @@ local function set_leader()
   keymap.set('i', '<C-Space>', '<Space>')
 end
 
+function M.pack()
+  if options.key.enable_langmapper then
+    langmapper.pack()
+  end
+end
+
 ---Initialize key module.
 function M.init()
   layout_api.init(options.key.layout_lib)
@@ -27,7 +33,10 @@ function M.init()
   if options.key.enable_langmapper then
     langmapper.init()
     if not layout_api.get_layout then
-      error('[shar.key] Cannot use langmapper.nvim without layout_api backend!', 3)
+      error(
+        '[shar.key] Cannot use langmapper.nvim without layout_api backend!',
+        3
+      )
     end
   end
   user_maps.setup_maps()

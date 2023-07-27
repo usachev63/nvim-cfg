@@ -1,6 +1,6 @@
 local M = {}
 
-function M.setup()
+function M.pack()
   local packer = require 'packer'
   packer.use {
     'iamcco/markdown-preview.nvim',
@@ -11,5 +11,7 @@ function M.setup()
     ft = { 'markdown' },
   }
 end
+
+function M.setup() end
 
 return M

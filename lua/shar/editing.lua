@@ -3,10 +3,20 @@
 local M = {}
 
 local options = require 'shar.options'
-
 local cmp = require 'shar.editing.cmp'
 local autopairs = require 'shar.editing.autopairs'
 local ultisnips = require 'shar.editing.ultisnips'
+
+function M.pack()
+  local opts = options.editing
+  if opts.cmp then
+    cmp.pack()
+  end
+  if opts.enable_autopairs then
+    autopairs.pack()
+  end
+  ultisnips.pack()
+end
 
 ---Set up editing module.
 function M.setup()

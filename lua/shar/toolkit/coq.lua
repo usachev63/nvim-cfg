@@ -1,6 +1,7 @@
 return {
-  setup = function()
+  pack = function()
     local packer = require 'packer'
     packer.use { 'whonore/Coqtail', ft = 'coq' }
-  end
+  end,
+  setup = function() end,
 }

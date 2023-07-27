@@ -1,12 +1,10 @@
----treesitter support.
+---tree-sitter support.
 
 local M = {}
 
-local packer = require 'packer'
-
----Setup tresitter support.
-function M.init()
-  packer.use {
+---Setup tree-sitter support.
+function M.pack()
+  require('packer').use {
     'nvim-treesitter/nvim-treesitter',
     run = function()
       local ts_install = require 'nvim-treesitter.install'
@@ -17,5 +15,7 @@ function M.init()
     end,
   }
 end
+
+function M.init() end
 
 return M

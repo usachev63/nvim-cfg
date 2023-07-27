@@ -5,11 +5,12 @@ local M = {}
 local vim = vim
 local keymap = vim.keymap
 
-local packer = require 'packer'
+function M.pack()
+  require('packer').use 'mhartington/formatter.nvim'
+end
 
 ---Set up formatters support.
 function M.init()
-  packer.use 'mhartington/formatter.nvim'
   -- formatter.nvim
   local formatter = require 'formatter'
   -- TODO split formatters into separate files

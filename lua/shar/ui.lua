@@ -7,9 +7,6 @@ local o = vim.o
 local opt = vim.opt
 local g = vim.g
 
-local packer = require 'packer'
-local lualine = require 'lualine'
-
 ---Set some UI-related vim options.
 local function set_options()
   o.number = true
@@ -30,19 +27,13 @@ end
 
 ---Set up Gruvbox color scheme.
 local function set_theme()
-  packer.use 'morhetz/gruvbox'
   g.gruvbox_italic = 1
   vim.cmd 'colorscheme gruvbox'
 end
 
 ---Set up integration with lualine.nvim status line plugin.
 local function setup_lualine()
-  packer.use {
-    'nvim-lualine/lualine.nvim',
-    requires = {
-      'nvim-tree/nvim-web-devicons',
-    },
-  }
+  local lualine = require 'lualine'
   lualine.setup {
     options = {
       theme = 'gruvbox',
@@ -60,10 +51,10 @@ end
 
 ---Set up integration with tabby.nvim tab line plugin.
 local function setup_tabby()
-  packer.use 'nanozuki/tabby.nvim'
   local theme = {
     fill = 'TabLineFill',
-    -- Also you can do this: fill = { fg='#f2e9de', bg='#907aa9', style='italic' }
+    -- Also you can do this:
+    -- fill = { fg='#f2e9de', bg='#907aa9', style='italic' }
     head = 'TabLine',
     current_tab = 'TabLineSel',
     tab = 'TabLine',
@@ -84,6 +75,18 @@ local function setup_tabby()
       end),
     }
   end)
+end
+
+function M.pack()
+  local packer = require 'packer'
+  packer.use 'morhetz/gruvbox'
+  packer.use {
+    'nvim-lualine/lualine.nvim',
+    requires = {
+      'nvim-tree/nvim-web-devicons',
+    },
+  }
+  packer.use 'nanozuki/tabby.nvim'
 end
 
 ---Initialize UI-related setup.
