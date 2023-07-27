@@ -1,8 +1,8 @@
-local lspconfig = require 'lspconfig'
 local lsp_setup = require 'shar.protocol.lsp_setup'
 local options = require 'shar.options'
 
 return function()
+  local lspconfig = require 'lspconfig'
   local on_attach
   if options.protocol.formatter then
     on_attach = lsp_setup.on_attach_no_formatting

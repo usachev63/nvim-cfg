@@ -1,7 +1,7 @@
-local lspconfig = require 'lspconfig'
 local lsp_setup = require 'shar.protocol.lsp_setup'
 
 return function()
+  local lspconfig = require 'lspconfig'
   lspconfig.clangd.setup {
     on_attach = lsp_setup.on_attach,
     cmd = {

@@ -84,9 +84,9 @@ end
 function M.setup()
   telescope.setup()
   if options.navigation.nvim_tree.enabled then
+    shar_nvim_tree.setup()
     nvim_tree = require 'nvim-tree'
     nvim_tree_api = require 'nvim-tree.api'
-    shar_nvim_tree.setup()
   end
   setup_keymaps()
 end

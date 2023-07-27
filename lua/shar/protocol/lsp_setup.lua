@@ -7,8 +7,6 @@ local keymap = vim.keymap
 local lsp_buf = vim.lsp.buf
 local diagnostic = vim.diagnostic
 
-local lspconfig = require 'lspconfig'
-
 local options = require 'shar.options'
 
 ---Set up common user buffer keymaps upon attaching a LSP server.
@@ -86,6 +84,7 @@ end
 ---
 ---@param server_name string Server identifier.
 function M.default_handler(server_name)
+  local lspconfig = require 'lspconfig'
   lspconfig[server_name].setup {
     on_attach = M.on_attach,
     capabilities = M.capabilities,

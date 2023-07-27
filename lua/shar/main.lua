@@ -109,7 +109,6 @@ function M.init(opts)
   set_common_options()
   ui.init()
   terminal.setup()
-  protocol.init()
   editing.setup()
   navigation.setup()
   motion.setup()
@@ -117,6 +116,7 @@ function M.init(opts)
     setup_localvimrc()
   end
   toolkit.setup()
+  protocol.init()
 
   if options.key.enable_langmapper then
     langmapper.do_automapping()
