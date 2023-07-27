@@ -8,8 +8,6 @@ local api = vim.api
 local fn = vim.fn
 local o = vim.o
 
-local packer = require 'packer'
-
 ---Set up useful autocommands.
 local function setup_autocmds()
   local augroup = api.nvim_create_augroup('Fugitive', {})
@@ -35,7 +33,9 @@ local function setup_autocmds()
       end
       local file_path = api.nvim_buf_get_name(0)
       local ls_files = fn.FugitiveExecute {
-        "ls-files", "--", file_path
+        'ls-files',
+        '--',
+        file_path,
       }
       if #ls_files.stdout <= 1 then
         return
@@ -43,9 +43,10 @@ local function setup_autocmds()
       vim.cmd {
         cmd = 'cnoreabbrev',
         args = {
-          '<expr>', '<buffer>',
+          '<expr>',
+          '<buffer>',
           'w',
-          'getcmdtype() == ":" && getcmdline() == "w" ? "Gwrite" : "w"'
+          'getcmdtype() == ":" && getcmdline() == "w" ? "Gwrite" : "w"',
         },
       }
     end,
@@ -53,10 +54,12 @@ local function setup_autocmds()
   })
 end
 
+function M.pack()
+  require('packer').use 'tpope/vim-fugitive'
+end
+
 ---Set up integration with Git.
 function M.setup()
-  packer.use 'tpope/vim-fugitive'
-
   -- Merge conflict resolution keymaps
   keymap.set('n', '<Leader>df', ':Gvdiffsplit!<CR>')
   keymap.set('n', '<Leader>dh', ':diffget //2<CR>')

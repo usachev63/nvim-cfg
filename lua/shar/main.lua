@@ -8,8 +8,7 @@ local o = vim.o
 local opt = vim.opt
 local fn = vim.fn
 
-local packer = require 'packer'
-
+local shar_packer = require 'shar.packer'
 local options = require 'shar.options'
 local key = require 'shar.key'
 local langmapper = require 'shar.key.langmapper'
@@ -20,21 +19,6 @@ local editing = require 'shar.editing'
 local navigation = require 'shar.navigation'
 local motion = require 'shar.motion'
 local toolkit = require 'shar.toolkit'
-
----Initialize packer.nvim plugin manager.
-local function init_packer()
-  packer.init()
-  packer.use 'wbthomason/packer.nvim' -- declare plugin manager itself
-end
-
----Declare common plugins.
-local function require_common_plugins()
-  packer.use 'tpope/vim-surround'   -- surround text objects
-  packer.use 'tpope/vim-commentary' -- comments
-  packer.use 'tpope/vim-repeat'
-  packer.use 'nelstrom/vim-visual-star-search'
-  packer.use 'lambdalisue/suda.vim' -- sudo write fix
-end
 
 ---Set common vim options and globals.
 local function set_common_options()
@@ -50,7 +34,7 @@ local function set_common_options()
 
   -- Add all subdirectories of current working directory.
   -- For use in :find, gf, etc.
-  opt.path:append { "**" }
+  opt.path:append { '**' }
 
   -- zsh-like autocompletion in Ex mode
   o.wildmenu = true
@@ -73,10 +57,9 @@ end
 
 ---Set up nvim-config-local plugin for support of project-local .vimrc files.
 local function setup_localvimrc()
-  packer.use 'klen/nvim-config-local'
   require('config-local').setup {
-    config_files = { ".vimrc.lua", ".vimrc" },
-    hashfile = fn.stdpath("data") .. "/config-local",
+    config_files = { '.vimrc.lua', '.vimrc' },
+    hashfile = fn.stdpath 'data' .. '/config-local',
     autocommands_create = true,
     commands_create = true,
     silent = false,
@@ -102,10 +85,9 @@ function M.init(opts)
 
   navigation.pre_netrw()
 
-  init_packer()
+  shar_packer.pack()
   key.init()
 
-  require_common_plugins()
   set_common_options()
   ui.init()
   terminal.setup()

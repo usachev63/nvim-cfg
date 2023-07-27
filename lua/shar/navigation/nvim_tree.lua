@@ -5,7 +5,6 @@ local M = {}
 local vim = vim
 local keymap = vim.keymap
 
-local packer = require 'packer'
 local api
 
 ---Custom nvim-tree on_attach function.
@@ -81,15 +80,17 @@ local function on_attach(bufnr)
   map('<CR>', api.node.open.replace_tree_buffer, 'Open: In Place')
 end
 
----Set up integration with nvim-tree.
-function M.setup()
-  packer.use {
+function M.pack()
+  require('packer').use {
     'nvim-tree/nvim-tree.lua',
     requires = {
       'nvim-tree/nvim-web-devicons',
     },
   }
+end
 
+---Set up integration with nvim-tree.
+function M.setup()
   local nvim_tree = require 'nvim-tree'
   api = require 'nvim-tree.api'
   nvim_tree.setup {

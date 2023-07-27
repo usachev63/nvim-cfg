@@ -1,7 +1,7 @@
 return {
-  setup = function()
+  pack = function()
     local packer = require 'packer'
     packer.use { 'mlr-msft/vim-loves-dafny', ft = 'dafny' }
-  end
+  end,
+  setup = function() end,
 }
-

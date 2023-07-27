@@ -8,7 +8,6 @@ local fn = vim.fn
 local opt = vim.opt
 local keymap = vim.keymap
 
-local packer = require 'packer'
 local layout_api = require 'shar.key.layout_api'
 local langmapper
 
@@ -75,9 +74,12 @@ local function setup_extra_keymaps()
   end, { expr = true })
 end
 
+function M.pack()
+  require('packer').use 'sharkov63/langmapper.nvim'
+end
+
 ---Set up integration with langmapper.nvim.
 function M.init()
-  packer.use 'sharkov63/langmapper.nvim'
   setup_langmap()
   setup_langmapper()
   setup_extra_keymaps()

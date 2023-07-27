@@ -4,13 +4,30 @@ local M = {}
 
 local options = require 'shar.options'
 
-function M.setup()
+local function get_kits()
+  local kits = {}
   for kit_name, kit_options in pairs(options.toolkit) do
-    if type(kit_name) == 'string' and type(kit_options) == 'table' and
-        kit_options.enabled then
+    if
+      type(kit_name) == 'string'
+      and type(kit_options) == 'table'
+      and kit_options.enabled
+    then
       local module = require('shar.toolkit.' .. kit_name)
-      module.setup()
+      table.insert(kits, module)
     end
+  end
+  return kits
+end
+
+function M.pack()
+  for _, kit in ipairs(get_kits()) do
+    kit.pack()
+  end
+end
+
+function M.setup()
+  for _, kit in ipairs(get_kits()) do
+    kit.setup()
   end
 end
 

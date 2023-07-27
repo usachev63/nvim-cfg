@@ -62,7 +62,7 @@ local function init_template(template_path)
   if not template_file then
     return
   end
-  g.Shar_latex_template = template_file:read('a')
+  g.Shar_latex_template = template_file:read 'a'
 end
 
 ---Callback, invoked on opening a TeX document.
@@ -92,12 +92,14 @@ local function init_autocmds()
   })
 end
 
+function M.pack()
+  local packer = require 'packer'
+  packer.use 'lervag/vimtex'
+end
+
 ---Set up TeX support.
 function M.setup()
   local opts = options.toolkit.tex
-
-  local packer = require 'packer'
-  packer.use 'lervag/vimtex'
 
   init_globals()
   init_template(opts.template_file)

@@ -4,8 +4,6 @@ local M = {}
 
 local vim = vim
 
-local packer = require 'packer'
-
 ---Set up telescope-related keymaps.
 local function setup_keymaps()
   local builtin = require 'telescope.builtin'
@@ -19,9 +17,8 @@ local function setup_keymaps()
   vim.keymap.set('n', '<leader>fr', builtin.resume, {})
 end
 
----Set up integration with telescope.nvim.
-function M.setup()
-  packer.use {
+function M.pack()
+  require('packer').use {
     'nvim-telescope/telescope.nvim',
     branch = '0.1.x',
     requires = {
@@ -29,9 +26,13 @@ function M.setup()
       'nvim-telescope/telescope-fzy-native.nvim',
     },
   }
+end
+
+---Set up integration with telescope.nvim.
+function M.setup()
   setup_keymaps()
   local telescope = require 'telescope'
-  telescope.load_extension('fzy_native')
+  telescope.load_extension 'fzy_native'
 end
 
 return M

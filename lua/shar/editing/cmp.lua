@@ -2,7 +2,6 @@
 
 local M = {}
 
-local packer = require 'packer'
 local options = require 'shar.options'
 
 ---Compile a list of source for nvim-cmp from shar-nvim-cfg options.
@@ -24,19 +23,22 @@ local function get_sources()
   return sources
 end
 
----Set up integration with nvim-cmp.
-function M.init()
-  packer.use {
+function M.pack()
+  require('packer').use {
     'hrsh7th/nvim-cmp',
     requires = {
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-nvim-lsp',
     },
   }
+end
+
+---Set up integration with nvim-cmp.
+function M.init()
   local cmp = require 'cmp'
   cmp.setup {
     mapping = cmp.mapping.preset.insert {},
-    sources = cmp.config.sources(get_sources())
+    sources = cmp.config.sources(get_sources()),
   }
 end
 

@@ -5,7 +5,6 @@ local M = {}
 local vim = vim
 local keymap = vim.keymap
 
-local packer = require 'packer'
 local lsp_setup = require 'shar.protocol.lsp_setup'
 
 ---A list of language server handlers for mason-lspconfig.
@@ -16,11 +15,14 @@ local handlers = {
   lua_ls = require 'shar.protocol.servers.lua_ls',
 }
 
----Set up LSP support.
-function M.init()
+function M.pack()
+  local packer = require 'packer'
   packer.use 'neovim/nvim-lspconfig'
   packer.use 'williamboman/mason-lspconfig.nvim'
+end
 
+---Set up LSP support.
+function M.init()
   vim.diagnostic.config { signs = false }
   lsp_setup.setup_capabilities()
 
