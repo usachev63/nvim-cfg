@@ -82,7 +82,7 @@ end
 
 function M.pack()
   require('packer').use {
-    'nvim-tree/nvim-tree.lua',
+    'sharkov63/nvim-tree.lua',
     requires = {
       'nvim-tree/nvim-web-devicons',
     },
@@ -102,6 +102,7 @@ function M.setup()
       },
       open_file = {
         quit_on_open = true,
+        prevent_buffer_override = false,
         resize_window = false,
         window_picker = {
           enable = false,
