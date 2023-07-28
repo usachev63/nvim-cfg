@@ -11,7 +11,7 @@ local function goto_callback(goto_command)
     cmd = goto_command,
     mods = {
       emsg_silent = true,
-    }
+    },
   }
   local count = v.count
   if count and count > 0 then
@@ -50,6 +50,9 @@ end
 local function setup_opt_toggle_maps()
   keymap.set('n', 'yoh', function()
     vim.o.hlsearch = not vim.o.hlsearch
+  end)
+  keymap.set('n', 'yos', function()
+    vim.o.spell = not vim.o.spell
   end)
 end
 
