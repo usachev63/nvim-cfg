@@ -103,6 +103,9 @@ function M.setup()
       open_file = {
         quit_on_open = true,
         resize_window = false,
+        window_picker = {
+          enable = false,
+        },
       },
     },
   }
