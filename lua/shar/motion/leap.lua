@@ -10,14 +10,14 @@ local leap
 local layout_api = require 'shar.key.layout_api'
 
 local safe_labels = {
-  'f',
   's',
+  'f',
   'n',
   'u',
   't',
   '/',
-  'F',
   'S',
+  'F',
   'N',
   'L',
   'H',
@@ -29,8 +29,8 @@ local safe_labels = {
   'Z',
 }
 local labels = {
-  'f',
   's',
+  'f',
   'n',
   'j',
   'k',
@@ -52,8 +52,8 @@ local labels = {
   'x',
   '/',
   'z',
-  'F',
   'S',
+  'F',
   'N',
   'J',
   'K',
@@ -77,14 +77,14 @@ local labels = {
   'Z',
 }
 local ru_safe_labels = {
-  'а',
   'ы',
+  'а',
   'т',
   'г',
   'е',
   '.',
-  'А',
   'Ы',
+  'А',
   'Т',
   'Д',
   'Р',
@@ -96,8 +96,8 @@ local ru_safe_labels = {
   'Я',
 }
 local ru_labels = {
-  'а',
   'ы',
+  'а',
   'т',
   'о',
   'л',
@@ -119,8 +119,8 @@ local ru_labels = {
   'ч',
   '.',
   'я',
-  'А',
   'Ы',
+  'А',
   'Т',
   'О',
   'Л',
@@ -178,9 +178,9 @@ end
 
 ---Set up leap keymaps (which differ from defaults).
 local function setup_keymaps()
-  map_leap('n', 'f', {})
-  map_leap({ 'n', 'x', 'o' }, 'F', { backward = true })
-  map_leap({ 'x', 'o' }, 'f', { offset = 1, inclusive_op = true })
+  map_leap('n', 's', {})
+  map_leap({ 'n', 'x', 'o' }, 'S', { backward = true })
+  map_leap({ 'x', 'o' }, 's', { offset = 1, inclusive_op = true })
   map_leap({ 'x', 'o' }, 'x', { offset = -1, inclusive_op = true })
   map_leap({ 'x', 'o' }, 'X', { backward = true, offset = 2 })
 end
