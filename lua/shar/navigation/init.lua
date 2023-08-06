@@ -31,7 +31,7 @@ local function setup_cur_dir_abbrev()
 end
 
 ---Change current tab directory to current buffer directory.
-local function tab_change_to_current_buf_dir()
+function M.tab_change_to_current_buf_dir()
   local dir = M.get_current_buf_dir()
   vim.cmd('tchdir ' .. dir)
   print("Changed tab directory to '" .. dir .. "'")
@@ -42,7 +42,7 @@ local function setup_keymaps()
   setup_cur_dir_abbrev()
 
   -- <Leader>tc: change tab cwd to directory of current buffer
-  keymap.set('n', '<Leader>tc', tab_change_to_current_buf_dir)
+  keymap.set('n', '<Leader>tc', M.tab_change_to_current_buf_dir)
 
   -- <Leader>e: open directory of current buffer
   if nvim_tree then
@@ -50,6 +50,21 @@ local function setup_keymaps()
   else
     keymap.set('n', '<Leader>e', ':e %%<CR>', { remap = true })
   end
+end
+
+local function tab_edit_change_dir(opts)
+  vim.cmd(':tabedit ' .. opts.args)
+  M.tab_change_to_current_buf_dir()
+end
+
+local function setup_user_commands()
+  api.nvim_create_user_command('TEditChangeDir', tab_edit_change_dir, {
+    desc = 'Open file/directory in a new tab, '
+      .. 'and change the current directory in the new tab'
+      .. 'to the directory of that file (or the opened directory).',
+    nargs = 1,
+    complete = 'file',
+  })
 end
 
 ---Get the path to the current buffer directory.
@@ -96,6 +111,7 @@ function M.setup()
     nvim_tree_api = require 'nvim-tree.api'
   end
   setup_keymaps()
+  setup_user_commands()
 end
 
 return M
