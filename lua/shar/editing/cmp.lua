@@ -2,6 +2,7 @@
 
 local M = {}
 
+local vim = vim
 local options = require 'shar.options'
 
 ---Compile a list of source for nvim-cmp from shar-nvim-cfg options.
@@ -18,6 +19,9 @@ local function get_sources()
     name = 'buffer',
     option = {
       keyword_pattern = [[\k\+]],
+      get_bufnrs = function()
+        return vim.api.nvim_list_bufs()
+      end,
     },
   })
   return sources
