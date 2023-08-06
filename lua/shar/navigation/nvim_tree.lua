@@ -5,7 +5,9 @@ local M = {}
 local vim = vim
 local keymap = vim.keymap
 
+local nvim_tree
 local api
+local augroup
 
 ---Custom nvim-tree on_attach function.
 ---
@@ -89,9 +91,24 @@ function M.pack()
   }
 end
 
+local function custom_directory_hijack()
+  local bufname = vim.api.nvim_buf_get_name(0)
+  if vim.fn.isdirectory(bufname) ~= 1 then
+    return
+  end
+  nvim_tree.open_replacing_current_buffer()
+end
+
+local function setup_custom_directory_hijack()
+  vim.api.nvim_create_autocmd({ 'BufEnter', 'BufNewFile' }, {
+    augroup = augroup,
+    callback = custom_directory_hijack,
+  })
+end
+
 ---Set up integration with nvim-tree.
 function M.setup()
-  local nvim_tree = require 'nvim-tree'
+  nvim_tree = require 'nvim-tree'
   api = require 'nvim-tree.api'
   nvim_tree.setup {
     disable_netrw = true,
@@ -109,7 +126,11 @@ function M.setup()
         },
       },
     },
+    hijack_directories = {
+      enable = false,
+    },
   }
+  setup_custom_directory_hijack()
 end
 
 return M
