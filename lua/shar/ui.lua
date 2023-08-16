@@ -74,7 +74,23 @@ local function setup_tabby()
         }
       end),
     }
-  end)
+  end, {
+    tab_name = {
+      name_fallback = function(tabid)
+        local tabcwd = vim.fn.getcwd(-1, tabid)
+        local tabparent
+        for parent in vim.fs.parents(tabcwd) do
+          tabparent = vim.fs.basename(parent)
+          break
+        end
+        local tabname = vim.fs.basename(tabcwd)
+        if tabparent then
+          tabname = tabparent .. '/' .. tabname
+        end
+        return tabname
+      end,
+    },
+  })
 end
 
 function M.pack()
