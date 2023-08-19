@@ -77,7 +77,8 @@ local function setup_tabby()
   end, {
     tab_name = {
       name_fallback = function(tabid)
-        local tabcwd = vim.fn.getcwd(-1, tabid)
+        local tabnum = vim.api.nvim_tabpage_get_number(tabid)
+        local tabcwd = vim.fn.getcwd(-1, tabnum)
         local tabparent
         for parent in vim.fs.parents(tabcwd) do
           tabparent = vim.fs.basename(parent)
