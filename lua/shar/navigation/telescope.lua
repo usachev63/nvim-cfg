@@ -33,6 +33,15 @@ function M.setup()
   setup_keymaps()
   local telescope = require 'telescope'
   telescope.load_extension 'fzy_native'
+  telescope.setup {
+    defaults = {
+      sorting_strategy = 'ascending',
+      selection_strategy = 'closest',
+      selection_caret = '  ',
+      prompt_prefix = '  ',
+      layout_strategy = 'center',
+    },
+  }
 end
 
 return M
