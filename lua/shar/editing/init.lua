@@ -6,6 +6,7 @@ local options = require 'shar.options'
 local cmp = require 'shar.editing.cmp'
 local autopairs = require 'shar.editing.autopairs'
 local ultisnips = require 'shar.editing.ultisnips'
+local sakls = require 'shar.editing.sakls'
 
 function M.pack()
   local opts = options.editing
@@ -14,6 +15,9 @@ function M.pack()
   end
   if opts.enable_autopairs then
     autopairs.pack()
+  end
+  if opts.sakls.enabled then
+    sakls.pack()
   end
   ultisnips.pack()
 end
@@ -26,6 +30,9 @@ function M.setup()
   end
   if opts.enable_autopairs then
     autopairs.init()
+  end
+  if opts.sakls.enabled then
+    sakls.set_up()
   end
   ultisnips.setup()
 end

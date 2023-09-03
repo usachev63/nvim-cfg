@@ -19,6 +19,15 @@ local M = {}
 ---@field cmp {}? Use nvim-cmp autocompletion engine.
 ---@field enable_autopairs boolean Use nvim-autopairs bracket
 ---autocompletion plugin.
+---@field sakls Options_Sakls Options for sakls.nvim plugin.
+
+---@class Options_Sakls
+---
+---Options for sakls.nvim plugin.
+---
+---@field enabled boolean Enable sakls.nvim plugin.
+---@field sakls_nvim_path string Path to sakls.nvim repository for packer.
+---@field options table Options table for sakls.nvim init function.
 
 ---@class Options_Key
 ---
@@ -88,6 +97,14 @@ local M = {}
 ---@field template_file string? Path to template TeX file.
 ---@field inkscape_figures string? Path to inkscape-figures tool:
 ---Inkscape figure manager.
+---@field sakls TexSaklsOptions
+
+---@class TexSaklsOptions
+---
+---Using sakls.nvim for TeX.
+---
+---@field enabled boolean Enable using sakls.nvim for TeX.
+---@field schema? string|table Define SAKLS schema to use.
 
 ---Default shar-nvim-cfg options.
 ---
@@ -96,6 +113,11 @@ local default_options = {
   editing = {
     cmp = nil,
     enable_autopairs = true,
+    sakls = {
+      enabled = false,
+      sakls_nvim_path = 'sharkov63/sakls.nvim',
+      options = {},
+    },
   },
   key = {
     enable_langmapper = false,
@@ -134,6 +156,10 @@ local default_options = {
       enabled = false,
       template_file = nil,
       inkscape_figures = nil,
+      sakls = {
+        enabled = false,
+        schema = nil,
+      }
     },
     markdown = {
       enabled = false,
