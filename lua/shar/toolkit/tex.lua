@@ -9,7 +9,7 @@ local g = vim.g
 local options = require 'shar.options'
 
 local tex_keymap = require 'shar.toolkit.tex.keymap'
-local tex_layoutswitch = require 'shar.toolkit.tex.layoutswitch'
+local tex_sakls = require 'shar.toolkit.tex.sakls'
 
 ---Initialize related Vim global variables.
 local function init_globals()
@@ -105,7 +105,9 @@ function M.setup()
   init_template(opts.template_file)
   init_autocmds()
 
-  tex_layoutswitch.init()
+  if opts.sakls.enabled then
+    tex_sakls.set_up()
+  end
   tex_keymap.init()
 end
 

@@ -17,9 +17,9 @@ local function escape(str)
   return fn.escape(str, escape_chars)
 end
 
-local en_lower = [[`qwertyuiop[]asdfghjkl;'zxcvbnm]]
+local en_lower = [[`qwertyuiop[]asdfghjkl'zxcvbnm]]
 local ru_lower =
-  [[ёйцукенгшщзхъфывапролджэячсмить]]
+  [[ёйцукенгшщзхъфывапролдэячсмить]]
 local en_upper = [[~QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>]]
 local ru_upper =
   [[ËЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ]]
@@ -66,6 +66,8 @@ local function setup_extra_keymaps()
   -- will cause huge slow down
   -- on every key press.
   keymap.set({ 'n', 'v', 'o' }, '№', '#')
+
+  keymap.set({ 'n', 'v', 'o' }, 'ж', ';')
 
   -- Switch to 'us' layout upon entering command-line mode
   keymap.set('n', ':', function()
