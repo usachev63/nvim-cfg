@@ -81,6 +81,7 @@ local M = {}
 ---@field rust { enabled: boolean } Rust programming language.
 ---@field tex TexOptions
 ---@field markdown { enabled: boolean } Markdown preview editing support.
+---@field distant { enabled: boolean } distant: remote FS and process operations.
 
 ---@class AcmCppOptions
 ---
@@ -162,6 +163,9 @@ local default_options = {
       }
     },
     markdown = {
+      enabled = false,
+    },
+    distant = {
       enabled = false,
     },
   },
