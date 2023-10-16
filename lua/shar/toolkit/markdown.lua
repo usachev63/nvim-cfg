@@ -1,5 +1,7 @@
 local M = {}
 
+local vim = vim
+
 function M.pack()
   local packer = require 'packer'
   packer.use {
@@ -11,6 +13,8 @@ function M.pack()
   }
 end
 
-function M.setup() end
+function M.setup()
+  vim.g.mkdp_echo_preview_url = 1
+end
 
 return M
