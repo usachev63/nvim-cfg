@@ -60,6 +60,13 @@ local M = {}
 ---@field nvim_tree { enabled: boolean } Options for nvim-tree plugin;
 ---currently we can only enable or disable it.
 
+---@class Options_NvimTree
+---
+---Options for nvim-tree plugin.
+---
+---@field enabled boolean
+---@field netrw_style boolean
+
 ---@class Options_Protocol
 ---
 ---Options for configuring various protocols: LSPs, formatters, linters,

@@ -110,7 +110,7 @@ end
 function M.setup()
   nvim_tree = require 'nvim-tree'
   api = require 'nvim-tree.api'
-  nvim_tree.setup {
+  local nvim_tree_opts = {
     disable_netrw = true,
     on_attach = on_attach,
     actions = {
@@ -130,6 +130,8 @@ function M.setup()
       enable = false,
     },
   }
+
+  nvim_tree.setup(nvim_tree_opts)
   setup_custom_directory_hijack()
 end
 
