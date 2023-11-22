@@ -55,7 +55,9 @@ local function setup_autocmds()
 end
 
 function M.pack()
-  require('packer').use 'tpope/vim-fugitive'
+  local packer = require 'packer'
+  packer.use 'tpope/vim-fugitive'
+  packer.use 'sindrets/diffview.nvim'
 end
 
 ---Set up integration with Git.

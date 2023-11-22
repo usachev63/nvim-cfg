@@ -25,10 +25,11 @@ local function set_options()
   o.breakindentopt = 'sbr'
 end
 
----Set up Gruvbox color scheme.
+---Set up my favourite color scheme.
 local function set_theme()
   g.gruvbox_italic = 1
   vim.cmd 'colorscheme gruvbox'
+  -- vim.cmd 'colorscheme onedark'
 end
 
 ---Set up integration with lualine.nvim status line plugin.
@@ -96,7 +97,8 @@ end
 
 function M.pack()
   local packer = require 'packer'
-  packer.use 'morhetz/gruvbox'
+  packer.use 'ellisonleao/gruvbox.nvim'
+  packer.use 'joshdick/onedark.vim'
   packer.use {
     'nvim-lualine/lualine.nvim',
     requires = {
