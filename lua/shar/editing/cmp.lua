@@ -19,19 +19,36 @@ local function get_sources()
     name = 'buffer',
     option = {
       keyword_pattern = [[\k\+]],
+      get_bufnrs = function() -- visible buffers
+        local bufs = {}
+        for _, win in ipairs(vim.api.nvim_list_wins()) do
+          local buf = vim.api.nvim_win_get_buf(win)
+          local byte_size =
+            vim.api.nvim_buf_get_offset(buf, vim.api.nvim_buf_line_count(buf))
+          if byte_size <= 1024 * 1024 then -- 1 Megabyte max
+            bufs[vim.api.nvim_win_get_buf(win)] = true
+          end
+        end
+        return vim.tbl_keys(bufs)
+      end,
     },
+  })
+  table.insert(sources, {
+    name = 'async_path',
   })
   return sources
 end
 
 function M.pack()
-  require('packer').use {
+  local packer = require 'packer'
+  packer.use {
     'hrsh7th/nvim-cmp',
     requires = {
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-nvim-lsp',
     },
   }
+  packer.use 'FelipeLema/cmp-async-path'
 end
 
 ---Set up integration with nvim-cmp.
