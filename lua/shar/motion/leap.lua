@@ -162,8 +162,8 @@ local function map_leap(mode, key, leap_opts)
       layout_api.set_layout 'ru'
       local ru_opts = {
         opts = {
-          safe_labels = ru_safe_labels,
-          ru_labels = ru_labels,
+          safe_labels = {},
+          labels = ru_labels,
         },
       }
       setmetatable(ru_opts, { __index = leap_opts })
