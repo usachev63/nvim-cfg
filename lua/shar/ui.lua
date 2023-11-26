@@ -106,6 +106,7 @@ function M.pack()
     },
   }
   packer.use 'nanozuki/tabby.nvim'
+  packer.use 'rcarriga/nvim-notify'
 end
 
 ---Initialize UI-related setup.
