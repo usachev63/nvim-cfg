@@ -105,9 +105,9 @@ function M.setup()
   init_template(opts.template_file)
   init_autocmds()
 
-  if opts.sakls.enabled then
-    tex_sakls.set_up()
-  end
+  -- if opts.sakls.enabled then
+  --   tex_sakls.set_up()
+  -- end
   tex_keymap.init()
 end
 
