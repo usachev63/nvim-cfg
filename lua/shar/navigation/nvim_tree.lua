@@ -85,6 +85,7 @@ end
 function M.pack()
   require('packer').use {
     'nvim-tree/nvim-tree.lua',
+    commit = '2fed5e1010a591f81e9ceffd2054c469feb4e95e',
     requires = {
       'nvim-tree/nvim-web-devicons',
     },
