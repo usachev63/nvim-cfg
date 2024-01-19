@@ -84,8 +84,8 @@ end
 
 function M.pack()
   require('packer').use {
-    'nvim-tree/nvim-tree.lua',
-    commit = '2fed5e1010a591f81e9ceffd2054c469feb4e95e',
+    'sharkov63/nvim-tree.lua',
+    branch = 'fix-nil',
     requires = {
       'nvim-tree/nvim-web-devicons',
     },
@@ -97,7 +97,7 @@ local function custom_directory_hijack()
   if vim.fn.isdirectory(bufname) ~= 1 then
     return
   end
-  nvim_tree.open_replacing_current_buffer()
+  api.tree.open { path = bufname, current_window = true }
 end
 
 local function setup_custom_directory_hijack()

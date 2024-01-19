@@ -46,7 +46,13 @@ local function setup_keymaps()
 
   -- <Leader>e: open directory of current buffer
   if nvim_tree then
-    keymap.set('n', '<Leader>e', nvim_tree.open_replacing_current_buffer)
+    keymap.set('n', '<Leader>e', function()
+      nvim_tree_api.tree.open {
+        find_file = true,
+        update_root = true,
+        current_window = true,
+      }
+    end)
   else
     keymap.set('n', '<Leader>e', ':e %%<CR>', { remap = true })
   end
