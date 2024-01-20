@@ -40,11 +40,15 @@ local function setup_lualine()
       theme = 'gruvbox',
     },
     sections = {
-      lualine_b = { 'diagnostics' },
+      lualine_a = { 'branch' },
+      lualine_b = { 'filename', 'location' },
+      lualine_c = { require('nvim-treesitter').statusline },
       lualine_x = { 'encoding', 'filetype' },
-      lualine_y = {},
+      lualine_y = { 'diagnostics' },
+      lualine_z = { 'mode' },
     },
     inactive_sections = {
+      lualine_c = { 'branch', 'filename', 'location' },
       lualine_x = {},
     },
   }
