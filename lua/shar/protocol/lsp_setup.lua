@@ -51,11 +51,11 @@ end
 
 ---Default LSP on_attach function.
 ---
----@param client any
+---@param _ any
 ---@param bufnr integer Buffer ID.
 ---
 ---@diagnostic disable-next-line: unused-local
-function M.on_attach(client, bufnr)
+function M.on_attach(_, bufnr)
   setup_buf_keymaps(bufnr)
   -- Format the whole document with LSP formatter
   keymap.set('n', '<Leader>fm', lsp_buf.format, { buffer = bufnr })
@@ -63,11 +63,11 @@ end
 
 ---Same as default on_attach, but without formatting keymap.
 ---
----@param client any
+---@param _ any
 ---@param bufnr integer Buffer ID.
 ---
 ---@diagnostic disable-next-line: unused-local
-function M.on_attach_no_formatting(client, bufnr)
+function M.on_attach_no_formatting(_, bufnr)
   setup_buf_keymaps(bufnr)
 end
 
