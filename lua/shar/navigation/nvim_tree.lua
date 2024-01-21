@@ -84,8 +84,7 @@ end
 
 function M.pack()
   require('packer').use {
-    'sharkov63/nvim-tree.lua',
-    branch = 'fix-nil',
+    'nvim-tree/nvim-tree.lua',
     requires = {
       'nvim-tree/nvim-web-devicons',
     },
