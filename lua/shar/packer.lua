@@ -8,7 +8,6 @@ local function pack_common()
   packer.use 'tpope/vim-surround' -- surround text objects
   packer.use 'tpope/vim-commentary' -- comments
   packer.use 'tpope/vim-repeat'
-  packer.use 'nelstrom/vim-visual-star-search'
   packer.use 'lambdalisue/suda.vim' -- sudo write fix
   if options.localvimrc then
     packer.use 'klen/nvim-config-local'
