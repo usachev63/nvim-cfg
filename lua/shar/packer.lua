@@ -1,12 +1,7 @@
 local M = {}
 
 local packer = require 'packer'
-
----Initialize packer.nvim plugin manager.
-local function init_packer()
-  packer.init()
-  packer.use 'wbthomason/packer.nvim' -- declare plugin manager itself
-end
+local options = require 'shar.options'
 
 ---Declare common plugins.
 local function pack_common()
@@ -15,6 +10,9 @@ local function pack_common()
   packer.use 'tpope/vim-repeat'
   packer.use 'nelstrom/vim-visual-star-search'
   packer.use 'lambdalisue/suda.vim' -- sudo write fix
+  if options.localvimrc then
+    packer.use 'klen/nvim-config-local'
+  end
 end
 
 ---Declare plugins from other modules
@@ -35,11 +33,9 @@ end
 
 ---Declare all required plugins using packer.nvim.
 function M.pack()
-  init_packer()
+  packer.init()
+  packer.use 'wbthomason/packer.nvim' -- declare plugin manager itself
   pack_common()
-  if require('shar.options').localvimrc then
-    packer.use 'klen/nvim-config-local'
-  end
   pack_modules()
 end
 

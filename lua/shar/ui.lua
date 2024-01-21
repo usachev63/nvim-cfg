@@ -6,6 +6,7 @@ local vim = vim
 local o = vim.o
 local opt = vim.opt
 local g = vim.g
+local treesitter = require 'nvim-treesitter'
 
 ---Set some UI-related vim options.
 local function set_options()
@@ -32,6 +33,10 @@ local function set_theme()
   -- vim.cmd 'colorscheme onedark'
 end
 
+local function get_treesitter_statusline()
+  return treesitter.statusline() or ''
+end
+
 ---Set up integration with lualine.nvim status line plugin.
 local function setup_lualine()
   local lualine = require 'lualine'
@@ -42,7 +47,7 @@ local function setup_lualine()
     sections = {
       lualine_a = { 'branch' },
       lualine_b = { 'filename', 'location' },
-      lualine_c = { require('nvim-treesitter').statusline },
+      lualine_c = { get_treesitter_statusline },
       lualine_x = { 'encoding', 'filetype' },
       lualine_y = { 'diagnostics' },
       lualine_z = { 'mode' },

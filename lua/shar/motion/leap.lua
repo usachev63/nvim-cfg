@@ -190,7 +190,7 @@ function M.pack()
 end
 
 ---Set up integration leap.nvim.
-function M.init()
+function M.setup()
   leap = require 'leap'
   leap.opts.safe_labels = safe_labels
   leap.opts.labels = labels
