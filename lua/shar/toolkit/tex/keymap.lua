@@ -11,45 +11,10 @@ local b = vim.b
 local g = vim.g
 
 local options = require 'shar.options'
+local shar_util = require 'shar.util'
 
 ---Local extmark namespace.
-local namespace = api.nvim_create_namespace('LatexKeymap')
-
----Move given cursor one character to the right.
----
----Since we must support Unicode it does not necessarily mean
----"one byte to the right".
----
----@param line integer Line number.
----@param col integer Column number.
----@return integer # New column number (line remains the same).
-local function increment_col(line, col)
-  local text_after = unpack(api.nvim_buf_get_text(0, line, col, line, col + 4, {}))
-  local bytes_in_char = vim.str_byteindex(text_after, 1)
-  return col + bytes_in_char
-end
-
----Get the (0,0)-based (row, column)-like, end-exclusive range
----of the current visual selection.
----
----@return integer begin_line Line number of the beginning.
----@return integer begin_col Column number of the beginning.
----@return integer end_line Line number of the end.
----@return integer end_col Column number of the end.
----
----The returned beginning coordinates are less than the end coordinates.
-local function get_visual_selection()
-  local begin_line, begin_col = unpack(fn.getpos("v"), 2)
-  local end_line, end_col = unpack(fn.getpos("."), 2)
-  if begin_line > end_line or begin_line == end_line and begin_col > end_col then
-    begin_line, end_line = end_line, begin_line
-    begin_col, end_col = end_col, begin_col
-  end
-  begin_line, begin_col = begin_line - 1, begin_col - 1
-  end_line, end_col = end_line - 1, end_col - 1
-  end_col = increment_col(end_line, end_col)
-  return begin_line, begin_col, end_line, end_col
-end
+local namespace = api.nvim_create_namespace 'LatexKeymap'
 
 ---Wrap the current visual selection with given text.
 ---
@@ -59,13 +24,20 @@ end
 ---(including wrapping text).
 ---@return integer end_col Column number of the end of wrapped selection.
 local function wrap(prefix, suffix)
-  local begin_line, begin_col, end_line, end_col = get_visual_selection()
+  local begin_line, begin_col, end_line, end_col =
+    shar_util.get_visual_selection()
   local end_mark = api.nvim_buf_set_extmark(0, namespace, end_line, end_col, {})
   api.nvim_buf_set_text(0, end_line, end_col, end_line, end_col, { suffix })
-  api.nvim_buf_set_text(0, begin_line, begin_col, begin_line, begin_col, { prefix })
-  end_line, end_col = unpack(
-    api.nvim_buf_get_extmark_by_id(0, namespace, end_mark, {})
+  api.nvim_buf_set_text(
+    0,
+    begin_line,
+    begin_col,
+    begin_line,
+    begin_col,
+    { prefix }
   )
+  end_line, end_col =
+    unpack(api.nvim_buf_get_extmark_by_id(0, namespace, end_mark, {}))
   api.nvim_buf_del_extmark(0, namespace, end_mark)
   api.nvim_win_set_cursor(0, { end_line + 1, end_col })
   api.nvim_input '<Esc>'
@@ -93,22 +65,19 @@ end
 ---@param open string The opening delimiter (excluding \left).
 ---@param close string The closing delimiter (excluding \right).
 local function wrap_delimiter(open, close)
-  wrap(
-    string.format('\\left%s ', open),
-    string.format(' \\right%s', close)
-  )
+  wrap(string.format('\\left%s ', open), string.format(' \\right%s', close))
 end
 
 ---Set up keymaps for wrapping a selection with a command.
 local function setup_wrap_keymaps()
   keymap.set('x', '<Leader>bf', function()
-    wrap_command('textbf')
+    wrap_command 'textbf'
   end, {
     buffer = true,
-    desc = 'Wrap a \\textbf command around a visual selection'
+    desc = 'Wrap a \\textbf command around a visual selection',
   })
   keymap.set('x', '<Leader>em', function()
-    wrap_command('emph')
+    wrap_command 'emph'
   end, {
     buffer = true,
     desc = 'Wrap a \\emph command around a visual selection',
@@ -241,20 +210,14 @@ end
 
 ---Set up keymaps for integration with inkscape-figures tool.
 local function setup_inkscape_figures_keymaps()
-  keymap.set('n', '<Leader>lfn',
-    inkscape_figures_create,
-    {
-      buffer = true,
-      desc = 'Create a new figure with inkscape_figures tool',
-    }
-  )
-  keymap.set('n', '<Leader>lfo',
-    inkscape_figures_open,
-    {
-      buffer = true,
-      desc = 'Open a GUI window with current figures'
-    }
-  )
+  keymap.set('n', '<Leader>lfn', inkscape_figures_create, {
+    buffer = true,
+    desc = 'Create a new figure with inkscape_figures tool',
+  })
+  keymap.set('n', '<Leader>lfo', inkscape_figures_open, {
+    buffer = true,
+    desc = 'Open a GUI window with current figures',
+  })
 end
 
 ---Set up vimtex keymaps in current buffer.
@@ -394,7 +357,7 @@ function M.init()
     inkscape_figures_tool_path = opts.inkscape_figures
   end
 
-  local augroup = api.nvim_create_augroup("LatexKeymap", {})
+  local augroup = api.nvim_create_augroup('LatexKeymap', {})
 
   api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
     pattern = '*.tex',
