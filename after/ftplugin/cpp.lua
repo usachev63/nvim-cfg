@@ -15,3 +15,8 @@ vim.opt_local.wildignore = {
   'build*/**',
   'third-party/**'
 }
+
+vim.cmd [[
+highlight link @comment NONE
+set ft=cpp.doxygen
+]]
