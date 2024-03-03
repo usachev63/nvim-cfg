@@ -29,8 +29,26 @@ end
 ---Set up my favourite color scheme.
 local function set_theme()
   g.gruvbox_italic = 1
-  vim.cmd 'colorscheme gruvbox'
+  -- vim.cmd 'colorscheme gruvbox'
   -- vim.cmd 'colorscheme onedark'
+  require('base16-colorscheme').setup {
+    base00 = '#101218',
+    base01 = '#1f222d',
+    base02 = '#252936',
+    base03 = '#7780a1',
+    base04 = '#C0C5CE',
+    base05 = '#d1d4e0',
+    base06 = '#C9CCDB',
+    base07 = '#ffffff',
+    base08 = '#ee829f',
+    base09 = '#f99170',
+    base0A = '#ffefcc',
+    base0B = '#a5ffe1',
+    base0C = '#97e0ff',
+    base0D = '#97bbf7',
+    base0E = '#c0b7f9',
+    base0F = '#fcc09e',
+  }
 end
 
 local function get_treesitter_statusline()
@@ -42,7 +60,7 @@ local function setup_lualine()
   local lualine = require 'lualine'
   lualine.setup {
     options = {
-      theme = 'gruvbox',
+      theme = 'auto',
     },
     sections = {
       lualine_a = { 'branch' },
@@ -117,6 +135,7 @@ function M.pack()
   packer.use 'nanozuki/tabby.nvim'
   packer.use 'rcarriga/nvim-notify'
   packer.use 'stevearc/dressing.nvim'
+  packer.use 'RRethy/base16-nvim'
 end
 
 ---Initialize UI-related setup.

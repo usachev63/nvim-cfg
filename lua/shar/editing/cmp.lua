@@ -34,7 +34,7 @@ local function get_sources()
     },
   })
   table.insert(sources, {
-    name = 'async_path',
+    name = 'path',
   })
   return sources
 end
@@ -48,7 +48,7 @@ function M.pack()
       'hrsh7th/cmp-nvim-lsp',
     },
   }
-  packer.use 'FelipeLema/cmp-async-path'
+  packer.use 'hrsh7th/cmp-path'
 end
 
 ---Set up integration with nvim-cmp.
