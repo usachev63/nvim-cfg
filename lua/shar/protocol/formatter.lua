@@ -26,13 +26,14 @@ function M.init()
         require('formatter.filetypes.cmake').cmakeformat,
       },
       python = {
-        require('formatter.filetypes.python').autopep8,
+        require('formatter.filetypes.python').black,
       },
       java = {
         require('formatter.filetypes.java').clangformat,
       },
     },
   }
+  print 'forammter'
   --- Setup format keymap
   local augroup = vim.api.nvim_create_augroup('SharFormatter', {})
   vim.api.nvim_create_autocmd('FileType', {

@@ -32,22 +32,22 @@ local function set_theme()
   -- vim.cmd 'colorscheme gruvbox'
   -- vim.cmd 'colorscheme onedark'
   require('base16-colorscheme').setup {
-    base00 = '#101218',
-    base01 = '#1f222d',
-    base02 = '#252936',
-    base03 = '#7780a1',
-    base04 = '#C0C5CE',
-    base05 = '#d1d4e0',
-    base06 = '#C9CCDB',
+    base00 = '#061229',
+    base01 = '#2a3448',
+    base02 = '#4d5666',
+    base03 = '#717885',
+    base04 = '#9a99a3',
+    base05 = '#b8bbc2',
+    base06 = '#dbdde0',
     base07 = '#ffffff',
-    base08 = '#ee829f',
-    base09 = '#f99170',
-    base0A = '#ffefcc',
-    base0B = '#a5ffe1',
-    base0C = '#97e0ff',
-    base0D = '#97bbf7',
-    base0E = '#c0b7f9',
-    base0F = '#fcc09e',
+    base08 = '#d07346',
+    base09 = '#f0a000',
+    base0A = '#fbd461',
+    base0B = '#99bf52',
+    base0C = '#72b9bf',
+    base0D = '#5299bf',
+    base0E = '#9989cc',
+    base0F = '#b08060',
   }
 end
 
