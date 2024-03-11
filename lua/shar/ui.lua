@@ -6,7 +6,6 @@ local vim = vim
 local o = vim.o
 local opt = vim.opt
 local g = vim.g
-local treesitter = require 'nvim-treesitter'
 
 ---Set some UI-related vim options.
 local function set_options()
@@ -52,6 +51,7 @@ local function set_theme()
 end
 
 local function get_treesitter_statusline()
+  local treesitter = require 'nvim-treesitter'
   return treesitter.statusline() or ''
 end
 
@@ -124,8 +124,8 @@ end
 
 function M.pack()
   local packer = require 'packer'
-  packer.use 'ellisonleao/gruvbox.nvim'
-  packer.use 'joshdick/onedark.vim'
+  -- packer.use 'ellisonleao/gruvbox.nvim'
+  -- packer.use 'joshdick/onedark.vim'
   packer.use {
     'nvim-lualine/lualine.nvim',
     requires = {

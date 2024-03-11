@@ -3,13 +3,11 @@
 local M = {}
 
 local vim = vim
-local g = vim.g
-local o = vim.o
-local opt = vim.opt
 local fn = vim.fn
 
 local shar_packer = require 'shar.packer'
 local options = require 'shar.options'
+local common = require 'shar.common'
 local key = require 'shar.key'
 local langmapper = require 'shar.key.langmapper'
 local ui = require 'shar.ui'
@@ -19,55 +17,6 @@ local editing = require 'shar.editing'
 local navigation = require 'shar.navigation'
 local motion = require 'shar.motion'
 local toolkit = require 'shar.toolkit'
-
----Set common vim options and globals.
-local function set_common_options()
-  -- Enable full builtin filetype support
-  vim.cmd 'filetype plugin indent on'
-
-  -- Buffers are not required to be written during buffer switch
-  o.hidden = true
-  -- Register "+ is essentially equal to register ""
-  o.clipboard = 'unnamedplus'
-  -- :substitute command has [g] flag by default
-  o.gdefault = true
-
-  -- Add all subdirectories of current working directory.
-  -- For use in :find, gf, etc.
-  opt.path:append { '**' }
-
-  -- zsh-like autocompletion in Ex mode
-  o.wildmenu = true
-  o.wildmode = 'full'
-
-  -- Search options
-  o.ignorecase = true
-  o.smartcase = true
-  o.infercase = true
-
-  -- Default indent options
-  o.softtabstop = 4
-  o.shiftwidth = 4
-  o.expandtab = true
-
-  -- Fix python3 provider,
-  -- useful when working under a python venv
-  g.python3_host_prog = '/usr/bin/python3'
-
-  o.spelloptions = 'camel'
-end
-
----Set up nvim-config-local plugin for support of project-local .vimrc files.
-local function setup_localvimrc()
-  require('config-local').setup {
-    config_files = { '.vimrc.lua', '.vimrc' },
-    hashfile = fn.stdpath 'data' .. '/config-local',
-    autocommands_create = true,
-    commands_create = true,
-    silent = false,
-    lookup_parents = false,
-  }
-end
 
 ---Initialize shar-nvim-cfg.
 ---
@@ -88,17 +37,14 @@ function M.init(opts)
   navigation.pre_netrw()
 
   shar_packer.pack()
-  key.init()
 
-  set_common_options()
+  key.init()
+  common.setup()
   ui.init()
   terminal.setup()
   editing.setup()
   navigation.setup()
   motion.setup()
-  if options.localvimrc then
-    setup_localvimrc()
-  end
   toolkit.setup()
   protocol.init()
 
