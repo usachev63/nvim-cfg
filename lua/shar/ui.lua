@@ -28,26 +28,26 @@ end
 ---Set up my favourite color scheme.
 local function set_theme()
   g.gruvbox_italic = 1
-  -- vim.cmd 'colorscheme gruvbox'
+  vim.cmd 'colorscheme gruvbox'
   -- vim.cmd 'colorscheme onedark'
-  require('base16-colorscheme').setup {
-    base00 = '#061229',
-    base01 = '#2a3448',
-    base02 = '#4d5666',
-    base03 = '#717885',
-    base04 = '#9a99a3',
-    base05 = '#b8bbc2',
-    base06 = '#dbdde0',
-    base07 = '#ffffff',
-    base08 = '#d07346',
-    base09 = '#f0a000',
-    base0A = '#fbd461',
-    base0B = '#99bf52',
-    base0C = '#72b9bf',
-    base0D = '#5299bf',
-    base0E = '#9989cc',
-    base0F = '#b08060',
-  }
+  -- require('base16-colorscheme').setup {
+  --   base00 = '#061229',
+  --   base01 = '#2a3448',
+  --   base02 = '#4d5666',
+  --   base03 = '#717885',
+  --   base04 = '#9a99a3',
+  --   base05 = '#b8bbc2',
+  --   base06 = '#dbdde0',
+  --   base07 = '#ffffff',
+  --   base08 = '#d07346',
+  --   base09 = '#f0a000',
+  --   base0A = '#fbd461',
+  --   base0B = '#99bf52',
+  --   base0C = '#72b9bf',
+  --   base0D = '#5299bf',
+  --   base0E = '#9989cc',
+  --   base0F = '#b08060',
+  -- }
 end
 
 local function get_treesitter_statusline()
@@ -122,9 +122,30 @@ local function setup_tabby()
   })
 end
 
+local function setup_dressing()
+  require('dressing').setup {
+    input = {
+      insert_only = false,
+      mappings = {
+        n = {
+          ['<Esc>'] = 'Close',
+          ['<C-c>'] = 'Close',
+          ['<CR>'] = 'Confirm',
+        },
+        i = {
+          ['<C-c>'] = 'Close',
+          ['<CR>'] = 'Confirm',
+          ['<Up>'] = 'HistoryPrev',
+          ['<Down>'] = 'HistoryNext',
+        },
+      },
+    },
+  }
+end
+
 function M.pack()
   local packer = require 'packer'
-  -- packer.use 'ellisonleao/gruvbox.nvim'
+  packer.use 'ellisonleao/gruvbox.nvim'
   -- packer.use 'joshdick/onedark.vim'
   packer.use {
     'nvim-lualine/lualine.nvim',
@@ -135,7 +156,7 @@ function M.pack()
   packer.use 'nanozuki/tabby.nvim'
   packer.use 'rcarriga/nvim-notify'
   packer.use 'stevearc/dressing.nvim'
-  packer.use 'RRethy/base16-nvim'
+  -- packer.use 'RRethy/base16-nvim'
 end
 
 ---Initialize UI-related setup.
@@ -144,6 +165,7 @@ function M.init()
   set_theme()
   setup_lualine()
   setup_tabby()
+  setup_dressing()
 end
 
 return M
