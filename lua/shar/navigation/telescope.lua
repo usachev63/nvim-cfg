@@ -7,7 +7,9 @@ local vim = vim
 ---Set up telescope-related keymaps.
 local function setup_keymaps()
   local builtin = require 'telescope.builtin'
-  vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+  vim.keymap.set('n', '<leader>ff', function()
+    builtin.find_files { path_display = { 'truncate' } }
+  end, {})
   vim.keymap.set('n', '<leader>fi', function()
     builtin.find_files { no_ignore = true }
   end, {})
@@ -15,7 +17,11 @@ local function setup_keymaps()
   vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
   vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
   vim.keymap.set('n', '<leader>fr', builtin.resume, {})
-  vim.keymap.set('n', '<leader>fd', builtin.lsp_document_symbols, {})
+  vim.keymap.set('n', '<leader>fd', function()
+    builtin.lsp_dynamic_workspace_symbols {
+      symbol_width = 60,
+    }
+  end, {})
 end
 
 function M.pack()
@@ -36,11 +42,12 @@ function M.setup()
   telescope.load_extension 'fzy_native'
   telescope.setup {
     defaults = {
-      sorting_strategy = 'ascending',
-      selection_strategy = 'closest',
-      selection_caret = '  ',
-      prompt_prefix = '  ',
-      layout_strategy = 'center',
+      -- sorting_strategy = 'ascending',
+      -- selection_strategy = 'closest',
+      -- selection_caret = '  ',
+      -- prompt_prefix = '  ',
+      -- layout_strategy = 'center',
+      layout_config = {},
     },
   }
 end
