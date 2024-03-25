@@ -26,7 +26,7 @@ function M.init()
         require('formatter.filetypes.cmake').cmakeformat,
       },
       python = {
-        require('formatter.filetypes.python').black,
+        require('formatter.filetypes.python').autopep8,
       },
       java = {
         require('formatter.filetypes.java').clangformat,
