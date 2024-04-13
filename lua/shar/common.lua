@@ -13,7 +13,6 @@ function M.pack()
   if options.localvimrc then
     packer.use 'klen/nvim-config-local'
   end
-  packer.use 'linux-cultist/venv-selector.nvim'
 end
 
 ---Set up nvim-config-local plugin for support of project-local .vimrc files.
@@ -26,13 +25,6 @@ local function setup_localvimrc()
     silent = false,
     lookup_parents = false,
   }
-end
-
-local function setup_venv_selector()
-  require('venv-selector').setup {
-    anaconda_envs_path = '~/.anaconda3/envs'
-  }
-  vim.keymap.set('n', '<leader>vs', '<cmd>VenvSelect<cr>')
 end
 
 ---Set common vim options and globals.
@@ -65,16 +57,12 @@ function M.setup()
   vim.o.shiftwidth = 4
   vim.o.expandtab = true
 
-  -- Fix python3 provider,
-  -- useful when working under a python venv
-  vim.g.python3_host_prog = '/usr/bin/python3'
-
   vim.o.spelloptions = 'camel'
 
   if options.localvimrc then
     setup_localvimrc()
   end
-  setup_venv_selector()
+  -- setup_venv_selector()
 end
 
 return M

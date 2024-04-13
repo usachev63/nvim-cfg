@@ -1,4 +1,4 @@
----@type Options
+---@class Options
 local M = {}
 
 ---@class Options
@@ -90,6 +90,7 @@ local M = {}
 ---@field markdown { enabled: boolean } Markdown preview editing support.
 ---@field distant { enabled: boolean } distant: remote FS & process operations.
 ---@field opencl { enabled: boolean } OpenCL support.
+---@field python PythonOptions Python development.
 
 ---@class AcmCppOptions
 ---
@@ -107,6 +108,13 @@ local M = {}
 ---@field inkscape_figures string? Path to inkscape-figures tool:
 ---Inkscape figure manager.
 ---@field sakls TexSaklsOptions
+
+---@class PythonOptions
+---
+---Python development.
+---
+---@field venv_selector { enabled: boolean }
+---Plugin for selecting Python virtual environments.
 
 ---@class TexSaklsOptions
 ---
@@ -178,6 +186,11 @@ local default_options = {
     },
     opencl = {
       enabled = false,
+    },
+    python = {
+      venv_selector = {
+        enabled = false,
+      }
     },
   },
 }
