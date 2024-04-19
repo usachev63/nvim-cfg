@@ -18,6 +18,11 @@ local function setup_keymaps()
   vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
   vim.keymap.set('n', '<leader>fr', builtin.resume, {})
   vim.keymap.set('n', '<leader>fd', function()
+    builtin.lsp_document_symbols {
+      symbol_width = 60,
+    }
+  end, {})
+  vim.keymap.set('n', '<leader>fD', function()
     builtin.lsp_dynamic_workspace_symbols {
       symbol_width = 60,
     }
