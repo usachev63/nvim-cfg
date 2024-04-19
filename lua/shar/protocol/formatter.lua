@@ -33,7 +33,6 @@ function M.init()
       },
     },
   }
-  print 'forammter'
   --- Setup format keymap
   local augroup = vim.api.nvim_create_augroup('SharFormatter', {})
   vim.api.nvim_create_autocmd('FileType', {
