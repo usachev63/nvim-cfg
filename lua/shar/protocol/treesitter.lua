@@ -22,6 +22,7 @@ function M.init()
     auto_install = true,
     highlight = {
       enable = true,
+      disable = { 'haskell' },
       additional_vim_regex_highlighting = true,
     },
   }
