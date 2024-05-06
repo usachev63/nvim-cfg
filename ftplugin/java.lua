@@ -11,5 +11,7 @@ vim.bo.spelloptions = 'camel'
 if options.toolkit.java.enabled then
   local jdtls = require 'jdtls'
   jdtls.start_or_attach(java.make_config())
-  lsp_setup.on_attach(nil, vim.api.nvim_get_current_buf())
+  local bufnr = vim.api.nvim_get_current_buf()
+  lsp_setup.on_attach(nil, bufnr)
+  vim.keymap.set('n', '<Leader>oi', jdtls.organize_imports, { buffer = bufnr })
 end
