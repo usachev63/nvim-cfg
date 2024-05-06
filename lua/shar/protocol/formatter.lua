@@ -28,15 +28,12 @@ function M.init()
       python = {
         require('formatter.filetypes.python').autopep8,
       },
-      java = {
-        require('formatter.filetypes.java').clangformat,
-      },
     },
   }
   --- Setup format keymap
   local augroup = vim.api.nvim_create_augroup('SharFormatter', {})
   vim.api.nvim_create_autocmd('FileType', {
-    pattern = { 'json', 'lua', 'cmake', 'python', 'java' },
+    pattern = { 'json', 'lua', 'cmake', 'python' },
     callback = function()
       keymap.set('n', '<Leader>fm', ':Format<CR>', { buffer = true })
     end,

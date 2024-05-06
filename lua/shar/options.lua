@@ -85,6 +85,7 @@ local M = {}
 ---@field coq { enabled: boolean } Coq proof assistant.
 ---@field dafny { enabled: boolean } Dafny programming & verification language.
 ---@field git { enabled: boolean } Git version control system.
+---@field java { enabled: boolean } Java support
 ---@field rust { enabled: boolean } Rust programming language.
 ---@field tex TexOptions
 ---@field markdown { enabled: boolean } Markdown preview editing support.
@@ -166,6 +167,9 @@ local default_options = {
     git = {
       enabled = true,
     },
+    java = {
+      enabled = false,
+    },
     rust = {
       enabled = false,
     },
@@ -190,7 +194,7 @@ local default_options = {
     python = {
       venv_selector = {
         enabled = false,
-      }
+      },
     },
   },
 }
