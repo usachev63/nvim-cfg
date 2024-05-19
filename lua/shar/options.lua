@@ -92,6 +92,7 @@ local M = {}
 ---@field distant { enabled: boolean } distant: remote FS & process operations.
 ---@field opencl { enabled: boolean } OpenCL support.
 ---@field python PythonOptions Python development.
+---@field i3 { enabled: boolean } i3 config support.
 
 ---@class AcmCppOptions
 ---
@@ -195,6 +196,9 @@ local default_options = {
       venv_selector = {
         enabled = false,
       },
+    },
+    i3 = {
+      enabled = false,
     },
   },
 }
