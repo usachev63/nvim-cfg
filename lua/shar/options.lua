@@ -93,6 +93,7 @@ local M = {}
 ---@field opencl { enabled: boolean } OpenCL support.
 ---@field python PythonOptions Python development.
 ---@field i3 { enabled: boolean } i3 config support.
+---@field csv { enabled: boolean } CSV support.
 
 ---@class AcmCppOptions
 ---
@@ -199,6 +200,9 @@ local default_options = {
     },
     i3 = {
       enabled = false,
+    },
+    csv = {
+      enabled = true,
     },
   },
 }
