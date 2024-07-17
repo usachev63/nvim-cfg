@@ -13,9 +13,9 @@ local augroup
 
 ---Set appropriate 'shell' option.
 local function set_shell()
-  if fn.executable('zsh') then
+  if fn.executable 'zsh' then
     o.shell = '/usr/bin/zsh -li'
-  elseif fn.executable('bash') then
+  elseif fn.executable 'bash' then
     o.shell = '/usr/bin/bash -li'
   end
 end
@@ -40,7 +40,7 @@ end
 
 function M.setup()
   set_shell()
-  fix_escape()
+  -- fix_escape()
   augroup = api.nvim_create_augroup('Terminal', {})
   set_options()
 end

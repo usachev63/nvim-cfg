@@ -57,6 +57,7 @@ local M = {}
 ---
 ---Options which control navigation between files (or other entities).
 ---
+---@field nnn { enabled: boolean } Options for nnn.nvim plugin.
 ---@field nvim_tree { enabled: boolean } Options for nvim-tree plugin;
 ---currently we can only enable or disable it.
 
@@ -148,6 +149,9 @@ local default_options = {
     nvim_tree = {
       enabled = false,
     },
+    nnn = {
+      enabled = false,
+    }
   },
   protocol = {
     formatter = nil,

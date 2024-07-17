@@ -16,6 +16,7 @@ local nvim_tree_api
 local options = require 'shar.options'
 local telescope = require 'shar.navigation.telescope'
 local shar_nvim_tree = require 'shar.navigation.nvim_tree'
+local shar_nnn = require 'shar.navigation.nnn'
 
 ---'%%' in command-line mode maps to the current buffer directory path.
 local function setup_cur_dir_abbrev()
@@ -106,6 +107,9 @@ function M.pack()
   if options.navigation.nvim_tree.enabled then
     shar_nvim_tree.pack()
   end
+  if options.navigation.nnn.enabled then
+    shar_nnn.pack()
+  end
 end
 
 ---Set up navigation module.
@@ -115,6 +119,9 @@ function M.setup()
     shar_nvim_tree.setup()
     nvim_tree = require 'nvim-tree'
     nvim_tree_api = require 'nvim-tree.api'
+  end
+  if options.navigation.nnn.enabled then
+    shar_nnn.setup()
   end
   setup_keymaps()
   setup_user_commands()
