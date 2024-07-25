@@ -7,6 +7,11 @@ return function()
       client.server_capabilities.semanticTokensProvider = nil
       lsp_setup.on_attach(client, bufnr)
     end,
+    filetypes = {
+      'c',
+      'cpp',
+      'cpp.doxygen'
+    },
     cmd = {
       "clangd",
       "--header-insertion=never",
