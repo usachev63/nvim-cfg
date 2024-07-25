@@ -67,6 +67,14 @@ function M.setup()
   keymap.set('n', '<Leader>dh', ':diffget //2<CR>')
   keymap.set('n', '<Leader>dl', ':diffget //3<CR>')
 
+      vim.cmd {
+        cmd = 'cnoreabbrev',
+        args = {
+          'GL',
+          'Git log --oneline --decorate --graph',
+        },
+      }
+
   setup_autocmds()
 end
 
