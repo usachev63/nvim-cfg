@@ -131,7 +131,7 @@ function M.pack()
       'nvim-tree/nvim-web-devicons',
     },
   }
-  packer.use 'nanozuki/tabby.nvim'
+  -- packer.use 'nanozuki/tabby.nvim'
   packer.use 'rcarriga/nvim-notify'
   packer.use 'stevearc/dressing.nvim'
 end
@@ -141,7 +141,7 @@ function M.init()
   set_options()
   set_theme()
   setup_lualine()
-  setup_tabby()
+  -- setup_tabby()
   setup_dressing()
 end
 
