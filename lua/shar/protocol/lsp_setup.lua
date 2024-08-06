@@ -27,6 +27,10 @@ local function setup_buf_keymaps(bufnr)
   set('<C-K>', lsp_buf.signature_help)
   -- Go to type definition
   set('<Leader>td', lsp_buf.type_definition)
+  -- Show subtypes
+  set('<Leader>ic', function ()
+    lsp_buf.typehierarchy('subtypes')
+  end)
   -- Rename symbol
   set('<Leader>rn', lsp_buf.rename)
   -- Load all references of the symbol into quickfix list
