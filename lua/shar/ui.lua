@@ -134,6 +134,7 @@ function M.pack()
   -- packer.use 'nanozuki/tabby.nvim'
   packer.use 'rcarriga/nvim-notify'
   packer.use 'stevearc/dressing.nvim'
+  packer.use 'google/vim-searchindex'
 end
 
 ---Initialize UI-related setup.
