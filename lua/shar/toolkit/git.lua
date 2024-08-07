@@ -71,7 +71,7 @@ function M.setup()
         cmd = 'cnoreabbrev',
         args = {
           'GL',
-          'Git log --oneline --decorate --graph',
+          'Git log --oneline --decorate --graph --all',
         },
       }
 
