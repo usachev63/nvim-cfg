@@ -16,7 +16,7 @@ return function()
       "--header-insertion=never",
       "--limit-references=100",
       "--limit-results=20",
-      "-j=8",
+      "-j=1",
       "--malloc-trim",
       "--background-index",
       "--pch-storage=memory",
