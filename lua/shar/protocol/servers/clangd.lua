@@ -13,14 +13,8 @@ return function()
     },
     cmd = {
       "clangd",
-      "--header-insertion=never",
-      "--limit-references=100",
-      "--limit-results=20",
       "-j=1",
-      "--malloc-trim",
-      "--background-index",
-      "--pch-storage=memory",
     },
-    capabilities = lsp_setup.capabilities,
+    capabilities = lsp_setup.capabilities
   }
 end
