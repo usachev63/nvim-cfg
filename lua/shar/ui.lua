@@ -131,7 +131,7 @@ function M.pack()
       'nvim-tree/nvim-web-devicons',
     },
   }
-  -- packer.use 'nanozuki/tabby.nvim'
+  packer.use 'nanozuki/tabby.nvim'
   packer.use 'rcarriga/nvim-notify'
   packer.use 'stevearc/dressing.nvim'
   packer.use 'google/vim-searchindex'
