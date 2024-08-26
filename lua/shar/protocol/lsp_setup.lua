@@ -51,6 +51,7 @@ local function setup_buf_keymaps(bufnr)
       severity = diagnostic.severity.ERROR
     }
   end)
+  set('<Leader>ca', lsp_buf.code_action)
 end
 
 ---Default LSP on_attach function.
