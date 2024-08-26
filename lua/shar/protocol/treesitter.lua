@@ -4,7 +4,8 @@ local M = {}
 
 ---Setup tree-sitter support.
 function M.pack()
-  require('packer').use {
+  local packer = require 'packer'
+  packer.use {
     'nvim-treesitter/nvim-treesitter',
     run = function()
       local ts_install = require 'nvim-treesitter.install'
@@ -13,6 +14,11 @@ function M.pack()
       }
       ts_update()
     end,
+  }
+  packer.use {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    after = 'nvim-treesitter',
+    requires = 'nvim-treesitter/nvim-treesitter',
   }
 end
 
@@ -24,6 +30,20 @@ function M.init()
       enable = true,
       disable = { 'haskell' },
       additional_vim_regex_highlighting = true,
+    },
+    textobjects = {
+      select = {
+        enable = true,
+        lookahead = true,
+        keymaps = {
+          ['af'] = '@function.outer',
+          ['if'] = '@function.inner',
+        },
+        include_surrounding_whitespace = true,
+        selection_modes = {
+          ['@function.outer'] = 'V', -- linewise
+        },
+      },
     },
   }
 end
