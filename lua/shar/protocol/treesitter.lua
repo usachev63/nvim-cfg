@@ -23,6 +23,8 @@ function M.pack()
 end
 
 function M.init()
+  vim.keymap.set('n', ']f', '<Nop>')
+  vim.keymap.set('n', '[f', '<Nop>')
   require('nvim-treesitter.configs').setup {
     ensure_installed = { 'c', 'cpp', 'lua', 'vim', 'vimdoc', 'query' },
     auto_install = true,
@@ -42,6 +44,22 @@ function M.init()
         include_surrounding_whitespace = true,
         selection_modes = {
           ['@function.outer'] = 'V', -- linewise
+        },
+      },
+      move = {
+        enable = true,
+        set_jumps = true,
+        goto_next_start = {
+          [']f'] = '@function.outer',
+        },
+        goto_next_end = {
+          [']F'] = '@function.outer',
+        },
+        goto_previous_start = {
+          ['[f'] = '@function.outer',
+        },
+        goto_previous_end = {
+          ['[F'] = '@function.outer',
         },
       },
     },
