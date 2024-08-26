@@ -26,7 +26,7 @@ end
 
 ---Set up my favourite color scheme.
 local function set_theme()
-  vim.cmd 'colorscheme catppuccin-latte'
+  vim.cmd 'colorscheme catppuccin-mocha'
 end
 
 ---Set up integration with lualine.nvim status line plugin.
