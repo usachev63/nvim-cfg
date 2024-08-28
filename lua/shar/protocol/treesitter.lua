@@ -40,6 +40,8 @@ function M.init()
         keymaps = {
           ['af'] = '@function.outer',
           ['if'] = '@function.inner',
+          ['aa'] = '@parameter.outer',
+          ['ia'] = '@parameter.inner',
         },
         include_surrounding_whitespace = true,
         selection_modes = {
