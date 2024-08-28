@@ -53,15 +53,19 @@ function M.init()
         set_jumps = true,
         goto_next_start = {
           [']f'] = '@function.outer',
+          [']a'] = '@parameter.outer',
         },
         goto_next_end = {
           [']F'] = '@function.outer',
+          [']A'] = '@parameter.outer',
         },
         goto_previous_start = {
           ['[f'] = '@function.outer',
+          ['[a'] = '@parameter.outer',
         },
         goto_previous_end = {
           ['[F'] = '@function.outer',
+          ['[A'] = '@parameter.outer',
         },
       },
     },
