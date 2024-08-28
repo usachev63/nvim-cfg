@@ -31,11 +31,6 @@ end
 ---Setup keymaps for goto next/previous item in a list.
 ---Inspired by vim-unimpaired plugin.
 local function setup_goto_maps()
-  -- Argument list
-  set_goto_keymap(']a', 'next')
-  set_goto_keymap('[a', 'previous')
-  set_goto_keymap(']A', 'last')
-  set_goto_keymap('[A', 'first')
   -- Quickfix list
   set_goto_keymap(']q', 'cnext')
   set_goto_keymap('[q', 'cprevious')
