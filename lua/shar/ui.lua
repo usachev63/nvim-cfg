@@ -142,7 +142,7 @@ function M.init()
   set_options()
   set_theme()
   setup_lualine()
-  -- setup_tabby()
+  setup_tabby()
   setup_dressing()
 end
 
