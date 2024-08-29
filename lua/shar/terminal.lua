@@ -40,7 +40,7 @@ end
 
 function M.setup()
   set_shell()
-  -- fix_escape()
+  fix_escape()
   augroup = api.nvim_create_augroup('Terminal', {})
   set_options()
 end
