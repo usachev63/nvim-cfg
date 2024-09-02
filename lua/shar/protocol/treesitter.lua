@@ -68,6 +68,15 @@ function M.init()
           ['[A'] = '@parameter.outer',
         },
       },
+      swap = {
+        enable = true,
+        swap_next = {
+          ['<Leader>wa'] = '@parameter.inner',
+        },
+        swap_previous = {
+          ['<Leader>wA'] = '@parameter.inner',
+        },
+      },
     },
   }
 end
