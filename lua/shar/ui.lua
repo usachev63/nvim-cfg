@@ -24,6 +24,20 @@ local function set_options()
   o.breakindentopt = 'sbr'
 end
 
+local function setup_catppuccin()
+  local catppuccin = require 'catppuccin'
+  catppuccin.setup {
+    integrations = {
+      diffview = true,
+      leap = true,
+      mason = true,
+      cmp = true,
+      notify = true,
+      nvimtree = true,
+    },
+  }
+end
+
 ---Set up my favourite color scheme.
 local function set_theme()
   vim.cmd 'colorscheme catppuccin-mocha'
@@ -34,7 +48,7 @@ local function setup_lualine()
   local lualine = require 'lualine'
   lualine.setup {
     options = {
-      theme = 'auto',
+      theme = 'catppuccin-mocha',
     },
     sections = {
       lualine_a = { 'filename', 'location' },
@@ -140,6 +154,7 @@ end
 ---Initialize UI-related setup.
 function M.init()
   set_options()
+  setup_catppuccin()
   set_theme()
   setup_lualine()
   setup_tabby()
