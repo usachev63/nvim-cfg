@@ -95,6 +95,7 @@ local M = {}
 ---@field python PythonOptions Python development.
 ---@field i3 { enabled: boolean } i3 config support.
 ---@field csv { enabled: boolean } CSV support.
+---@field scala { enabled: boolean } Scala support.
 
 ---@class AcmCppOptions
 ---
@@ -207,6 +208,9 @@ local default_options = {
     },
     csv = {
       enabled = true,
+    },
+    scala = {
+      enabled = false,
     },
   },
 }
