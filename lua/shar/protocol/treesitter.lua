@@ -7,13 +7,6 @@ function M.pack()
   local packer = require 'packer'
   packer.use {
     'nvim-treesitter/nvim-treesitter',
-    run = function()
-      local ts_install = require 'nvim-treesitter.install'
-      local ts_update = ts_install.update {
-        with_sync = true,
-      }
-      ts_update()
-    end,
   }
   packer.use {
     'nvim-treesitter/nvim-treesitter-textobjects',
