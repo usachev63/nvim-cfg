@@ -51,8 +51,9 @@ function M.setup()
       -- selection_strategy = 'closest',
       -- selection_caret = '  ',
       -- prompt_prefix = '  ',
-      -- layout_strategy = 'center',
+      layout_strategy = 'vertical',
       layout_config = {},
+      preview = false,
     },
   }
 end
