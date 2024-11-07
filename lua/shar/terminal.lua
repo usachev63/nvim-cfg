@@ -38,11 +38,22 @@ local function set_options()
   })
 end
 
+function M.pack()
+  local packer = require 'packer'
+  packer.use {
+    'akinsho/toggleterm.nvim',
+    tag = '*',
+  }
+end
+
 function M.setup()
   set_shell()
   fix_escape()
   augroup = api.nvim_create_augroup('Terminal', {})
   set_options()
+  require('toggleterm').setup {
+    open_mapping = [[<C-;>]]
+  }
 end
 
 return M

@@ -1,7 +1,6 @@
 local M = {}
 
 local packer = require 'packer'
-local options = require 'shar.options'
 
 ---Declare plugins from other modules
 local function pack_modules()
@@ -14,6 +13,7 @@ local function pack_modules()
     'protocol',
     'toolkit',
     'ui',
+    'terminal',
   }
   for _, module in pairs(modules) do
     require('shar.' .. module).pack()
