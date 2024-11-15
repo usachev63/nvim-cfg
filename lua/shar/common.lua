@@ -59,6 +59,8 @@ function M.setup()
 
   vim.o.spelloptions = 'camel'
 
+  vim.o.wrap = false
+
   if options.localvimrc then
     setup_localvimrc()
   end
