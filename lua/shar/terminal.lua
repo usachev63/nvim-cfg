@@ -52,7 +52,8 @@ function M.setup()
   augroup = api.nvim_create_augroup('Terminal', {})
   set_options()
   require('toggleterm').setup {
-    open_mapping = [[<C-\>]]
+    open_mapping = [[<C-\>]],
+    direction = 'float',
   }
 end
 
