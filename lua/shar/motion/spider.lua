@@ -1,3 +1,9 @@
+---Spider, that bandage on your foot is bigger than your fucking head.
+---Next thing you know he'll have one of these fucking walkers.
+---But you can still dance. Give us a couple of fucking steps, Spider.
+---You fucking bullshitter, you. Tell the truth.
+---You want sympathy, is that right, sweetie?
+
 local M = {}
 
 function M.pack()
