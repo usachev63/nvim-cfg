@@ -70,8 +70,15 @@ function M.setup()
   vim.cmd {
     cmd = 'cnoreabbrev',
     args = {
-      'GL',
+      'GLA',
       'Git log --oneline --decorate --graph --all',
+    },
+  }
+  vim.cmd {
+    cmd = 'cnoreabbrev',
+    args = {
+      'GL',
+      'Git log --oneline --decorate --graph',
     },
   }
   vim.cmd {
