@@ -19,7 +19,7 @@ end
 local function setup_localvimrc()
   require('config-local').setup {
     config_files = { '.vimrc.lua', '.vimrc' },
-    hashfile = fn.stdpath 'data' .. '/config-local',
+    hashfile = vim.fn.stdpath 'data' .. '/config-local',
     autocommands_create = true,
     commands_create = true,
     silent = false,
@@ -62,6 +62,7 @@ function M.setup()
   vim.o.wrap = false
 
   if options.localvimrc then
+    vim.o.exrc = true
     setup_localvimrc()
   end
   -- setup_venv_selector()
