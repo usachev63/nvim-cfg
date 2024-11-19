@@ -81,6 +81,13 @@ function M.setup()
       'DiffviewOpen',
     },
   }
+  vim.cmd {
+    cmd = 'cnoreabbrev',
+    args = {
+      'DIC',
+      'DiffviewClose',
+    },
+  }
 
   setup_autocmds()
 end
