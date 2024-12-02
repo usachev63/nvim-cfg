@@ -5,3 +5,5 @@ vim.bo.softtabstop = 1
 vim.bo.shiftwidth = 1
 
 vim.wo.number = false
+
+vim.wo.wrap = true
