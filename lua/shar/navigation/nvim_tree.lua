@@ -32,8 +32,8 @@ local function on_attach(bufnr)
   map('<C-v>', api.node.open.vertical, 'Open: Vertical Split')
   map('<C-x>', api.node.open.horizontal, 'Open: Horizontal Split')
   map('<BS>', api.node.navigate.parent_close, 'Close Directory')
-  -- map('<CR>', api.node.open.edit, 'Open')
-  -- map('<Tab>', api.node.open.preview, 'Open Preview')
+  map('<CR>', api.node.open.edit, 'Open')
+  map('<Tab>', api.node.open.preview, 'Open Preview')
   map('>', api.node.navigate.sibling.next, 'Next Sibling')
   map('<', api.node.navigate.sibling.prev, 'Previous Sibling')
   map('.', api.node.run.cmd, 'Run Command')
@@ -79,7 +79,7 @@ local function on_attach(bufnr)
   -- map('<2-RightMouse>', api.tree.change_root_to_node, 'CD')
   -- END_DEFAULT_ON_ATTACH
 
-  map('<CR>', api.node.open.replace_tree_buffer, 'Open: In Place')
+  -- map('<CR>', api.node.open.replace_tree_buffer, 'Open: In Place')
 end
 
 function M.pack()
@@ -115,24 +115,25 @@ function M.setup()
     on_attach = on_attach,
     actions = {
       change_dir = {
-        enable = false,
+        -- enable = false,
       },
       open_file = {
-        quit_on_open = true,
-        eject = false,
-        resize_window = false,
-        window_picker = {
-          enable = false,
-        },
+        -- quit_on_open = true,
+        -- eject = false,
+        -- resize_window = false,
+        -- window_picker = {
+        --   enable = false,
+        -- },
       },
     },
     hijack_directories = {
-      enable = false,
+      -- enable = false,
     },
   }
 
   nvim_tree.setup(nvim_tree_opts)
-  setup_custom_directory_hijack()
+  -- setup_custom_directory_hijack()
+  vim.keymap.set('n', '<Leader>nt', ':NvimTreeFindFile<CR>')
 end
 
 return M

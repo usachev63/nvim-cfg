@@ -46,17 +46,17 @@ local function setup_keymaps()
   keymap.set('n', '<Leader>tc', M.tab_change_to_current_buf_dir)
 
   -- <Leader>e: open directory of current buffer
-  if nvim_tree then
-    keymap.set('n', '<Leader>e', function()
-      nvim_tree_api.tree.open {
-        find_file = true,
-        update_root = true,
-        current_window = true,
-      }
-    end)
-  else
-    keymap.set('n', '<Leader>e', ':e %%<CR>', { remap = true })
-  end
+  -- if nvim_tree then
+  --   keymap.set('n', '<Leader>e', function()
+  --     nvim_tree_api.tree.open {
+  --       find_file = true,
+  --       update_root = true,
+  --       current_window = true,
+  --     }
+  --   end)
+  -- else
+  --   keymap.set('n', '<Leader>e', ':e %%<CR>', { remap = true })
+  -- end
 end
 
 local function tab_edit_change_dir(opts)
