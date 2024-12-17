@@ -129,6 +129,9 @@ function M.setup()
     hijack_directories = {
       -- enable = false,
     },
+    git = {
+      enable = false,
+    },
   }
 
   nvim_tree.setup(nvim_tree_opts)
