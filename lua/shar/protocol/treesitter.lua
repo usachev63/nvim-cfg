@@ -13,6 +13,10 @@ function M.pack()
     after = 'nvim-treesitter',
     requires = 'nvim-treesitter/nvim-treesitter',
   }
+  packer.use {
+    requires = { 'nvim-treesitter/nvim-treesitter' },
+    'Badhi/nvim-treesitter-cpp-tools',
+  }
 end
 
 function M.init()
@@ -23,7 +27,7 @@ function M.init()
     auto_install = true,
     highlight = {
       enable = true,
-      disable = { 'haskell' },
+      disable = { 'c', 'cpp', 'haskell' },
       additional_vim_regex_highlighting = true,
     },
     textobjects = {
@@ -70,6 +74,12 @@ function M.init()
           ['<Leader>wA'] = '@parameter.inner',
         },
       },
+    },
+  }
+  require('nt-cpp-tools').setup {
+    preview = {
+      quit = '<esc>', -- optional keymapping for quit preview
+      accept = 'p', -- optional keymapping for accept preview
     },
   }
 end
