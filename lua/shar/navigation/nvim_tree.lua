@@ -136,7 +136,7 @@ function M.setup()
 
   nvim_tree.setup(nvim_tree_opts)
   -- setup_custom_directory_hijack()
-  vim.keymap.set('n', '<Leader>nt', ':NvimTreeFindFile<CR>')
+  vim.keymap.set('n', ',t', ':NvimTreeToggle<CR>')
 end
 
 return M
