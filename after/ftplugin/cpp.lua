@@ -10,8 +10,3 @@ vim.keymap.set('n', '<LocalLeader>th', ':ClangdSwitchSourceHeader<CR>')
 vim.bo.commentstring = '// %s'
 
 vim.g.load_doxygen_syntax = true
-
-vim.opt_local.wildignore = {
-  'build*/**',
-  'third-party/**'
-}
