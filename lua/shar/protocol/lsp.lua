@@ -18,6 +18,7 @@ local handlers = {
     -- using nvim-jdtls plugin.
   end,
   kotlin_language_server = require 'shar.protocol.servers.kotlin_language_server',
+  rust_analyzer = require 'shar.protocol.servers.rust_analyzer'
 }
 
 function M.pack()
