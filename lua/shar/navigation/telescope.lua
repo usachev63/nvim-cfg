@@ -15,7 +15,6 @@ local function setup_keymaps()
   end, {})
   vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
   vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-  vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
   vim.keymap.set('n', '<leader>fr', builtin.resume, {})
   vim.keymap.set('n', '<leader>fd', function()
     builtin.lsp_document_symbols {

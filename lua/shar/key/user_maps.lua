@@ -51,6 +51,22 @@ local function setup_opt_toggle_maps()
   end)
 end
 
+local function setup_diagnostic_maps()
+  vim.keymap.set('n', '<Leader>ww', vim.diagnostic.open_float)
+  vim.keymap.set('n', ']w', vim.diagnostic.goto_next)
+  vim.keymap.set('n', '[w', vim.diagnostic.goto_prev)
+  vim.keymap.set('n', ']e', function()
+    vim.diagnostic.goto_next {
+      severity = vim.diagnostic.severity.ERROR,
+    }
+  end)
+  vim.keymap.set('n', '[e', function()
+    vim.diagnostic.goto_prev {
+      severity = vim.diagnostic.severity.ERROR,
+    }
+  end)
+end
+
 ---Setup common user keymaps.
 function M.setup_maps()
   -- ',' is another 'unofficial' leader key
@@ -70,6 +86,7 @@ function M.setup_maps()
 
   setup_goto_maps()
   setup_opt_toggle_maps()
+  setup_diagnostic_maps()
 end
 
 return M

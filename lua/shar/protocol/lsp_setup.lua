@@ -35,22 +35,6 @@ local function setup_buf_keymaps(bufnr)
   set('<Leader>rn', lsp_buf.rename)
   -- Load all references of the symbol into quickfix list
   set('gr', lsp_buf.references)
-  -- Open diagnostics window
-  set('<Leader>ww', diagnostic.open_float)
-  -- Move between diagnostic messages
-  set(']w', diagnostic.goto_next)
-  set('[w', diagnostic.goto_prev)
-  -- Move between errors
-  set(']e', function()
-    diagnostic.goto_next {
-      severity = diagnostic.severity.ERROR
-    }
-  end)
-  set(']e', function()
-    diagnostic.goto_prev {
-      severity = diagnostic.severity.ERROR
-    }
-  end)
   set('<Leader>ca', lsp_buf.code_action)
 end
 
