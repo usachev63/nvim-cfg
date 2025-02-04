@@ -40,7 +40,7 @@ end
 
 ---Set up my favourite color scheme.
 local function set_theme()
-  vim.cmd 'colorscheme catppuccin-mocha'
+  vim.cmd 'colorscheme catppuccin-frappe'
 end
 
 ---Set up integration with lualine.nvim status line plugin.
@@ -48,7 +48,7 @@ local function setup_lualine()
   local lualine = require 'lualine'
   lualine.setup {
     options = {
-      theme = 'catppuccin-mocha',
+      theme = 'catppuccin-frappe',
     },
     sections = {
       lualine_a = { 'filename', 'location' },
