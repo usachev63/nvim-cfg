@@ -21,7 +21,15 @@ local function setup_autocmds()
     group = augroup,
   })
 
-  -- Abbreviate :w to :Gwrite in tracked files
+  vim.cmd {
+    cmd = 'cnoreabbrev',
+    args = {
+      '<expr>',
+      'GPU',
+      '"G push -u origin HEAD"',
+    },
+  }
+
   api.nvim_create_autocmd({ 'BufNewFile', 'BufReadPost' }, {
     callback = function()
       if not api.nvim_buf_is_valid(0) or o.buftype ~= '' then
@@ -40,6 +48,7 @@ local function setup_autocmds()
       if #ls_files.stdout <= 1 then
         return
       end
+      -- Abbreviate :w to :Gwrite in tracked files
       vim.cmd {
         cmd = 'cnoreabbrev',
         args = {
