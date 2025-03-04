@@ -30,6 +30,15 @@ local function setup_autocmds()
     },
   }
 
+  vim.cmd {
+    cmd = 'cnoreabbrev',
+    args = {
+      '<expr>',
+      'GPF',
+      '"G push -f"',
+    },
+  }
+
   api.nvim_create_autocmd({ 'BufNewFile', 'BufReadPost' }, {
     callback = function()
       if not api.nvim_buf_is_valid(0) or o.buftype ~= '' then
