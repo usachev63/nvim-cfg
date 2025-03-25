@@ -88,6 +88,7 @@ local M = {}
 ---@field git { enabled: boolean } Git version control system.
 ---@field java { enabled: boolean } Java support
 ---@field rust { enabled: boolean } Rust programming language.
+---@field lean { enabled: boolean } Lean programming language.
 ---@field tex TexOptions
 ---@field markdown { enabled: boolean } Markdown preview editing support.
 ---@field distant { enabled: boolean } distant: remote FS & process operations.
