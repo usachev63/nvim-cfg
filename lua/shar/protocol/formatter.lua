@@ -32,13 +32,16 @@ function M.init()
         function()
           return {
             exe = 'ktfmt',
-            args = { 
+            args = {
               '--kotlinlang-style',
               '-',
             },
             stdin = true,
           }
         end,
+      },
+      xml = {
+        require('formatter.filetypes.xml').xmllint,
       },
     },
   }
