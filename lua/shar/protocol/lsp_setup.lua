@@ -80,4 +80,12 @@ function M.default_handler(server_name)
   }
 end
 
+function M.default_handler_no_formatting(server_name)
+  local lspconfig = require 'lspconfig'
+  lspconfig[server_name].setup {
+    on_attach = M.on_attach_no_formatting,
+    capabilities = M.capabilities,
+  }
+end
+
 return M

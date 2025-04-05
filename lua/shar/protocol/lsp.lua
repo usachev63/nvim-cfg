@@ -13,6 +13,7 @@ local handlers = {
   clangd = require 'shar.protocol.servers.clangd',
   texlab = require 'shar.protocol.servers.texlab',
   lua_ls = require 'shar.protocol.servers.lua_ls',
+  pyright = lsp_setup.default_handler_no_formatting,
   jdtls = function()
     -- Do nothing: the setup is done in ftplugin/java.lua,
     -- using nvim-jdtls plugin.
