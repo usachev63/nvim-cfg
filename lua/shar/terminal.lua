@@ -45,7 +45,6 @@ function M.setup()
   --Escape from terminal buffer with <Esc> key.
   keymap.set('t', '<Esc>', '<C-\\><C-n>')
   keymap.set('t', '<C-[>', '<C-\\><C-n>')
-  keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]])
   augroup = api.nvim_create_augroup('Terminal', {})
   set_options()
   require('toggleterm').setup {
