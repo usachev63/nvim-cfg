@@ -20,12 +20,6 @@ local function set_shell()
   end
 end
 
----Escape from terminal buffer with <Esc> key.
-local function fix_escape()
-  keymap.set('t', '<Esc>', '<C-\\><C-n>')
-  keymap.set('t', '<C-[>', '<C-\\><C-n>')
-end
-
 ---Autocommand setting local options in terminal buffer.
 local function set_options()
   api.nvim_create_autocmd('TermOpen', {
@@ -48,12 +42,15 @@ end
 
 function M.setup()
   set_shell()
-  fix_escape()
+  --Escape from terminal buffer with <Esc> key.
+  keymap.set('t', '<Esc>', '<C-\\><C-n>')
+  keymap.set('t', '<C-[>', '<C-\\><C-n>')
+  keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]])
   augroup = api.nvim_create_augroup('Terminal', {})
   set_options()
   require('toggleterm').setup {
     open_mapping = [[<C-\>]],
-    direction = 'float',
+    direction = 'horizontal',
   }
 end
 
