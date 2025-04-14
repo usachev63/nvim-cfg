@@ -9,7 +9,6 @@ end
 function M.init()
   local lint = require 'lint'
   lint.linters_by_ft = {
-    lua = { 'luacheck' },
     yaml = { 'yamllint' },
   }
   local augroup = vim.api.nvim_create_augroup('SharLinter', {})
