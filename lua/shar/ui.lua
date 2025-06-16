@@ -22,6 +22,8 @@ local function set_options()
   o.showbreak = '↳'
   o.breakindent = true
   o.breakindentopt = 'sbr'
+  o.pumheight = 8
+  o.pumblend = 16
 end
 
 local function setup_catppuccin()
