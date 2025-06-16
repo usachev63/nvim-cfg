@@ -5,22 +5,33 @@ local M = {}
 local vim = vim
 local keymap = vim.keymap
 
-local lsp_setup = require 'shar.protocol.lsp_setup'
+local function on_attach_default(bufnr)
+  local function set(binding, action)
+    keymap.set('n', binding, action, { buffer = bufnr })
+  end
 
----A list of language server handlers for mason-lspconfig.
-local handlers = {
-  lsp_setup.default_handler,
-  clangd = require 'shar.protocol.servers.clangd',
-  texlab = require 'shar.protocol.servers.texlab',
-  lua_ls = require 'shar.protocol.servers.lua_ls',
-  pyright = lsp_setup.default_handler_no_formatting,
-  jdtls = function()
-    -- Do nothing: the setup is done in ftplugin/java.lua,
-    -- using nvim-jdtls plugin.
-  end,
-  kotlin_language_server = require 'shar.protocol.servers.kotlin_language_server',
-  rust_analyzer = require 'shar.protocol.servers.rust_analyzer'
-}
+  -- Go to declaration
+  set('gD', vim.lsp.buf.declaration)
+  -- Go to definition
+  set('gd', vim.lsp.buf.definition)
+  -- Hover floating window
+  set('K', vim.lsp.buf.hover)
+  -- Signature help floating window
+  set('<C-K>', vim.lsp.buf.signature_help)
+  -- Go to type definition
+  set('<Leader>td', vim.lsp.buf.type_definition)
+  -- Show subtypes
+  set('<Leader>ic', function ()
+    vim.lsp.buf.typehierarchy('subtypes')
+  end)
+  -- Rename symbol
+  set('<Leader>rn', vim.lsp.buf.rename)
+  -- Load all references of the symbol into quickfix list
+  set('gr', vim.lsp.buf.references)
+  set('<Leader>ca', vim.lsp.buf.code_action)
+  -- Format the whole document with LSP formatter
+  keymap.set('n', '<Leader>fm', vim.lsp.buf.format, { buffer = bufnr })
+end
 
 function M.pack()
   local packer = require 'packer'
@@ -30,13 +41,15 @@ end
 
 ---Set up LSP support.
 function M.init()
-  vim.diagnostic.config { signs = false }
-  -- lsp_setup.setup_capabilities()
-
   require('mason').setup()
   require('mason-lspconfig').setup()
-
-  keymap.set('i', '<C-K>', '<Nop>')
+  vim.diagnostic.config { signs = false }
+  vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup("usachev.protocol.lsp", {}),
+    callback = function(args)
+      on_attach_default(args.buf)
+    end
+  })
 end
 
 return M
