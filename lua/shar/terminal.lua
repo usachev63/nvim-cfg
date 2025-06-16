@@ -39,7 +39,7 @@ function M.setup()
   set_options()
   require('toggleterm').setup {
     open_mapping = [[<C-\>]],
-    direction = 'horizontal',
+    direction = 'tab',
   }
 end
 
