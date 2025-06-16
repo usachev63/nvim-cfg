@@ -11,15 +11,6 @@ local keymap = vim.keymap
 ---Related autocommand group.
 local augroup
 
----Set appropriate 'shell' option.
-local function set_shell()
-  if fn.executable 'zsh' then
-    o.shell = '/usr/bin/zsh -li'
-  elseif fn.executable 'bash' then
-    o.shell = '/usr/bin/bash -li'
-  end
-end
-
 ---Autocommand setting local options in terminal buffer.
 local function set_options()
   api.nvim_create_autocmd('TermOpen', {
@@ -41,7 +32,6 @@ function M.pack()
 end
 
 function M.setup()
-  set_shell()
   --Escape from terminal buffer with <Esc> key.
   keymap.set('t', '<Esc>', '<C-\\><C-n>')
   keymap.set('t', '<C-[>', '<C-\\><C-n>')
