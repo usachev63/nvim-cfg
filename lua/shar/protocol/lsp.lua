@@ -31,11 +31,10 @@ end
 ---Set up LSP support.
 function M.init()
   vim.diagnostic.config { signs = false }
-  lsp_setup.setup_capabilities()
+  -- lsp_setup.setup_capabilities()
 
-  local mason_lspconfig = require 'mason-lspconfig'
-  mason_lspconfig.setup()
-  mason_lspconfig.setup_handlers(handlers)
+  require('mason').setup()
+  require('mason-lspconfig').setup()
 
   keymap.set('i', '<C-K>', '<Nop>')
 end

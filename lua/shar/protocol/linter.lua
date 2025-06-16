@@ -9,7 +9,7 @@ end
 function M.init()
   local lint = require 'lint'
   lint.linters_by_ft = {
-    yaml = { 'yamllint' },
+    -- yaml = { 'yamllint' },
   }
   local augroup = vim.api.nvim_create_augroup('SharLinter', {})
   vim.api.nvim_create_autocmd({ 'BufRead', 'BufWritePost' }, {
