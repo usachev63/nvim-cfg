@@ -1,6 +1,6 @@
-local options = require 'shar.options'
-local java = require 'shar.toolkit.java'
-local lsp_setup = require 'shar.protocol.lsp_setup'
+local options = require 'usachev63.options'
+local java = require 'usachev63.toolkit.java'
+local lsp_setup = require 'usachev63.protocol.lsp_setup'
 
 vim.bo.softtabstop = 2
 vim.bo.shiftwidth = 2
