@@ -82,6 +82,7 @@ function M.init()
       accept = 'p', -- optional keymapping for accept preview
     },
   }
+  vim.keymap.set('n', ';tsdf', ':TSCppDefineClassFunc<CR>')
 end
 
 return M

@@ -117,8 +117,6 @@ function M.setup()
   telescope.setup()
   if options.navigation.nvim_tree.enabled then
     u_nvim_tree.setup()
-    nvim_tree = require 'nvim-tree'
-    nvim_tree_api = require 'nvim-tree.api'
   end
   if options.navigation.nnn.enabled then
     u_nnn.setup()
