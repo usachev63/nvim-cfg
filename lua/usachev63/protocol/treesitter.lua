@@ -23,7 +23,7 @@ function M.init()
   vim.keymap.set('n', ']f', '<Nop>')
   vim.keymap.set('n', '[f', '<Nop>')
   require('nvim-treesitter.configs').setup {
-    ensure_installed = { 'c', 'cpp', 'lua', 'vim', 'vimdoc', 'query' },
+    ensure_installed = { 'c', 'cpp', 'lua', 'vim', 'vimdoc', 'query', 'java' },
     auto_install = true,
     highlight = {
       enable = true,

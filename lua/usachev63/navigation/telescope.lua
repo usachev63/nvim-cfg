@@ -2,30 +2,19 @@
 
 local M = {}
 
-local vim = vim
-
 ---Set up telescope-related keymaps.
 local function setup_keymaps()
   local builtin = require 'telescope.builtin'
-  vim.keymap.set('n', '<leader>ff', function()
-    builtin.find_files { path_display = { 'truncate' } }
-  end, {})
-  vim.keymap.set('n', '<leader>fi', function()
+  vim.keymap.set('n', ';zf', builtin.git_files, {})
+  vim.keymap.set('n', ';za', function()
     builtin.find_files { no_ignore = true }
   end, {})
-  vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-  vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-  vim.keymap.set('n', '<leader>fr', builtin.resume, {})
-  vim.keymap.set('n', '<leader>fd', function()
-    builtin.lsp_document_symbols {
-      symbol_width = 60,
-    }
-  end, {})
-  vim.keymap.set('n', '<leader>fD', function()
-    builtin.lsp_dynamic_workspace_symbols {
-      symbol_width = 60,
-    }
-  end, {})
+  vim.keymap.set('n', ';zg', builtin.live_grep, {})
+  vim.keymap.set('n', ';zb', builtin.buffers, {})
+  vim.keymap.set('n', ';zr', builtin.resume, {})
+  vim.keymap.set('n', ';z"', builtin.registers, {})
+  vim.keymap.set('n', ';zq', builtin.quickfix, {})
+  vim.keymap.set('n', ';zm', builtin.marks, {})
 end
 
 function M.pack()

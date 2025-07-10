@@ -4,6 +4,7 @@ local M = {}
 
 local vim = vim
 local keymap = vim.keymap
+local telescope_builtin = require 'telescope.builtin'
 
 local function on_attach_default(bufnr)
   local function set(binding, action)
@@ -21,13 +22,13 @@ local function on_attach_default(bufnr)
   -- Go to type definition
   set('<Leader>td', vim.lsp.buf.type_definition)
   -- Show subtypes
-  set('<Leader>ic', function ()
-    vim.lsp.buf.typehierarchy('subtypes')
+  set('<Leader>ic', function()
+    vim.lsp.buf.typehierarchy 'subtypes'
   end)
   -- Rename symbol
   set('<Leader>rn', vim.lsp.buf.rename)
   -- Load all references of the symbol into quickfix list
-  set('gr', vim.lsp.buf.references)
+  set('grr', telescope_builtin.lsp_references)
   set('<Leader>ca', vim.lsp.buf.code_action)
   -- Format the whole document with LSP formatter
   keymap.set('n', '<Leader>fm', vim.lsp.buf.format, { buffer = bufnr })
@@ -45,10 +46,10 @@ function M.init()
   require('mason-lspconfig').setup()
   vim.diagnostic.config { signs = false }
   vim.api.nvim_create_autocmd('LspAttach', {
-    group = vim.api.nvim_create_augroup("usachev63.protocol.lsp", {}),
+    group = vim.api.nvim_create_augroup('usachev63.protocol.lsp', {}),
     callback = function(args)
       on_attach_default(args.buf)
-    end
+    end,
   })
 end
 
