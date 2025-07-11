@@ -49,6 +49,9 @@ local function setup_opt_toggle_maps()
   keymap.set('n', 'yos', function()
     vim.o.spell = not vim.o.spell
   end)
+  keymap.set('n', 'yow', function()
+    vim.o.wrap = not vim.o.wrap
+  end)
 end
 
 local function setup_diagnostic_maps()
