@@ -14,8 +14,8 @@ local user_maps = require 'usachev63.key.user_maps'
 ---Set <Space> as the leader key.
 local function set_leader()
   keymap.set('n', '<Space>', '<Nop>')
-  g.mapleader = ';'
-  g.maplocalleader = ';'
+  g.mapleader = ' '
+  g.maplocalleader = ' '
   -- Prevent unexpected insert mode leave
   keymap.set('i', '<C-Space>', '<Space>')
 end
