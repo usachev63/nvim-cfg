@@ -6,7 +6,8 @@ local vim = vim
 local keymap = vim.keymap
 local telescope_builtin = require 'telescope.builtin'
 
-local function on_attach_default(bufnr)
+local function on_attach_default(args)
+  local bufnr = args.buf
   local function set(binding, action)
     keymap.set('n', binding, action, { buffer = bufnr })
   end
@@ -32,6 +33,15 @@ local function on_attach_default(bufnr)
   set('<Leader>ca', vim.lsp.buf.code_action)
   -- Format the whole document with LSP formatter
   keymap.set('n', '<Leader>fm', vim.lsp.buf.format, { buffer = bufnr })
+  vim.api.nvim_create_autocmd('BufWritePre', {
+    buffer = bufnr,
+    callback = function ()
+      vim.lsp.buf.format {
+        async = false,
+        id = args.data.client_id,
+      }
+    end
+  })
 end
 
 function M.pack()
@@ -48,7 +58,7 @@ function M.init()
   vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('usachev63.protocol.lsp', {}),
     callback = function(args)
-      on_attach_default(args.buf)
+      on_attach_default(args)
     end,
   })
 end
