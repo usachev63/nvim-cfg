@@ -43,9 +43,9 @@ function M.init()
       xml = {
         require('formatter.filetypes.xml').xmllint,
       },
-      java = {
-        require('formatter.filetypes.java').google_java_format,
-      },
+      -- java = {
+      --   require('formatter.filetypes.java').google_java_format,
+      -- },
     },
   }
   --- Setup format keymap
