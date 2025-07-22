@@ -5,7 +5,7 @@ local M = {}
 ---Set up telescope-related keymaps.
 local function setup_keymaps()
   local builtin = require 'telescope.builtin'
-  vim.keymap.set('n', ';zf', builtin.git_files, {})
+  vim.keymap.set('n', ';zf', builtin.find_files, {})
   vim.keymap.set('n', ';za', function()
     builtin.find_files { no_ignore = true }
   end, {})
