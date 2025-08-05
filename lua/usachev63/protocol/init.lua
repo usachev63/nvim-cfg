@@ -8,6 +8,7 @@ local treesitter = require 'usachev63.protocol.treesitter'
 local lsp = require 'usachev63.protocol.lsp'
 local formatter = require 'usachev63.protocol.formatter'
 local linter = require 'usachev63.protocol.linter'
+local u_dap = require 'usachev63.protocol.dap'
 
 function M.pack()
   require('packer').use 'williamboman/mason.nvim'
@@ -22,6 +23,9 @@ function M.pack()
   end
   if options.protocol.linter then
     linter.pack()
+  end
+  if options.protocol.dap.enabled then
+    u_dap.pack()
   end
 end
 
@@ -40,6 +44,9 @@ function M.init()
   end
   if options.protocol.linter then
     linter.init()
+  end
+  if options.protocol.dap.enabled then
+    u_dap.init()
   end
 end
 

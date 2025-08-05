@@ -38,6 +38,15 @@ local config = {
   cmd = get_cmd(),
   cmd_env = {
     JAVA_HOME = '/usr/lib/jvm/java-21-openjdk-amd64'
-  }
+  },
+  init_options = {
+    bundles = {
+      vim.fn.glob(
+        "$HOME/.local/src/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar", 1)
+    },
+  },
+  vmargs = {
+    "-Xmx512m"
+  },
 }
 require('jdtls').start_or_attach(config)

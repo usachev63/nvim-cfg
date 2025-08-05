@@ -13,6 +13,7 @@ function M.pack()
   if options.localvimrc then
     packer.use 'klen/nvim-config-local'
   end
+  packer.use 'Makaze/watch.nvim'
 end
 
 ---Set up nvim-config-local plugin for support of project-local .vimrc files.

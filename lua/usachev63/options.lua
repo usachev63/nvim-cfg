@@ -73,10 +73,11 @@ local M = {}
 ---Options for configuring various protocols: LSPs, formatters, linters,
 ---DAPs, treesitter, etc.
 ---
----@field formatter {}? Enable support of formatters.
----@field lsp {}? Enable support of LSP.
----@field treesitter {}? Enable treesitter support.
----@field linter {}? Enable linters support.
+---@field formatter { enabled: boolean} Enable support of formatters.
+---@field lsp { enabled: boolean } Enable support of LSP.
+---@field treesitter { enabled: boolean } Enable treesitter support.
+---@field linter { enabled: boolean } Enable linters support.
+---@field dap { enabled: boolean }
 
 ---@class Options_Toolkit
 ---
@@ -153,13 +154,14 @@ local default_options = {
     },
     nnn = {
       enabled = false,
-    }
+    },
   },
   protocol = {
-    formatter = nil,
-    lsp = nil,
-    treesitter = nil,
-    linter = nil,
+    formatter = { enabled = false, },
+    lsp = { enabled = false, },
+    treesitter = { enabled = false, },
+    linter = { enabled = false, },
+    dap = { enabled = false, },
   },
   toolkit = {
     acmcpp = {
