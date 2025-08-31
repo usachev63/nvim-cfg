@@ -4,11 +4,11 @@ local M = {}
 
 local vim = vim
 local keymap = vim.keymap
-local telescope_builtin = require 'telescope.builtin'
 
 local function on_attach_default(args)
   local bufnr = args.buf
   local client = vim.lsp.get_client_by_id(args.data.client_id)
+  local telescope_builtin = require 'telescope.builtin'
 
   local function set(binding, action)
     keymap.set('n', binding, action, { buffer = bufnr })
