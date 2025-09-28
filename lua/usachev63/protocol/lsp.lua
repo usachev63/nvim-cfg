@@ -34,7 +34,7 @@ local function on_attach_default(args)
   set('grr', telescope_builtin.lsp_references)
   set('<Leader>ca', vim.lsp.buf.code_action)
 
-  if client.name ~= 'kotlin_language_server' and client.name ~= 'lemminx' then
+  if client.name ~= 'kotlin_language_server' and client.name ~= 'lemminx' and client.name ~= 'pyright' then
     -- Format the whole document with LSP formatter
     keymap.set('n', '<Leader>fm', vim.lsp.buf.format, { buffer = bufnr })
     vim.api.nvim_create_autocmd('BufWritePre', {
