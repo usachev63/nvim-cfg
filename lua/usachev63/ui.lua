@@ -156,6 +156,7 @@ function M.pack()
   packer.use 'stevearc/dressing.nvim'
   packer.use 'google/vim-searchindex'
   packer.use 'jghauser/fold-cycle.nvim'
+  packer.use 'MTDL9/vim-log-highlighting'
 end
 
 ---Initialize UI-related setup.
