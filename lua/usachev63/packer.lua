@@ -11,9 +11,10 @@ local function pack_modules()
     'motion',
     'navigation',
     'protocol',
+    'quickfix',
+    'terminal',
     'toolkit',
     'ui',
-    'terminal',
   }
   for _, module in pairs(modules) do
     require('usachev63.' .. module).pack()

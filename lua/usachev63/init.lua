@@ -14,6 +14,7 @@ local editing = require 'usachev63.editing'
 local navigation = require 'usachev63.navigation'
 local motion = require 'usachev63.motion'
 local toolkit = require 'usachev63.toolkit'
+local u63_quickfix = require 'usachev63.quickfix'
 
 ---Initialize usachev63-nvim-cfg.
 ---
@@ -44,6 +45,7 @@ function M.init(opts)
   motion.setup()
   toolkit.setup()
   protocol.init()
+  u63_quickfix.setup()
 
   if options.key.enable_langmapper then
     langmapper.do_automapping()
