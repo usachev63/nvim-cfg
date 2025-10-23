@@ -5,16 +5,16 @@ local M = {}
 ---Set up telescope-related keymaps.
 local function setup_keymaps()
   local builtin = require 'telescope.builtin'
-  vim.keymap.set('n', ';zf', builtin.find_files, {})
+  vim.keymap.set('n', ';ff', builtin.find_files, {})
   vim.keymap.set('n', ';za', function()
     builtin.find_files { no_ignore = true }
   end, {})
-  vim.keymap.set('n', ';zg', builtin.live_grep, {})
-  vim.keymap.set('n', ';zb', builtin.buffers, {})
-  vim.keymap.set('n', ';zr', builtin.resume, {})
-  vim.keymap.set('n', ';z"', builtin.registers, {})
-  vim.keymap.set('n', ';zq', builtin.quickfix, {})
-  vim.keymap.set('n', ';zm', builtin.marks, {})
+  vim.keymap.set('n', ';fg', builtin.live_grep, {})
+  vim.keymap.set('n', ';fb', builtin.buffers, {})
+  vim.keymap.set('n', ';fr', builtin.resume, {})
+  vim.keymap.set('n', ';f"', builtin.registers, {})
+  vim.keymap.set('n', ';fq', builtin.quickfix, {})
+  vim.keymap.set('n', ';fm', builtin.marks, {})
 end
 
 function M.pack()
