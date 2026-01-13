@@ -140,6 +140,13 @@ function M.setup()
     end
     qf_import(path)
   end, { nargs = 1, complete = 'file' })
+
+  local bqf = require 'bqf'
+  bqf.setup {
+    preview = {
+      auto_preview = false,
+    },
+  }
 end
 
 return M
