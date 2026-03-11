@@ -186,7 +186,7 @@ local function setup_keymaps()
 end
 
 function M.pack()
-  require('packer').use 'ggandor/leap.nvim'
+  require('packer').use 'https://codeberg.org/andyg/leap.nvim'
 end
 
 ---Set up integration leap.nvim.
