@@ -72,49 +72,54 @@ local function setup_autocmds()
   })
 end
 
+local function setup_gitsigns() end
+
 function M.pack()
   local packer = require 'packer'
-  packer.use 'tpope/vim-fugitive'
-  packer.use 'sindrets/diffview.nvim'
+  -- packer.use 'tpope/vim-fugitive'
+  -- packer.use 'sindrets/diffview.nvim'
+  packer.use 'lewis6991/gitsigns.nvim'
 end
 
 ---Set up integration with Git.
 function M.setup()
   -- Merge conflict resolution keymaps
-  keymap.set('n', '<Leader>df', ':Gvdiffsplit!<CR>')
-  keymap.set('n', '<Leader>dh', ':diffget //2<CR>')
-  keymap.set('n', '<Leader>dl', ':diffget //3<CR>')
+  -- keymap.set('n', '<Leader>df', ':Gvdiffsplit!<CR>')
+  -- keymap.set('n', '<Leader>dh', ':diffget //2<CR>')
+  -- keymap.set('n', '<Leader>dl', ':diffget //3<CR>')
 
-  vim.cmd {
-    cmd = 'cnoreabbrev',
-    args = {
-      'GLA',
-      'Git log --oneline --decorate --graph --all',
-    },
-  }
-  vim.cmd {
-    cmd = 'cnoreabbrev',
-    args = {
-      'GL',
-      'Git log --oneline --decorate --graph',
-    },
-  }
-  vim.cmd {
-    cmd = 'cnoreabbrev',
-    args = {
-      'DI',
-      'DiffviewOpen',
-    },
-  }
-  vim.cmd {
-    cmd = 'cnoreabbrev',
-    args = {
-      'DIC',
-      'DiffviewClose',
-    },
-  }
+  -- vim.cmd {
+  --   cmd = 'cnoreabbrev',
+  --   args = {
+  --     'GLA',
+  --     'Git log --oneline --decorate --graph --all',
+  --   },
+  -- }
+  -- vim.cmd {
+  --   cmd = 'cnoreabbrev',
+  --   args = {
+  --     'GL',
+  --     'Git log --oneline --decorate --graph',
+  --   },
+  -- }
+  -- vim.cmd {
+  --   cmd = 'cnoreabbrev',
+  --   args = {
+  --     'DI',
+  --     'DiffviewOpen',
+  --   },
+  -- }
+  -- vim.cmd {
+  --   cmd = 'cnoreabbrev',
+  --   args = {
+  --     'DIC',
+  --     'DiffviewClose',
+  --   },
+  -- }
 
-  setup_autocmds()
+  -- setup_autocmds()
+
+  setup_gitsigns()
 end
 
 return M

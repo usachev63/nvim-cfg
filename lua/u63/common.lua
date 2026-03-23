@@ -67,6 +67,8 @@ function M.setup()
     setup_localvimrc()
   end
   -- setup_venv_selector()
+
+  vim.o.foldenable = false
 end
 
 return M
