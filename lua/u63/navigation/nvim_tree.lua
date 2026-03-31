@@ -132,6 +132,9 @@ function M.setup()
     git = {
       enable = false,
     },
+    view = {
+      width = '25%',
+    },
   }
 
   nvim_tree.setup(nvim_tree_opts)
