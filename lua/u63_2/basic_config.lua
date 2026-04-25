@@ -34,6 +34,24 @@ local function setup_vim_opts()
   vim.o.wrap = false
 
   vim.o.foldenable = false
+
+  -- UI options
+  vim.o.number = true
+  vim.o.hlsearch = false
+  vim.opt.listchars = {
+    tab = '..',
+    nbsp = '+',
+  }
+  vim.o.list = true
+  vim.o.splitright = true
+  vim.o.termguicolors = true
+  vim.o.showmode = false
+  vim.o.linebreak = true
+  vim.o.showbreak = '↳'
+  vim.o.breakindent = true
+  vim.o.breakindentopt = 'sbr'
+  vim.o.pumheight = 8
+  vim.o.pumblend = 16
 end
 
 ---Set <Space> as the leader key.
