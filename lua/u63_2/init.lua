@@ -47,7 +47,10 @@ function M.init(opts)
   bootstrap_lazy()
   u_basic_config.setup_all()
   local lazy = require 'lazy'
-  lazy.setup 'u63_2.plugins'
+  lazy.setup {
+    spec = { { import = 'u63_2.plugins' } },
+    install = { colorscheme = { 'catppuccin-frappe' } },
+  }
 end
 
 return M
