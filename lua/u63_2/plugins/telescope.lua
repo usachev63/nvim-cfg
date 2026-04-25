@@ -1,0 +1,39 @@
+---Set up telescope-related keymaps.
+local function setup_keymaps()
+  local builtin = require 'telescope.builtin'
+  vim.keymap.set('n', ';ff', builtin.find_files, {})
+  vim.keymap.set('n', ';za', function()
+    builtin.find_files { no_ignore = true }
+  end, {})
+  vim.keymap.set('n', ';fg', builtin.live_grep, {})
+  vim.keymap.set('n', ';fb', builtin.buffers, {})
+  vim.keymap.set('n', ';fr', builtin.resume, {})
+  vim.keymap.set('n', ';f"', builtin.registers, {})
+  vim.keymap.set('n', ';fq', builtin.quickfix, {})
+  vim.keymap.set('n', ';fm', builtin.marks, {})
+end
+
+return {
+  'nvim-telescope/telescope.nvim',
+  version = '*',
+  dependencies = {
+    'nvim-lua/plenary.nvim',
+    'nvim-telescope/telescope-fzy-native.nvim',
+  },
+  config = function()
+    setup_keymaps()
+    local telescope = require 'telescope'
+    telescope.load_extension 'fzy_native'
+    telescope.setup {
+      defaults = {
+        -- sorting_strategy = 'ascending',
+        -- selection_strategy = 'closest',
+        -- selection_caret = '  ',
+        -- prompt_prefix = '  ',
+        layout_strategy = 'vertical',
+        layout_config = {},
+        preview = false,
+      },
+    }
+  end,
+}
