@@ -1,5 +1,6 @@
 local M = {}
 
+local u_basic_config = require 'u63_2.basic_config'
 local u_options = require 'u63_2.options'
 
 ---source: lazy.nvim docs
@@ -28,49 +29,6 @@ local function bootstrap_lazy()
   vim.opt.rtp:prepend(lazypath)
 end
 
-local function vim_primitive_config()
-  -- Enable full builtin filetype support
-  vim.cmd 'filetype plugin indent on'
-
-  -- Buffers are not required to be written during buffer switch
-  vim.o.hidden = true
-  -- Register "+ is essentially equal to register ""
-  vim.o.clipboard = 'unnamedplus'
-  -- :substitute command has [g] flag by default
-  vim.o.gdefault = true
-
-  -- Add all subdirectories of current working directory.
-  -- For use in :find, gf, etc.
-  vim.opt.path:append { '**' }
-
-  -- zsh-like autocompletion in Ex mode
-  vim.o.wildmenu = true
-  vim.o.wildmode = 'full'
-
-  -- Search options
-  vim.o.ignorecase = true
-  vim.o.smartcase = true
-  vim.o.infercase = true
-
-  -- Default indent options
-  vim.o.softtabstop = 4
-  vim.o.shiftwidth = 4
-  vim.o.expandtab = true
-
-  vim.o.spelloptions = 'camel'
-
-  vim.o.wrap = false
-
-  vim.o.foldenable = false
-
-  ---Set <Space> as the leader key.
-  vim.keymap.set('n', '<Space>', '<Nop>')
-  vim.g.mapleader = ' '
-  vim.g.maplocalleader = ' '
-  -- Prevent unexpected insert mode leave
-  vim.keymap.set('i', '<C-Space>', '<Space>')
-end
-
 ---Initialize u63-nvim-cfg.
 ---
 ---It is pretty much the entry point of u63-nvim-cfg.
@@ -87,26 +45,9 @@ end
 function M.init(opts)
   u_options.init(opts)
   bootstrap_lazy()
-  vim_primitive_config()
+  u_basic_config.setup_all()
   local lazy = require 'lazy'
   lazy.setup 'u63_2.plugins'
-
-  -- u_packer.pack()
-
-  -- key.init()
-  -- common.setup()
-  -- ui.init()
-  -- terminal.setup()
-  -- editing.setup()
-  -- navigation.setup()
-  -- motion.setup()
-  -- toolkit.setup()
-  -- protocol.init()
-  -- u63_quickfix.setup()
-
-  -- if options.key.enable_langmapper then
-  --   langmapper.do_automapping()
-  -- end
 end
 
 return M
