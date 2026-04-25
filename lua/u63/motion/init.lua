@@ -8,13 +8,13 @@ local u_spider = require 'u63.motion.spider'
 
 function M.pack()
   u_leap.pack()
-  u_spider.pack()
+  -- u_spider.pack()
 end
 
 function M.setup()
   u_leap.setup()
   u_nullstart.setup()
-  u_spider.setup()
+  -- u_spider.setup()
 end
 
 return M
