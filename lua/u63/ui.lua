@@ -135,9 +135,9 @@ local function setup_dressing()
   }
 end
 
-local function setup_fold_cycle()
-  require('fold-cycle').setup()
-end
+-- local function setup_fold_cycle()
+--   require('fold-cycle').setup()
+-- end
 
 function M.pack()
   local packer = require 'packer'
@@ -155,7 +155,7 @@ function M.pack()
   packer.use 'rcarriga/nvim-notify'
   packer.use 'stevearc/dressing.nvim'
   packer.use 'google/vim-searchindex'
-  packer.use 'jghauser/fold-cycle.nvim'
+  -- packer.use 'jghauser/fold-cycle.nvim'
   packer.use 'MTDL9/vim-log-highlighting'
 end
 
@@ -167,7 +167,7 @@ function M.init()
   setup_lualine()
   setup_tabby()
   setup_dressing()
-  setup_fold_cycle()
+  -- setup_fold_cycle()
 end
 
 return M
