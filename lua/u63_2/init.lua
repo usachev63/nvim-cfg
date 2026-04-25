@@ -1,7 +1,6 @@
 local M = {}
 
 local u_basic_config = require 'u63_2.basic_config'
-local u_options = require 'u63_2.options'
 
 ---source: lazy.nvim docs
 local function bootstrap_lazy()
@@ -43,7 +42,7 @@ end
 ---@see Options class for all available options
 ---and their default values (`default_options` local variable)
 function M.init(opts)
-  u_options.init(opts)
+  -- u_options.init(opts)
   bootstrap_lazy()
   u_basic_config.setup_all()
   local lazy = require 'lazy'
