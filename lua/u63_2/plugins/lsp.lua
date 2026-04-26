@@ -18,6 +18,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
       end,
     })
     vim.keymap.set('n', 'yof', function()
+      vim.print("[u63] disabled format-on-save")
       vim.cmd('autocmd! ' .. autofmt_augroup_name)
     end, { buffer = bufnr })
   end,
