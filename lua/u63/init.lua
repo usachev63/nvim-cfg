@@ -1,20 +1,33 @@
----The main module of u63-nvim-cfg.
-
 local M = {}
 
-local u_packer = require 'u63.packer'
-local options = require 'u63.options'
-local common = require 'u63.common'
-local key = require 'u63.key'
-local langmapper = require 'u63.key.langmapper'
-local ui = require 'u63.ui'
-local terminal = require 'u63.terminal'
-local protocol = require 'u63.protocol'
-local editing = require 'u63.editing'
-local navigation = require 'u63.navigation'
-local motion = require 'u63.motion'
-local toolkit = require 'u63.toolkit'
-local u63_quickfix = require 'u63.quickfix'
+local u_options = require("u63.options")
+local u_basic_config = require("u63.basic_config")
+
+---source: lazy.nvim docs
+local function bootstrap_lazy()
+  local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+  if not (vim.uv or vim.loop).fs_stat(lazypath) then
+    local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
+    local out = vim.fn.system {
+      'git',
+      'clone',
+      '--filter=blob:none',
+      '--branch=stable',
+      lazyrepo,
+      lazypath,
+    }
+    if vim.v.shell_error ~= 0 then
+      vim.api.nvim_echo({
+        { 'Failed to clone lazy.nvim:\n', 'ErrorMsg' },
+        { out,                            'WarningMsg' },
+        { '\nPress any key to exit...' },
+      }, true, {})
+      vim.fn.getchar()
+      os.exit(1)
+    end
+  end
+  vim.opt.rtp:prepend(lazypath)
+end
 
 ---Initialize u63-nvim-cfg.
 ---
@@ -27,29 +40,20 @@ local u63_quickfix = require 'u63.quickfix'
 ---For this exact reason init.lua is a part of .gitignore.
 ---
 ---@param opts any Raw, user-provided options for u63-nvim-cfg.
----@see LegacyOptions class for all available options
+---@see Options class for all available options
 ---and their default values (`default_options` local variable)
 function M.init(opts)
-  options.init(opts)
-
-  navigation.pre_netrw()
-
-  u_packer.pack()
-
-  key.init()
-  common.setup()
-  ui.init()
-  terminal.setup()
-  editing.setup()
-  navigation.setup()
-  motion.setup()
-  toolkit.setup()
-  protocol.init()
-  u63_quickfix.setup()
-
-  if options.key.enable_langmapper then
-    langmapper.do_automapping()
-  end
+  u_options.init(opts)
+  bootstrap_lazy()
+  u_basic_config.setup_all()
+  local lazy = require 'lazy'
+  lazy.setup {
+    spec = { { import = 'u63.plugins' } },
+    install = { colorscheme = { 'catppuccin-frappe' } },
+    change_detection = {
+      enabled = false,
+    },
+  }
 end
 
 return M
