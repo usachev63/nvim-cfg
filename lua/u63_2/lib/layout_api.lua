@@ -17,24 +17,19 @@
 ---@type LayoutApi
 local M = {}
 
-local vim = vim
-local fn = vim.fn
-local libcall = fn.libcall
-local filereadable = fn.filereadable
-
 ---Initialize Layout API with xkb-switch backend.
 ---
 ---@param lib XkbSwitchLayoutLib Configuration of xkb-switch library.
 local function init_xkb_switch(lib)
   local lib_path = lib.xkb_switch_lib_path
-  if not filereadable(lib_path) then
+  if not vim.fn.filereadable(lib_path) then
     return
   end
   M.get_layout = function()
-    return libcall(lib_path, 'Xkb_Switch_getXkbLayout', '')
+    return vim.fn.libcall(lib_path, 'Xkb_Switch_getXkbLayout', '')
   end
   M.set_layout = function(layout)
-    return libcall(lib_path, 'Xkb_Switch_setXkbLayout', layout)
+    return vim.fn.libcall(lib_path, 'Xkb_Switch_setXkbLayout', layout)
   end
 end
 

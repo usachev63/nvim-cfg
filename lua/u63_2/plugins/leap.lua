@@ -1,4 +1,4 @@
-local layout_api = require 'u63_2.layout_api'
+local layout_api = require("u63_2.lib.layout_api")
 
 local leap
 
@@ -148,11 +148,11 @@ local ru_labels = {
 local function map_leap(mode, key, leap_opts)
   if layout_api.get_layout then
     vim.keymap.set(mode, key, function()
-      layout_api.set_layout 'us'
+      layout_api.set_layout("us")
       leap.leap(leap_opts)
     end)
     vim.keymap.set(mode, ',' .. key, function()
-      layout_api.set_layout 'ru'
+      layout_api.set_layout("ru")
       local ru_opts = {
         opts = {
           safe_labels = {},
@@ -180,10 +180,10 @@ end
 
 return {
   {
-    'https://codeberg.org/andyg/leap.nvim',
+    "https://codeberg.org/andyg/leap.nvim",
     lazy = false,
     config = function()
-      leap = require 'leap'
+      leap = require("leap")
       leap.opts.safe_labels = safe_labels
       leap.opts.labels = labels
       setup_keymaps()
