@@ -1,3 +1,4 @@
+local u_options = require("u63.options")
 local u_visual_selection = require("u63.lib.visual_selection")
 
 local augroup = vim.api.nvim_create_augroup('u63/tex', {})
@@ -265,11 +266,13 @@ local function on_open_file()
   vim.api.nvim_win_set_option(0, 'conceallevel', 0)
 
   -- autowrite
-  vim.api.nvim_create_autocmd({ 'TextChanged', 'InsertLeave' }, {
-    buffer = 0,
-    command = 'silent update',
-    group = augroup,
-  })
+  if u_options.tex.autowrite then
+    vim.api.nvim_create_autocmd({ 'TextChanged', 'InsertLeave' }, {
+      buffer = 0,
+      command = 'silent update',
+      group = augroup,
+    })
+  end
 
   setup_wrap_keymaps()
   setup_vimtex_keymaps()

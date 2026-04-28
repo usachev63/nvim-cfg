@@ -16,6 +16,7 @@ local M = {}
 ---@class Options_Tex
 ---
 ---@field enabled boolean
+---@field autowrite boolean
 
 ---@class Options_Langmapper
 ---
@@ -30,6 +31,7 @@ local default_options = {
   },
   tex = {
     enabled = false,
+    autowrite = false,
   },
   langmapper = {
     enabled = false,
