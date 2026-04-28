@@ -49,6 +49,9 @@ function M.init(opts)
   lazy.setup {
     spec = { { import = 'u63_2.plugins' } },
     install = { colorscheme = { 'catppuccin-frappe' } },
+    change_detection = {
+      enabled = false,
+    },
   }
 end
 
