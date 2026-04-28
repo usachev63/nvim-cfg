@@ -1,21 +1,20 @@
-local dirname = string.sub(debug.getinfo(1).source, 2, string.len('/quickfix.lua') * -1)
+local dirname = string.sub(debug.getinfo(1).source, 2, string.len("/quickfix.lua") * -1)
 
 return {
   {
-    'kevinhwang91/nvim-bqf',
+    "kevinhwang91/nvim-bqf",
     config = function()
-      local bqf = require 'bqf'
-      bqf.setup {
+      require("bqf").setup({
         preview = {
           auto_preview = false,
         },
-      }
+      })
     end,
   },
   {
-    dir = dirname .. '/persistent-qf',
+    dir = dirname .. "/slop_pqf",
     config = function()
-      require("persistent-qf").setup()
+      require("slop_pqf").setup()
     end,
   },
 }
