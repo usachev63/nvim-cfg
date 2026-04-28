@@ -1,35 +1,35 @@
----@class Options
+---@class LegacyOptions
 local M = {}
 
----@class Options
+---@class LegacyOptions
 ---
 ---Options for u63-nvim-cfg.
 ---
----@field editing Options_Editing
----@field key Options_Key
+---@field editing LegacyOptions_Editing
+---@field key LegacyOptions_Key
 ---@field localvimrc boolean Support project-local Neovim configuration files.
----@field navigation Options_Navigation
----@field protocol Options_Protocol
----@field toolkit Options_Toolkit
+---@field navigation LegacyOptions_Navigation
+---@field protocol LegacyOptions_Protocol
+---@field toolkit LegacyOptions_Toolkit
 
----@class Options_Editing
+---@class LegacyOptions_Editing
 ---
 ---Options which affect editing text ('editing' module).
 ---
 ---@field cmp {}? Use nvim-cmp autocompletion engine.
 ---@field enable_autopairs boolean Use nvim-autopairs bracket
 ---autocompletion plugin.
----@field sakls Options_Sakls Options for sakls.nvim plugin.
+---@field sakls LegacyOptions_Sakls Options for sakls.nvim plugin.
 
----@class Options_Sakls
+---@class LegacyOptions_Sakls
 ---
 ---Options for sakls.nvim plugin.
 ---
 ---@field enabled boolean Enable sakls.nvim plugin.
 ---@field sakls_nvim_path string Path to sakls.nvim repository for packer.
----@field options table Options table for sakls.nvim init function.
+---@field options table LegacyOptions table for sakls.nvim init function.
 
----@class Options_Key
+---@class LegacyOptions_Key
 ---
 ---Options which affect keymaps or keyboard layouts (key module).
 ---
@@ -53,7 +53,7 @@ local M = {}
 ---@field xkb_switch_lib_path string Path to xkb-switch shared library
 ---(usually has the name 'libxkbswitch.so').
 
----@class Options_Navigation
+---@class LegacyOptions_Navigation
 ---
 ---Options which control navigation between files (or other entities).
 ---
@@ -61,14 +61,14 @@ local M = {}
 ---@field nvim_tree { enabled: boolean } Options for nvim-tree plugin;
 ---currently we can only enable or disable it.
 
----@class Options_NvimTree
+---@class LegacyOptions_NvimTree
 ---
 ---Options for nvim-tree plugin.
 ---
 ---@field enabled boolean
 ---@field netrw_style boolean
 
----@class Options_Protocol
+---@class LegacyOptions_Protocol
 ---
 ---Options for configuring various protocols: LSPs, formatters, linters,
 ---DAPs, treesitter, etc.
@@ -79,7 +79,7 @@ local M = {}
 ---@field linter { enabled: boolean } Enable linters support.
 ---@field dap { enabled: boolean }
 
----@class Options_Toolkit
+---@class LegacyOptions_Toolkit
 ---
 ---Options for toolkit-specific configurations.
 ---
@@ -132,7 +132,7 @@ local M = {}
 
 ---Default u63-nvim-cfg options.
 ---
----@type Options
+---@type LegacyOptions
 local default_options = {
   editing = {
     cmp = nil,
@@ -221,7 +221,7 @@ local default_options = {
 ---Handle u63-nvim-cfg options provided by the user.
 ---
 ---@param opts any Raw, user-provided options for u63-nvim-cfg.
----@return Options M Processed and ready-to-use options table.
+---@return LegacyOptions M Processed and ready-to-use options table.
 ---Throws an error if provided options are ill-formed.
 function M.init(opts)
   opts = opts or {}

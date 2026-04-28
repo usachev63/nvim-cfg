@@ -27,7 +27,7 @@ local u63_quickfix = require 'u63.quickfix'
 ---For this exact reason init.lua is a part of .gitignore.
 ---
 ---@param opts any Raw, user-provided options for u63-nvim-cfg.
----@see Options class for all available options
+---@see LegacyOptions class for all available options
 ---and their default values (`default_options` local variable)
 function M.init(opts)
   options.init(opts)

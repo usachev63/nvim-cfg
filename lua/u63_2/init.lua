@@ -1,6 +1,7 @@
 local M = {}
 
-local u_basic_config = require 'u63_2.basic_config'
+local u_options = require("u63_2.options")
+local u_basic_config = require("u63_2.basic_config")
 
 ---source: lazy.nvim docs
 local function bootstrap_lazy()
@@ -18,7 +19,7 @@ local function bootstrap_lazy()
     if vim.v.shell_error ~= 0 then
       vim.api.nvim_echo({
         { 'Failed to clone lazy.nvim:\n', 'ErrorMsg' },
-        { out, 'WarningMsg' },
+        { out,                            'WarningMsg' },
         { '\nPress any key to exit...' },
       }, true, {})
       vim.fn.getchar()
@@ -42,7 +43,7 @@ end
 ---@see Options class for all available options
 ---and their default values (`default_options` local variable)
 function M.init(opts)
-  -- u_options.init(opts)
+  u_options.init(opts)
   bootstrap_lazy()
   u_basic_config.setup_all()
   local lazy = require 'lazy'
