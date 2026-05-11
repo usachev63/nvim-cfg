@@ -8,6 +8,7 @@ local M = {}
 ---@field cpp Options_Cpp
 ---@field tex Options_Tex
 ---@field langmapper Options_Langmapper
+---@field dap Options_Dap
 
 ---@class Options_Cpp
 ---
@@ -19,6 +20,10 @@ local M = {}
 ---@field autowrite boolean
 
 ---@class Options_Langmapper
+---
+---@field enabled boolean
+
+---@class Options_Dap
 ---
 ---@field enabled boolean
 
@@ -34,6 +39,9 @@ local default_options = {
     autowrite = false,
   },
   langmapper = {
+    enabled = false,
+  },
+  dap = {
     enabled = false,
   },
 }
