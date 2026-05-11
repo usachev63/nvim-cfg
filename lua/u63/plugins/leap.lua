@@ -172,7 +172,7 @@ end
 ---Set up leap keymaps (which differ from defaults).
 local function setup_keymaps()
   map_leap('n', 's', {})
-  map_leap({ 'n', 'x', 'o' }, 'S', { backward = true })
+  map_leap({ 'n', 'o' }, 'S', { backward = true })
   map_leap({ 'x', 'o' }, 's', { offset = 1, inclusive_op = true })
   map_leap({ 'x', 'o' }, 'x', { offset = -1, inclusive_op = true })
   map_leap({ 'x', 'o' }, 'X', { backward = true, offset = 2 })
