@@ -9,6 +9,7 @@ local M = {}
 ---@field tex Options_Tex
 ---@field langmapper Options_Langmapper
 ---@field dap Options_Dap
+---@field markdown Options_Markdown
 
 ---@class Options_Cpp
 ---
@@ -27,6 +28,10 @@ local M = {}
 ---
 ---@field enabled boolean
 
+---@class Options_Markdown
+---
+---@field enabled boolean
+
 ---Default u63-nvim-cfg options.
 ---
 ---@type Options
@@ -42,6 +47,9 @@ local default_options = {
     enabled = false,
   },
   dap = {
+    enabled = false,
+  },
+  markdown = {
     enabled = false,
   },
 }
