@@ -18,6 +18,7 @@ return {
           selection_modes = {
             ['@function.outer'] = 'V', -- linewise
           },
+          include_surrounding_whitespace = true,
         },
       }
 
