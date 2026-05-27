@@ -10,6 +10,7 @@ local M = {}
 ---@field langmapper Options_Langmapper
 ---@field dap Options_Dap
 ---@field markdown Options_Markdown
+---@field treesitter Options_Treesitter
 
 ---@class Options_Cpp
 ---
@@ -32,6 +33,10 @@ local M = {}
 ---
 ---@field enabled boolean
 
+---@class Options_Treesitter
+---
+---@field enabled boolean
+
 ---Default u63-nvim-cfg options.
 ---
 ---@type Options
@@ -50,6 +55,9 @@ local default_options = {
     enabled = false,
   },
   markdown = {
+    enabled = false,
+  },
+  treesitter = {
     enabled = false,
   },
 }

@@ -6,4 +6,5 @@ return {
   { import = 'u63/plugins/optional/langmapper', enabled = u_options.langmapper.enabled },
   { import = 'u63/plugins/optional/dap',        enabled = u_options.dap.enabled },
   { import = 'u63/plugins/optional/markdown',   enabled = u_options.markdown.enabled },
+  { import = 'u63/plugins/optional/treesitter',   enabled = u_options.treesitter.enabled },
 }
