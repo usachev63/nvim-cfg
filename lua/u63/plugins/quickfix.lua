@@ -10,6 +10,15 @@ return {
         },
       })
     end,
+    dependencies = {
+      {
+        "junegunn/fzf",
+        config = function()
+          vim.fn['fzf#install']()
+        end,
+      },
+      "junegunn/fzf.vim",
+    },
   },
   {
     dir = dirname .. "/slop_pqf",
