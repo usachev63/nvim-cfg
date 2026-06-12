@@ -11,6 +11,8 @@ local function setup_keymaps()
   vim.keymap.set('n', ';f"', builtin.registers, {})
   vim.keymap.set('n', ';fq', builtin.quickfix, {})
   vim.keymap.set('n', ';fm', builtin.marks, {})
+  vim.keymap.set('n', ';fh', builtin.help_tags, {})
+  vim.keymap.set('n', ';fs', builtin.current_buffer_fuzzy_find, {})
 end
 
 return {
