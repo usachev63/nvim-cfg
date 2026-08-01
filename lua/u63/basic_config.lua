@@ -52,6 +52,8 @@ local function setup_vim_opts()
   vim.o.breakindentopt = 'sbr'
   vim.o.pumheight = 8
   vim.o.pumblend = 16
+
+  vim.o.exrc = true -- local vimrc
 end
 
 ---Set <Space> as the leader key.
