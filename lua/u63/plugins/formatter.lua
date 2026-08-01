@@ -1,6 +1,6 @@
 local augroup = vim.api.nvim_create_augroup('u63/formatter_bind', {})
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'astro' },
+  pattern = { 'astro', 'css' },
   callback = function()
     vim.keymap.set('n', '<Leader>fm', ':Format<CR>', { buffer = true })
   end,
@@ -15,6 +15,7 @@ return {
       require("formatter").setup({
         filetype = {
           astro = require("formatter.defaults.prettier"),
+          css = require("formatter.filetypes.css").prettier,
         }
       })
     end,
