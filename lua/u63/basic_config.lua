@@ -7,7 +7,7 @@ local function setup_vim_opts()
   -- Buffers are not required to be written during buffer switch
   vim.o.hidden = true
   -- Register "+ is essentially equal to register ""
-  vim.o.clipboard = 'unnamedplus'
+  -- vim.o.clipboard = 'unnamedplus'
   -- :substitute command has [g] flag by default
   vim.o.gdefault = true
 
