@@ -37,6 +37,10 @@ local M = {}
 ---
 ---@field enabled boolean
 
+---@class Options_Ultisnips
+---
+---@field enabled boolean
+
 ---Default u63-nvim-cfg options.
 ---
 ---@type Options
@@ -58,6 +62,9 @@ local default_options = {
     enabled = false,
   },
   treesitter = {
+    enabled = false,
+  },
+  ultisnips = {
     enabled = false,
   },
 }
