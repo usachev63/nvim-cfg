@@ -1,4 +1,18 @@
+local options = require("u63.options")
+
 ---nvim-cmp: autocompletion engine
+
+local function get_dependencies()
+  local dependencies = {
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-path',
+  }
+  if options.ultisnips.enabled then
+    table.insert(dependencies, 'quangnguyen30192/cmp-nvim-ultisnips')
+  end
+  return dependencies
+end
 
 ---Compile a list of sources for nvim-cmp.
 ---
@@ -29,17 +43,18 @@ local function get_sources()
   table.insert(sources, {
     name = 'path',
   })
+  if options.ultisnips.enabled then
+    table.insert(sources, {
+      name = 'ultisnips',
+    })
+  end
   return sources
 end
 
 return {
   {
     'hrsh7th/nvim-cmp',
-    dependencies = {
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-path',
-    },
+    dependencies = get_dependencies(),
     config = function()
       local cmp = require 'cmp'
       cmp.setup {
