@@ -1,3 +1,31 @@
-snippet cptemplate
-`cat ~/CP/lib2/Template.cpp`
+global !p
+def cp_read(path, skip_includes=True):
+    if "u63_cplib2dir" not in vim.vars:
+        print("u63/UltiSnips/CP: please set vim.g.u63_cplib2dir")
+        return ""
+    with open(vim.vars["u63_cplib2dir"] + "/" + path) as f:
+        lines = f.readlines()
+        i = 0
+        if skip_includes:
+            while i < len(lines) and (lines[i].startswith("#include") or lines[i] == "\n"):
+                i += 1
+        return "".join(lines[i:])
+endglobal
+
+snippet cptmpl
+`!p
+snip.rv = cp_read("Template.cpp", skip_includes=False)
+`
+endsnippet
+
+snippet cpmint
+`!p
+snip.rv = cp_read("ModularRing32.h")
+`
+endsnippet
+
+snippet cptreehelpers
+`!p
+snip.rv = cp_read("TreeHelpers.cpp")
+`
 endsnippet
